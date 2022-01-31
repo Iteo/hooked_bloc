@@ -8,5 +8,5 @@ class BlocHookInjectionController {
     BlocHookInjectionController._injector = injector;
   }
 
-  static CubitInjectionFunction? injector = _injector;
+  static  CubitInjectionFunction? get injector => _injector;
 }

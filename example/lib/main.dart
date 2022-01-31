@@ -5,7 +5,7 @@ import 'package:hooked_bloc/hooked_bloc.dart';
 
 void main() async {
   await configureDependencies();
-  // BlocHookInjectionController.initializeWith(() => getIt.get);
+  HookedBloc.initialize(() => getIt.get);
 
   runApp(const MyApp());
 }
