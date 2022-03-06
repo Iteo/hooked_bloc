@@ -82,4 +82,4 @@ ios/build/
 **.mocks.dart
 
 ### FVM related ###
-.fvm/flutter_sdk
+.fvm/

@@ -25,7 +25,9 @@ class _HomePageContent extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CounterCubit cubit = useCubit<CounterCubit>(onInit: (cubit) => cubit.init());
+    final CounterCubit cubit = useCubit<CounterCubit>(onInit: (cubit) {
+      cubit.init();
+    });
 
     final data = useState(0);
 
