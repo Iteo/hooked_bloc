@@ -23,6 +23,7 @@ class TestListenerWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final cubit = useCubit<CounterCubit>();
     return Container();
   }
