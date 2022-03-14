@@ -83,3 +83,6 @@ ios/build/
 
 ### FVM related ###
 .fvm/
+
+# VS Code config
+.vscode/
