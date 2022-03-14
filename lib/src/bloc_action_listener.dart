@@ -11,5 +11,5 @@ void useActionListener<ACTION>(
     final subscription = actionMixin.actions.listen(onAction);
 
     return subscription.cancel;
-  });
+  }, [actionMixin]);
 }
