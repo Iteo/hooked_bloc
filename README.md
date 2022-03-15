@@ -117,23 +117,28 @@ class _HomePageContentHooks extends HookWidget {
 ```
 
 This code is functionally equivalent to the previous example. It still rebuilds widget in proper way and the right time.
-The question is
+Whole logic of finding proper Cubit/Bloc and providing current state is hidden in `useCubit` and `useCubitBuilder` hooks.
 
-> What's going on?
+## Setup
 
-Whole logic to find proper Cubit/Bloc, provide current state is hidden in `useCubit` and `useCubitBuilder` hooks.
+Firstly you need to initialize the HookedBloc:
 
+```dart
+void main() async {
+  // 
 
-## How does it work?
+  await configureDependencies();
+  HookedBloc.initialize(() => getIt.get);
 
-//todo: add cool description how does our hooks works.
+  runApp(const MyApp());
+}
+```
 
-`useCubit` hook tries to find Cubit using cubit provider, or - if not specified - looks into widget tree.
+## Basics
 
+### Existing hooks
 
-## Existing hooks
-
-**Hooked_bloc** already comes with a few reusable hooks:
+Hooked Bloc already comes with a few reusable hooks:
 
 <table>
   <tr>
@@ -162,6 +167,25 @@ Whole logic to find proper Cubit/Bloc, provide current state is hidden in `useCu
   </tr>
 
 </table>
+
+### useCubit
+
+`useCubit` hook tries to find Cubit using cubit provider, or - if not specified - looks into widget tree.
+
+Usage:
+
+
+### useCubitBuilder
+
+Usage:
+
+### useCubitListener
+
+Usage:
+
+### useActionListener
+
+Usage:
 
 ## TODO:
 1. Unit tests
