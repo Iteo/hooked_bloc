@@ -17,11 +17,18 @@ and the Flutter guide for
 
 # Hooked Bloc
 
-Flutter package that simplifies injection and usage of <a href="https://pub.dev/packages/flutter_bloc"> Bloc/Cubit</a>. The library is based on the concept of hooks originally introduced in React Native and adapted to Flutter. <a href="https://github.com/rrousselGit/flutter_hooks">Flutter hooks</a> allow you to extract view's logic into common use cases and reuse them, what makes writing widgets faster and easier.
+Flutter package that simplifies injection and usage of <a href="https://pub.dev/packages/flutter_bloc"> Bloc/Cubit</a>. 
+The library is based on the concept of hooks originally introduced in React Native and adapted to Flutter. 
+<a href="https://github.com/rrousselGit/flutter_hooks">Flutter hooks</a> allow you to extract view's logic 
+into common use cases and reuse them, what makes writing widgets faster and easier.
 
 ## Motivation
 
-When you want to use Bloc/Cubit in your application you have to somehow find it in the widget tree. It is kinda annoying.
+When you want to use Bloc/Cubit in your application 
+you have to provide an instance of object down the widgets tree for state receivers. 
+This is mostly achieved by `BlocBuilder` along with `BlocProvider` and enlarges 
+complexity of the given widget.  
+
 Each time you have to use `BlocBuilder`, `BlocListener` or `BlocSelector`. What if we can use a power of Flutter hooks?
 
 
