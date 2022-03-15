@@ -33,7 +33,7 @@ class _HomePageContent extends HookWidget {
       data.value = cubit.hashCode;
 
       () async {
-        Future.delayed(Duration(seconds: 2));
+        Future.delayed(const Duration(seconds: 2));
         data.value = cubit.hashCode;
       }();
     }, [cubit]);
