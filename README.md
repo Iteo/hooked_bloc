@@ -11,14 +11,6 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-### Missing elements
-TODO:
-1. Write tests
-2. <del>Support other DI libraries</del>
-3. <del>Pass injector / injection function as named parameter to `useCubit` method
-4. Prepare proper `Readme.md` file
-5. Add comments for functions / methods / paramters
-
 <p align="center">
 <img src="https://raw.githubusercontent.com/rrousselGit/flutter_hooks/master/packages/flutter_hooks/flutter-hook.svg?sanitize=true" width="110">
 </p>
@@ -136,18 +128,46 @@ Whole logic to find proper Cubit/Bloc, provide current state is hidden in `useCu
 
 **Hooked_bloc** already comes with a few reusable hooks:
 
-| Name                                                                                                              | Description                                           |
-|-------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
-| useCubit                                                                                                          | Returns required cubit.                               |
-| useCubitBuilder                                                                                                   | Returns current cubit state - similar to BlocBuilder  |
-| useCubitListener                                                                                                  | Execute callback - similar to BlocListener            |
-| useActionListener                                                                                                 | Exectue callback, but independent of Bloc/Cubit state |
+<table>
+  <tr>
+      <th>Name</th>
+      <th>Description</th>
+  </tr>
+
+  <tr>
+    <td>useCubit</td>
+    <td>Returns required cubit</td>
+  </tr>
+
+  <tr>
+    <td>useCubitBuilder</td>
+    <td>Returns current cubit state - similar to BlocBuilder</td>
+  </tr>
+
+  <tr>
+    <td>useCubitListener</td>
+    <td>Invokes callback - similar to BlocListener</td>
+  </tr>
+
+  <tr>
+    <td>useActionListener</td>
+    <td>Invokes callback, but independent of Bloc/Cubit state</td>
+  </tr>
+
+</table>
+
+## TODO:
+1. Unit tests
+2. <del>Support for other DI libraries</del>
+3. <del>Injector / injection function as a named parameter to `useCubit` method
+4. <del>`Readme.md` file</del>
+5. Code documentation
 
 ## Contributions
 
 Contributions are welcomed!
 
-If you feel that a hook is missing, feel free to open a pull-request.
+If you feel that some hook is missing, feel free to open a pull-request.
 
 For a custom-hook to be merged, you will need to do the following:
 
