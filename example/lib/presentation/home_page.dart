@@ -15,33 +15,67 @@ class HomePage extends StatelessWidget {
       create: (BuildContext context) {
         return CounterCubit("Provider");
       },
-      child: const _HomePageContent(),
+      child: const _HomePageContentBlocBuilder(),
     );
   }
 }
 
-class _HomePageContent extends HookWidget {
-  const _HomePageContent({Key? key}) : super(key: key);
+class _HomePageContentHooks extends HookWidget {
+  const _HomePageContentHooks({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final CounterCubit cubit = useCubit<CounterCubit>(onInit: (cubit) => cubit.init());
-
-    final data = useState(0);
-
-    useEffect(() {
-      data.value = cubit.hashCode;
-
-      () async {
-        Future.delayed(const Duration(seconds: 2));
-        data.value = cubit.hashCode;
-      }();
-    }, [cubit]);
+    final CounterCubit cubit = useCubit<CounterCubit>();
+    final int state = useCubitBuilder(cubit, buildWhen: (_) => true);
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Text(data.value.toString()),
+      appBar: AppBar(title: const Text('Counter')),
+      body: Center(child: Text('$state')),
+      floatingActionButton: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          FloatingActionButton(
+            child: const Icon(Icons.add),
+            onPressed: cubit.increment,
+          ),
+          const SizedBox(height: 4),
+          FloatingActionButton(
+            child: const Icon(Icons.remove),
+            onPressed: cubit.decrement,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HomePageContentBlocBuilder extends StatelessWidget {
+  const _HomePageContentBlocBuilder({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Counter')),
+      body: BlocBuilder<CounterCubit, int>(
+        builder: (context, count) => Center(
+          child: Text('$count'),
+        ),
+      ),
+      floatingActionButton: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          FloatingActionButton(
+            child: const Icon(Icons.add),
+            onPressed: () => context.read<CounterCubit>().increment(),
+          ),
+          const SizedBox(height: 4),
+          FloatingActionButton(
+            child: const Icon(Icons.remove),
+            onPressed: () => context.read<CounterCubit>().decrement(),
+          ),
+        ],
       ),
     );
   }
