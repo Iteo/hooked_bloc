@@ -1,5 +1,6 @@
 import 'package:example/di/injector.dart';
 import 'package:example/presentation/home_page.dart';
+import 'package:example/use_cubit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooked_bloc/hooked_bloc.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(title: 'Flutter Demo Home Page'),
+      home: const UseCubitCounterPage(),
     );
   }
 }
