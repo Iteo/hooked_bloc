@@ -4,6 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooked_bloc/hooked_bloc.dart';
 
+import 'mock.dart';
+
 const _incrementKey = "cubit_listener_increment_button";
 const _reEmitKey = "cubit_listener_re_emit_state";
 
@@ -20,12 +22,12 @@ class MyApp extends HookWidget {
     Key? key,
     this.onListenerCalled,
     required this.cubit,
-    this.skipStates = const [],
+    this.listenWhen,
   }) : super(key: key);
 
   final BlocWidgetListener<int>? onListenerCalled;
   final CounterCubit cubit;
-  final List<int> skipStates;
+  final bool Function(int current)? listenWhen;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class MyApp extends HookWidget {
       (cubit, currentState, context) {
         onListenerCalled?.call(context, currentState);
       },
-      listenWhen: (state) => !skipStates.contains(state),
+      listenWhen: listenWhen,
     );
 
     return MaterialApp(
@@ -125,6 +127,7 @@ void main() {
 
     testWidgets('should call callback, when state is not skipped by listenWhen conditions', (tester) async {
       final cubit = CounterCubit();
+      const skipStates = [1, 2, 3, 5, 6];
 
       final incrementFinder = find.byKey(
         const Key(_incrementKey),
@@ -138,7 +141,7 @@ void main() {
           onListenerCalled: (_, int state) {
             listenerCalls++;
           },
-          skipStates: const [1,2,3,5,6],
+          listenWhen: (state) => !skipStates.contains(state),
         ),
       );
 
@@ -156,6 +159,66 @@ void main() {
       await tester.tap(incrementFinder); //7
       expect(listenerCalls, 2);
       await tester.tap(incrementFinder); //8
+      expect(listenerCalls, 3);
+    });
+  });
+
+  group('Bloc Listener, with global initializer', () {
+    late Injector injector;
+
+    setUp(() {
+      injector = MockedInjector();
+      HookedBloc.initialize(() => injector.get, listenerCondition: (_) => false);
+    });
+
+    testWidgets('should never call callback, when all events are blocked by listenerCondition', (tester) async {
+      final cubit = CounterCubit();
+
+      final incrementFinder = find.byKey(
+        const Key(_incrementKey),
+      );
+
+      int listenerCalls = 0;
+
+      await tester.pumpWidget(
+        MyApp(
+          cubit: cubit,
+          onListenerCalled: (_, int state) {
+            listenerCalls++;
+          },
+        ),
+      );
+
+      await tester.tap(incrementFinder);
+      await tester.tap(incrementFinder);
+      await tester.tap(incrementFinder);
+      expect(listenerCalls, 0);
+    });
+
+    testWidgets(
+        'should  call callback, when all events are blocked by listenerCondition but condition function is overridden by listenWhen ',
+        (tester) async {
+      final cubit = CounterCubit();
+
+      final incrementFinder = find.byKey(
+        const Key(_incrementKey),
+      );
+
+      int listenerCalls = 0;
+
+      await tester.pumpWidget(
+        MyApp(
+          cubit: cubit,
+          onListenerCalled: (_, int state) {
+            listenerCalls++;
+          },
+          listenWhen: (_) => true,
+        ),
+      );
+
+      await tester.tap(incrementFinder);
+      await tester.tap(incrementFinder);
+      await tester.tap(incrementFinder);
       expect(listenerCalls, 3);
     });
   });
