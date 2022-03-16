@@ -7,20 +7,12 @@ import 'package:hooked_bloc/hooked_bloc.dart';
 import 'package:hooked_bloc/src/injection/hook_injection_controller.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'mock.dart';
+
 class MockedCubit extends Mock implements Cubit<int> {}
 
 class TestCubit extends Cubit<int> {
   TestCubit() : super(1);
-}
-
-abstract class Injector {
-  T get<T extends Object>();
-}
-
-class MockedInjector extends Mock implements Injector {}
-
-abstract class OnInit {
-  void call<T>(T param);
 }
 
 class MockedOnInit extends Mock implements OnInit {}

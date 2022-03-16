@@ -1,41 +1,162 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooked_bloc/hooked_bloc.dart';
 
-import 'mock.dart';
+const _incrementKey = "cubit_listener_increment_button";
+const _reEmitKey = "cubit_listener_re_emit_state";
 
-class TestApp extends StatelessWidget {
-  const TestApp({Key? key}) : super(key: key);
+class CounterCubit extends Cubit<int> {
+  CounterCubit({int seed = 0}) : super(seed);
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: CounterCubit(),
-      child: const TestListenerWidget(),
-    );
-  }
+  void increment() => emit(state + 1);
+
+  void reEmit() => emit(state);
 }
 
-class TestListenerWidget extends HookWidget {
-  const TestListenerWidget({Key? key}) : super(key: key);
+class MyApp extends HookWidget {
+  const MyApp({
+    Key? key,
+    this.onListenerCalled,
+    required this.cubit,
+    this.skipStates = const [],
+  }) : super(key: key);
+
+  final BlocWidgetListener<int>? onListenerCalled;
+  final CounterCubit cubit;
+  final List<int> skipStates;
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
-    final cubit = useCubit<CounterCubit>();
-    return Container();
+    useCubitListener<CounterCubit, int>(
+      cubit,
+      (cubit, currentState, context) {
+        onListenerCalled?.call(context, currentState);
+      },
+      listenWhen: (state) => !skipStates.contains(state),
+    );
+
+    return MaterialApp(
+      home: Scaffold(
+        body: Column(
+          children: [
+            ElevatedButton(
+              key: const Key(_reEmitKey),
+              child: const SizedBox(),
+              onPressed: cubit.reEmit,
+            ),
+            ElevatedButton(
+              key: const Key(_incrementKey),
+              child: const SizedBox(),
+              onPressed: cubit.increment,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
 void main() {
   group('Bloc Listener', () {
+    testWidgets('should call callback, each time when state has been changed', (tester) async {
+      final cubit = CounterCubit();
 
-    testWidgets('', (tester) async {
+      final incrementFinder = find.byKey(
+        const Key(_incrementKey),
+      );
 
+      int listenerCalls = 0;
+
+      await tester.pumpWidget(
+        MyApp(
+          cubit: cubit,
+          onListenerCalled: (_, int state) {
+            listenerCalls++;
+          },
+        ),
+      );
+
+      await tester.tap(incrementFinder);
+      expect(listenerCalls, 1);
+
+      await tester.tap(incrementFinder);
+      expect(listenerCalls, 2);
     });
 
+    testWidgets('should not call callback, when the same state is emitted', (tester) async {
+      final cubit = CounterCubit();
 
+      final incrementFinder = find.byKey(
+        const Key(_incrementKey),
+      );
+      final reEmitFinder = find.byKey(
+        const Key(_reEmitKey),
+      );
+
+      int listenerCalls = 0;
+
+      await tester.pumpWidget(
+        MyApp(
+          cubit: cubit,
+          onListenerCalled: (_, int state) {
+            listenerCalls++;
+          },
+        ),
+      );
+
+      await tester.tap(incrementFinder);
+      expect(listenerCalls, 1);
+
+      await tester.tap(reEmitFinder);
+      await tester.pump();
+      await tester.tap(reEmitFinder);
+      await tester.pump();
+      await tester.tap(reEmitFinder);
+      await tester.pump();
+      await tester.tap(reEmitFinder);
+      await tester.pump();
+
+      expect(listenerCalls, 1);
+      await tester.tap(incrementFinder);
+      expect(listenerCalls, 2);
+    });
+
+    testWidgets('should call callback, when state is not skipped by listenWhen conditions', (tester) async {
+      final cubit = CounterCubit();
+
+      final incrementFinder = find.byKey(
+        const Key(_incrementKey),
+      );
+
+      int listenerCalls = 0;
+
+      await tester.pumpWidget(
+        MyApp(
+          cubit: cubit,
+          onListenerCalled: (_, int state) {
+            listenerCalls++;
+          },
+          skipStates: const [1,2,3,5,6],
+        ),
+      );
+
+      await tester.tap(incrementFinder); //1
+      await tester.tap(incrementFinder); //2
+      await tester.tap(incrementFinder); //3
+      expect(listenerCalls, 0);
+
+      await tester.tap(incrementFinder); //4
+      expect(listenerCalls, 1);
+
+      await tester.tap(incrementFinder); //5
+      await tester.tap(incrementFinder); //6
+      expect(listenerCalls, 1);
+      await tester.tap(incrementFinder); //7
+      expect(listenerCalls, 2);
+      await tester.tap(incrementFinder); //8
+      expect(listenerCalls, 3);
+    });
   });
 }
