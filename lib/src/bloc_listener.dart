@@ -11,7 +11,6 @@ typedef BlocListener<BLOC extends BlocBase<S>, S> = void Function(
   BuildContext context,
 );
 
-
 void useCubitListener<BLOC extends BlocBase<S>, S>(
   BLOC bloc,
   BlocListener<BLOC, S> listener, {
