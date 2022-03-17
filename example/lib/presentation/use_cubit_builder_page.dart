@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooked_bloc/hooked_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'counter_cubit.dart';
+import '../cubit/counter_cubit.dart';
 
 // The page must inherit from HookWidget
 class UseCubitBuilderPage extends HookWidget {

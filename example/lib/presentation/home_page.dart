@@ -1,3 +1,4 @@
+import 'package:example/presentation/use_action_listener_page.dart';
 import 'package:example/presentation/use_cubit_builder_page.dart';
 import 'package:example/presentation/use_cubit_listener_page.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class HomePage extends StatelessWidget {
             ),
             MaterialButton(
               child: const Text("Show useActionListener usage"),
-              onPressed: () => _navigateToPage(context, const UseCubitPage()),
+              onPressed: () => _navigateToPage(context, UseActionListenerPage()),
             )
           ],
         ),

@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:hooked_bloc/hooked_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../cubit/action_cubit.dart';
 import '../cubit/event_cubit.dart';
 
 // The page must inherit from HookWidget
-class UseCubitListenerPage extends StatelessWidget {
-  UseCubitListenerPage({Key? key}) : super(key: key);
+class UseActionListenerPage extends StatelessWidget {
+  UseActionListenerPage({Key? key}) : super(key: key);
 
-  final EventCubit cubit = EventCubit();
+  final MessageActionCubit cubit = MessageActionCubit();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class UseCubitListenerPage extends StatelessWidget {
           const SizedBox.square(dimension: 24, child: Divider()),
           FloatingActionButton(
             key: const Key("FAB message"),
-            onPressed: () => cubit.showMessage("New message"),
+            onPressed: () => cubit.dispatch("This message is shown only once"),
             child: const Icon(Icons.chat),
           ),
         ],
@@ -41,14 +42,16 @@ class _ScaffoldBody extends HookWidget {
     required this.cubit,
   }) : super(key: key);
 
-  final EventCubit cubit;
+  final MessageActionCubit cubit;
 
   @override
   Widget build(BuildContext context) {
     // Handle state as event independently of the view state
-    useCubitListener(cubit, (_, value, context) {
-      _showMessage(context, (value as ShowMessage).message);
-    }, listenWhen: (state) => state is ShowMessage);
+    // TODO Get to know how useActionListener should work and complete example
+    useActionListener(cubit, (String action) {
+      print("ACTION");
+      _showMessage(context, action);
+    });
 
     final state = useCubitBuilder(cubit, buildWhen: (st) => st is UpdateScreen);
     // Because of the buildWhen, we are sure about state type
@@ -63,7 +66,7 @@ class _ScaffoldBody extends HookWidget {
         padding: const EdgeInsets.all(8.0),
         child: BottomSheet(
           onClosing: () {},
-          builder: (_) => Text(message ?? "Some message"),
+          builder: (_) => Text(message ?? ""),
         ),
       ),
     );
