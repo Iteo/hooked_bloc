@@ -14,7 +14,7 @@ class UseActionListenerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("useCubitListener")),
+      appBar: AppBar(title: const Text("useActionListener")),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -46,10 +46,8 @@ class _ScaffoldBody extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Handle state as event independently of the view state
-    // TODO Get to know how useActionListener should work and complete example
+    // Handle separate action stream with values other than a state type
     useActionListener(cubit, (String action) {
-      print("ACTION");
       _showMessage(context, action);
     });
 

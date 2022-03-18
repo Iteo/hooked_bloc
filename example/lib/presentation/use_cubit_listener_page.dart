@@ -4,7 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../cubit/event_cubit.dart';
 
-// The page must inherit from HookWidget
 class UseCubitListenerPage extends StatelessWidget {
   UseCubitListenerPage({Key? key}) : super(key: key);
 
@@ -35,6 +34,7 @@ class UseCubitListenerPage extends StatelessWidget {
   }
 }
 
+// The page must inherit from HookWidget
 class _ScaffoldBody extends HookWidget {
   const _ScaffoldBody({
     Key? key,
