@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hooked_bloc/hooked_bloc.dart' as hooked;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../widget/ClickableItemList.dart';
-import '../widget/ItemDetailDialog.dart';
+import '../widget/clickable_item_list.dart';
+import '../widget/item_detail_dialog.dart';
 
 class RealLifePage extends StatelessWidget {
   const RealLifePage({Key? key}) : super(key: key);

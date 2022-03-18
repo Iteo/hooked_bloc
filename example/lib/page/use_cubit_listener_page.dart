@@ -3,7 +3,7 @@ import 'package:hooked_bloc/hooked_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../cubit/event_cubit.dart';
-import '../widget/FabActionsScaffold.dart';
+import '../widget/fab_actions_scaffold.dart';
 import '../widget/message_bottom_sheet_content.dart';
 
 class UseCubitListenerPage extends HookWidget {
