@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:hooked_bloc/hooked_bloc.dart' as hooked;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../widget/ClickableItemList.dart';
+import '../widget/ItemDetailDialog.dart';
+
 class RealLifePage extends StatelessWidget {
   const RealLifePage({Key? key}) : super(key: key);
 
@@ -26,13 +29,13 @@ class RealLifePage extends StatelessWidget {
               BlocProvider.of<RealLifeCubit>(context).loadData();
               switch (state.runtimeType) {
                 case LoadedState:
-                  return _ClickableItemList(
+                  return ClickableItemList(
                     data: (state as LoadedState).data,
                     itemCallback: (index) =>
                         BlocProvider.of<RealLifeCubit>(context).goToItem(index),
                   );
                 case ShowItemState:
-                  return _DetailDialog(index: (state as ShowItemState).index);
+                  return ItemDetailDialog(index: (state as ShowItemState).index);
                 default:
                   return const Center(child: CircularProgressIndicator());
               }
@@ -40,43 +43,6 @@ class RealLifePage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _DetailDialog extends StatelessWidget {
-  const _DetailDialog({Key? key, required this.index}) : super(key: key);
-
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text("Item $index"),
-      content: const Text("Now you can see the details of item"),
-    );
-  }
-}
-
-class _ClickableItemList extends StatelessWidget {
-  const _ClickableItemList({
-    Key? key,
-    required this.itemCallback,
-    required this.data,
-  }) : super(key: key);
-
-  final Function(int) itemCallback;
-  final List<String> data;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        ...data.map((item) => ListTile(
-              onTap: () => itemCallback(data.indexOf(item)),
-              title: Text(item),
-            ))
-      ],
     );
   }
 }

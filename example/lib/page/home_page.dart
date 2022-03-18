@@ -1,9 +1,9 @@
-import 'package:example/presentation/real_life_page.dart';
-import 'package:example/presentation/use_action_listener_page.dart';
-import 'package:example/presentation/use_cubit_builder_page.dart';
-import 'package:example/presentation/use_cubit_listener_page.dart';
+import 'package:example/page/real_life_hook_page.dart';
 import 'package:flutter/material.dart';
-
+import '../page/real_life_page.dart';
+import '../page/use_action_listener_page.dart';
+import '../page/use_cubit_builder_page.dart';
+import '../page/use_cubit_listener_page.dart';
 import 'use_cubit_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -34,11 +34,17 @@ class HomePage extends StatelessWidget {
             ),
             MaterialButton(
               child: const Text("Show useActionListener usage"),
-              onPressed: () => _navigateToPage(context, UseActionListenerPage()),
+              onPressed: () =>
+                  _navigateToPage(context, UseActionListenerPage()),
             ),
             MaterialButton(
               child: const Text("Real life example"),
               onPressed: () => _navigateToPage(context, const RealLifePage()),
+            ),
+            MaterialButton(
+              child: const Text("Real life example with hooks"),
+              onPressed: () =>
+                  _navigateToPage(context, const RealLifeHookPage()),
             )
           ],
         ),

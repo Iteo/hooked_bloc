@@ -1,5 +1,5 @@
 import 'package:example/di/injector.dart';
-import 'package:example/presentation/home_page.dart';
+import 'package:example/page/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooked_bloc/hooked_bloc.dart';
 
