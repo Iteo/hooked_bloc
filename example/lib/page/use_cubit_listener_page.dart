@@ -3,45 +3,13 @@ import 'package:hooked_bloc/hooked_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../cubit/event_cubit.dart';
+import '../widget/FabActionsScaffold.dart';
+import '../widget/message_bottom_sheet_content.dart';
 
-class UseCubitListenerPage extends StatelessWidget {
+class UseCubitListenerPage extends HookWidget {
   UseCubitListenerPage({Key? key}) : super(key: key);
 
   final EventCubit cubit = EventCubit();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("useCubitListener")),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            key: const Key("FAB increment"),
-            onPressed: () => cubit.increment(),
-            child: const Icon(Icons.add),
-          ),
-          const SizedBox.square(dimension: 24, child: Divider()),
-          FloatingActionButton(
-            key: const Key("FAB message"),
-            onPressed: () => cubit.showMessage("New message"),
-            child: const Icon(Icons.chat),
-          ),
-        ],
-      ),
-      body: _ScaffoldBody(cubit: cubit),
-    );
-  }
-}
-
-// The page must inherit from HookWidget
-class _ScaffoldBody extends HookWidget {
-  const _ScaffoldBody({
-    Key? key,
-    required this.cubit,
-  }) : super(key: key);
-
-  final EventCubit cubit;
 
   @override
   Widget build(BuildContext context) {
@@ -54,18 +22,19 @@ class _ScaffoldBody extends HookWidget {
     // Because of the buildWhen, we are sure about state type
     final count = (state as UpdateScreen).counter;
 
-    return Center(child: Text("The button has been pressed $count times"));
+    return FabActionsScaffold(
+      title: "useCubitListener",
+      count: count,
+      incrementCallback: () => cubit.increment(),
+      messageCallback: (message) => cubit.showMessage(message),
+    );
   }
 
-  _showMessage(BuildContext context, String? message) {
-    Scaffold.of(context).showBottomSheet(
-      (context) => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: BottomSheet(
-          onClosing: () {},
-          builder: (_) => Text(message ?? "Some message"),
-        ),
-      ),
+  void _showMessage(BuildContext context, String? message) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => MessageBottomSheetContent(message: message),
     );
   }
 }
+
