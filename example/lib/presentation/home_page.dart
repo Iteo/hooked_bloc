@@ -1,3 +1,4 @@
+import 'package:example/presentation/real_life_page.dart';
 import 'package:example/presentation/use_action_listener_page.dart';
 import 'package:example/presentation/use_cubit_builder_page.dart';
 import 'package:example/presentation/use_cubit_listener_page.dart';
@@ -34,6 +35,10 @@ class HomePage extends StatelessWidget {
             MaterialButton(
               child: const Text("Show useActionListener usage"),
               onPressed: () => _navigateToPage(context, UseActionListenerPage()),
+            ),
+            MaterialButton(
+              child: const Text("Real life example"),
+              onPressed: () => _navigateToPage(context, const RealLifePage()),
             )
           ],
         ),

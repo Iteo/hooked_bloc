@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 
 import '../cubit/action_cubit.dart';
 import '../cubit/event_cubit.dart';
+import '../cubit/real_life_cubit.dart';
 import '../cubit/sample_cubit.dart';
 
 @module
@@ -14,4 +15,6 @@ abstract class CubitModule {
   EventCubit get eventCubit => EventCubit();
 
   MessageActionCubit get messageActionCubit => MessageActionCubit();
+
+  RealLifeCubit get realLifeCubit => RealLifeCubit();
 }
