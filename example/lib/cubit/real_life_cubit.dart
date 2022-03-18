@@ -26,9 +26,10 @@ class ErrorState extends BuildState {
 class RealLifeCubit extends Cubit<BuildState> {
   RealLifeCubit() : super(LoadingState());
 
+  List<String> data = List.generate(100, (index) => "List item $index");
+
   Future<void> loadData() async {
     // Imitate fetching the data from an API
-    List<String> data = List.generate(100, (index) => "List item $index");
     final response = await Future.delayed(
       const Duration(seconds: 3),
       () => data,
@@ -43,5 +44,9 @@ class RealLifeCubit extends Cubit<BuildState> {
     } else {
       emit(ErrorState("Cannot open an item with the odd index"));
     }
+  }
+
+  void closeDetails() {
+    emit(LoadedState(data));
   }
 }

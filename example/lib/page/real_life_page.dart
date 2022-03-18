@@ -4,7 +4,7 @@ import 'package:hooked_bloc/hooked_bloc.dart' as hooked;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widget/clickable_item_list.dart';
-import '../widget/item_detail_dialog.dart';
+import '../widget/item_detail.dart';
 
 class RealLifePage extends StatelessWidget {
   const RealLifePage({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class RealLifePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Real life example")),
       body: BlocProvider<RealLifeCubit>(
-        create: (context) => RealLifeCubit(),
+        create: (context) => RealLifeCubit()..loadData(),
         child: BlocListener<RealLifeCubit, hooked.BuildState>(
           listenWhen: (_, state) => state is ErrorState,
           listener: (context, state) {
@@ -26,7 +26,6 @@ class RealLifePage extends StatelessWidget {
             buildWhen: (_, state) => [LoadedState, LoadingState, ShowItemState]
                 .contains(state.runtimeType),
             builder: (BuildContext context, hooked.BuildState state) {
-              BlocProvider.of<RealLifeCubit>(context).loadData();
               switch (state.runtimeType) {
                 case LoadedState:
                   return ClickableItemList(
@@ -35,7 +34,11 @@ class RealLifePage extends StatelessWidget {
                         BlocProvider.of<RealLifeCubit>(context).goToItem(index),
                   );
                 case ShowItemState:
-                  return ItemDetailDialog(index: (state as ShowItemState).index);
+                  return ItemDetail(
+                    index: (state as ShowItemState).index,
+                    onClose: () =>
+                        BlocProvider.of<RealLifeCubit>(context).closeDetails(),
+                  );
                 default:
                   return const Center(child: CircularProgressIndicator());
               }

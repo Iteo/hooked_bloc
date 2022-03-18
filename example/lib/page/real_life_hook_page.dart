@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooked_bloc/hooked_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import '../widget/clickable_item_list.dart';
-import '../widget/item_detail_dialog.dart';
+import '../widget/item_detail.dart';
 
 class RealLifeHookPage extends HookWidget {
   const RealLifeHookPage({Key? key}) : super(key: key);
@@ -35,7 +35,10 @@ class RealLifeHookPage extends HookWidget {
               itemCallback: (index) => cubit.goToItem(index),
             );
           case ShowItemState:
-            return ItemDetailDialog(index: (state as ShowItemState).index);
+            return ItemDetail(
+              index: (state as ShowItemState).index,
+              onClose: () => cubit.closeDetails(),
+            );
           default:
             cubit.loadData();
             return const Center(child: CircularProgressIndicator());
