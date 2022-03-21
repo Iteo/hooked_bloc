@@ -12,7 +12,7 @@ and the Flutter guide for
 -->
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/rrousselGit/flutter_hooks/master/packages/flutter_hooks/flutter-hook.svg?sanitize=true" width="110">
+<img src="hooked_bloc.svg?sanitize=true">
 </p>
 
 # Hooked Bloc
@@ -113,8 +113,6 @@ void main() async {
   runApp(const MyApp());
 }
 ```
-
-
 
 After that you can simply start writing your widget with hooks
 
