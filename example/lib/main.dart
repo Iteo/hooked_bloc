@@ -19,8 +19,9 @@ void main() async {
   //   };
   // });
 
+
   // Or you can omit HookedBloc.initialize(...)
-  // and allow library find the cubit in the widget tree
+  // and allow library to find the cubit in the widget tree
 
   runApp(const MyApp());
 }

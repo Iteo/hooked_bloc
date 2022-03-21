@@ -84,16 +84,31 @@ We can have this:
 This code is functionally equivalent to the previous example. It still rebuilds widget in proper way and the right time.
 Whole logic of finding proper Cubit/Bloc and providing current state is hidden in `useCubit` and `useCubitBuilder` hooks.
 
+Full example can be found in <a href="https://github.com/Iteo/hooked_bloc/tree/develop/example">here</a>
+
 ## Setup
 
 Firstly you need to initialize the HookedBloc:
 
 ```dart
 void main() async {
-  //
-
+  // With GetIt or Injectable
   await configureDependencies();
   HookedBloc.initialize(() => getIt.get);
+
+  // Or create your own initializer
+  // HookedBloc.initialize(() {
+  //   return <T extends Object>() {
+  //     if (T == MyCubit) {
+  //       return MyCubit() as T;
+  //     } else {
+  //       return ...
+  //     }
+  //   };
+  // });
+
+  // Or you can omit HookedBloc.initialize(...)
+  // and allow library to find the cubit in the widget tree
 
   runApp(const MyApp());
 }
