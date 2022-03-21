@@ -32,8 +32,8 @@ into common use cases and reuse them, what makes writing widgets faster and easi
 	- [useCubit](#useCubit)
 	- [useCubitBuilder](#useCubitBuilder)
 	- [useCubitListener](#useCubitListener)
-	- [Contribution](#useActionListener)
-- [Contribution](#Motivation)
+	- [useActionListener](#useActionListener)
+- [Contribution](#Contribution)
 
 ## Motivation
 
