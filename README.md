@@ -12,7 +12,7 @@ and the Flutter guide for
 -->
 
 <p align="center">
-<img src="hooked_bloc.svg?sanitize=true">
+<img src="hooked_bloc_icon.png">
 </p>
 
 # Hooked Bloc
