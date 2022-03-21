@@ -14,4 +14,5 @@ class HookedBloc {
       listenerCondition: listenerCondition ?? CubitDefaults.alwaysListenCondition,
     );
   }
+
 }

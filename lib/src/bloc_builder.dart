@@ -11,8 +11,8 @@ S useCubitBuilder<C extends BlocBase, S>(
   final buildWhenConditioner = buildWhen ?? BlocHookInjectionController.builderCondition;
   final state = useMemoized(
     () => cubit.stream.where(buildWhenConditioner),
-    [cubit.state],
+    [cubit.state, cubit],
   );
 
-  return useStream(state, initialData: cubit.state).requireData!;
+  return useStream(state, initialData: cubit.state, preserveState: false).requireData!;
 }
