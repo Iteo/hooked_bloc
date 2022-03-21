@@ -22,6 +22,19 @@ The library is based on the concept of hooks originally introduced in React Nati
 <a href="https://github.com/rrousselGit/flutter_hooks">Flutter hooks</a> allow you to extract view's logic
 into common use cases and reuse them, what makes writing widgets faster and easier.
 
+
+## Contents
+
+- [Motivation](#Motivation)
+- [Installation](#Installation)
+- [Setup](#Setup)
+- [Basics](#Basics)
+	- [useCubit](#useCubit)
+	- [useCubitBuilder](#useCubitBuilder)
+	- [useCubitListener](#useCubitListener)
+	- [Contribution](#useActionListener)
+- [Contribution](#Motivation)
+
 ## Motivation
 
 When you want to use Bloc/Cubit in your application
@@ -85,6 +98,21 @@ This code is functionally equivalent to the previous example. It still rebuilds 
 Whole logic of finding proper Cubit/Bloc and providing current state is hidden in `useCubit` and `useCubitBuilder` hooks.
 
 Full example can be found in <a href="https://github.com/Iteo/hooked_bloc/tree/develop/example">here</a>
+
+## Installation  
+
+Run command:
+
+```shell
+flutter pub add hooked_bloc  
+```
+
+Or manually add the dependcy in pubspec.yaml
+
+```yaml
+dependencies:
+  hooked_bloc:
+```
 
 ## Setup
 
@@ -259,7 +287,7 @@ than state's stream and can be used for actions that require different flow of n
 4. <del>`Readme.md` file</del>
 5. Code documentation
 
-## Contributions
+## Contribution
 
 Contributions are welcomed!
 
