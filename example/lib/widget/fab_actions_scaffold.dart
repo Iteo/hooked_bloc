@@ -22,12 +22,14 @@ class FabActionsScaffold extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            heroTag: const ValueKey("FAB increment tag"),
             key: const Key("FAB increment"),
             onPressed: () => incrementCallback(),
             child: const Icon(Icons.add),
           ),
           const SizedBox.square(dimension: 24, child: Divider()),
           FloatingActionButton(
+            heroTag: const ValueKey("FAB message tag"),
             key: const Key("FAB message"),
             onPressed: () => messageCallback("New message"),
             child: const Icon(Icons.chat),
