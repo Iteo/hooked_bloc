@@ -1,5 +1,6 @@
 import 'package:hooked_bloc/hooked_bloc.dart';
 import 'package:hooked_bloc/src/cubit_defaults.dart';
+import 'package:meta/meta.dart';
 
 typedef CubitInjector = T Function<T extends Object>();
 typedef CubitInjectionFunction = CubitInjector Function();
@@ -24,4 +25,10 @@ class BlocHookInjectionController {
   static BlocBuilderCondition get builderCondition => _builderCondition;
 
   static BlocListenerCondition get listenerCondition => _listenerCondition;
+
+  @visibleForTesting
+  static void cleanUp() {
+    BlocHookInjectionController._injector = null;
+  }
+
 }
