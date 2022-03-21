@@ -1,14 +1,14 @@
-<!-- 
+<!--
 This README describes the package. If you publish this package to pub.dev,
 this README's contents appear on the landing page for your package.
 
 For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
 
 For general information about developing packages, see the Dart guide for
 [creating packages](https://dart.dev/guides/libraries/create-library-packages)
 and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
+[developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
 <p align="center">
@@ -17,103 +17,68 @@ and the Flutter guide for
 
 # Hooked Bloc
 
-Flutter package that simplifies injection and usage of <a href="https://pub.dev/packages/flutter_bloc"> Bloc/Cubit</a>. 
-The library is based on the concept of hooks originally introduced in React Native and adapted to Flutter. 
-<a href="https://github.com/rrousselGit/flutter_hooks">Flutter hooks</a> allow you to extract view's logic 
+Flutter package that simplifies injection and usage of <a href="https://pub.dev/packages/flutter_bloc"> Bloc/Cubit</a>.
+The library is based on the concept of hooks originally introduced in React Native and adapted to Flutter.
+<a href="https://github.com/rrousselGit/flutter_hooks">Flutter hooks</a> allow you to extract view's logic
 into common use cases and reuse them, what makes writing widgets faster and easier.
 
 ## Motivation
 
-When you want to use Bloc/Cubit in your application 
-you have to provide an instance of object down the widgets tree for state receivers. 
-This is mostly achieved by `BlocBuilder` along with `BlocProvider` and enlarges 
-complexity of the given widget.  
+When you want to use Bloc/Cubit in your application
+you have to provide an instance of object down the widgets tree for state receivers.
+This is mostly achieved by `BlocBuilder` along with `BlocProvider` and enlarges
+complexity of the given widget.
 
 Each time you have to use `BlocBuilder`, `BlocListener` or `BlocSelector`. What if we can use a power of Flutter hooks?
 
 
 So, instead of this:
 ```dart
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) {
-        return CounterCubit("Provider");
-      },
-      child: const _HomePageContent(),
-    );
-  }
-}
-
-class _HomePageContentBlocBuilder extends StatelessWidget {
-  const _HomePageContentBlocBuilder({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Counter')),
-      body: BlocBuilder<CounterCubit, int>(
-        builder: (context, count) => Center(
-          child: Text('$count'),
+      appBar: ...,
+      body: BlocProvider<RealLifeCubit>(
+        create: (context) => RealLifeCubit()..loadData(),
+        child: BlocListener<RealLifeCubit, hooked.BuildState>(
+          listenWhen: (_, state) => state is ErrorState,
+          listener: (context, state) {
+            // Show some view on event
+          },
+          child: BlocBuilder<RealLifeCubit, hooked.BuildState>(
+            buildWhen: (_, state) => [LoadedState, LoadingState, ShowItemState]
+                .contains(state.runtimeType),
+            builder: (BuildContext context, hooked.BuildState state) {
+              return // Build your widget using `state`
+            },
+          ),
         ),
-      ),
-      floatingActionButton: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () => context.read<CounterCubit>().increment(),
-          ),
-          const SizedBox(height: 4),
-          FloatingActionButton(
-            child: const Icon(Icons.remove),
-            onPressed: () => context.read<CounterCubit>().decrement(),
-          ),
-        ],
       ),
     );
   }
-}
+
 ```
 
 We can have this:
 
 ```dart
-class _HomePageContentHooks extends HookWidget {
-  const _HomePageContentHooks({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    final CounterCubit cubit = useCubit<CounterCubit>();
-    final int state = useCubitBuilder(cubit, buildWhen: (_) => true);
+    final cubit = useCubit<RealLifeCubit>();
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Counter')),
-      body: Center(child: Text('$state')),
-      floatingActionButton: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: cubit.increment,
-          ),
-          const SizedBox(height: 4),
-          FloatingActionButton(
-            child: const Icon(Icons.remove),
-            onPressed: cubit.decrement,
-          ),
-        ],
+    useCubitListener<RealLifeCubit, BuildState>(cubit, (cubit, value, context) {
+      // Show some view on event
+    }, listenWhen: (state) => state is ErrorState);
+
+    final state = useCubitBuilder(
+      cubit,
+      buildWhen: (state) => [LoadedState, LoadingState, ShowItemState].contains(
+        state.runtimeType,
       ),
     );
+
+    return // Build your widget using `state`
   }
-}
 ```
 
 This code is functionally equivalent to the previous example. It still rebuilds widget in proper way and the right time.
@@ -125,7 +90,7 @@ Firstly you need to initialize the HookedBloc:
 
 ```dart
 void main() async {
-  // 
+  //
 
   await configureDependencies();
   HookedBloc.initialize(() => getIt.get);
