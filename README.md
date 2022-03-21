@@ -289,21 +289,15 @@ than state's stream and can be used for actions that require different flow of n
 
 ## Contribution
 
-Contributions are welcomed!
+We accept any contribution to the project!
 
-If you feel that some hook is missing, feel free to open a pull-request.
+Suggestions of a new feature or fix should be created via pull-request.
 
-For a custom-hook to be merged, you will need to do the following:
+Typical path for the feature request:
 
-- Describe the use-case.
+- Describe why this is needed.
 
-  Open an issue explaining why we need this hook, how to use it, ...
-  This is important as a hook will not get merged if the hook doesn't appeal to
-  a large number of people.
-
-  If your hook is rejected, don't worry! A rejection doesn't mean that it won't
-  be merged later in the future if more people show interest in it.
-  In the mean-time, feel free to publish your hook as a package on https://pub.dev.
+  Open an issue with the showcase and
 
 - Write tests for your hook
 
