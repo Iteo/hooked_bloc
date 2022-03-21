@@ -114,6 +114,42 @@ void main() async {
 }
 ```
 
+
+
+After that you can simply start writing your widget with hooks
+
+```dart
+// Remember to inherit from HookWidget
+class MyApp extends HookWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // At start obtain a cubit instance
+    final cubit = useCubit<CounterCubit>();
+    // Then observe state's updates
+    final state = useCubitBuilder(cubit, buildWhen: (_) => true);
+    // Create a listener for the side-effect
+    useCubitListener(cubit, (cubit, value, context) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Button clicked"),
+      ));
+    });
+    // Build widget's tree without BlocProvider
+    return MaterialApp(
+      home: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => cubit.increment(), // Access cubit in tree
+          child: const Icon(Icons.add),
+        ),
+        // Consume state without BlocBuilder
+        body: Center(child: Text("The button has been pressed $state times")),
+      ),
+    );
+  }
+}
+```
+
 ## Basics
 
 ### Existing hooks
@@ -152,20 +188,71 @@ Hooked Bloc already comes with a few reusable hooks:
 
 `useCubit` hook tries to find Cubit using cubit provider, or - if not specified - looks into widget tree.
 
-Usage:
+```dart
+  @override
+  Widget build(BuildContext context) {
+    // The hook will provide the expected object
+    final cubit = useCubit<SimpleCubit>(
+      // Here invoke an initial setup for your Cubit
+      onInit: (cubit) => cubit.init(),
+    );
 
+    return // Access provided cubit 
+  }
+```
 
 ### useCubitBuilder
 
-Usage:
+`useCubitBuilder` hook rebuilds the widget when new state appears
+
+```dart
+  final CounterCubit cubit = CounterCubit("My cubit");
+
+  @override
+  Widget build(BuildContext context) {
+    // The state will be updated along with the widget
+    final int state = useCubitBuilder(cubit, buildWhen: (_) => true);
+
+    return // Access provided state 
+  }
+
+```
 
 ### useCubitListener
 
-Usage:
+`useCubitListener` hook allows to observe cubit's states that represent action (e.x. show Snackbar)
+
+```dart
+  final EventCubit cubit = EventCubit();
+
+  @override
+  Widget build(BuildContext context) {
+    // Handle state as event independently of the view state
+    useCubitListener(cubit, (_, value, context) {
+      _showMessage(context, (value as ShowMessage).message);
+    }, listenWhen: (state) => state is ShowMessage);
+
+    return // Build your widget
+  }
+```
 
 ### useActionListener
 
-Usage:
+`useActionListener` hook is similar to the `useCubitListener` but listens to the stream that is other
+than state's stream and can be used for actions that require different flow of notyfing
+
+```dart
+  @override
+  Widget build(BuildContext context) {
+    // Handle separate action stream with values other than a state type
+    useActionListener(cubit, (String action) {
+      _showMessage(context, action);
+    });
+
+    return // Build your widget
+  }
+
+```
 
 ## TODO:
 1. Unit tests
