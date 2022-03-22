@@ -107,16 +107,23 @@ Run command:
 flutter pub add hooked_bloc  
 ```
 
-Or manually add the dependcy in pubspec.yaml
+Or manually add the dependency in the `pubspec.yaml`
 
 ```yaml
 dependencies:
+  # Library already contains flutter_hooks package
   hooked_bloc:
 ```
 
 ## Setup
 
-Firstly you need to initialize the HookedBloc:
+Install package
+
+```shell
+flutter pub add hooked_bloc
+```
+
+After that you need to initialize the HookedBloc:
 
 ```dart
 void main() async {
@@ -142,7 +149,7 @@ void main() async {
 }
 ```
 
-After that you can simply start writing your widget with hooks
+Then you can simply start writing your widget with hooks
 
 ```dart
 // Remember to inherit from HookWidget
