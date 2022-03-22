@@ -24,18 +24,18 @@ The library is based on the concept of hooks originally introduced in React Nati
 <a href="https://github.com/rrousselGit/flutter_hooks">Flutter hooks</a> allow you to extract view's logic
 into common use cases and reuse them, what makes writing widgets faster and easier.
 
-
 ## Contents
 
-- [Motivation](#Motivation)
-- [Installation](#Installation)
-- [Setup](#Setup)
-- [Basics](#Basics)
-	- [useCubit](#useCubit)
-	- [useCubitBuilder](#useCubitBuilder)
-	- [useCubitListener](#useCubitListener)
-	- [useActionListener](#useActionListener)
-- [Contribution](#Contribution)
+<!-- pub.dev accepts anchors only with lowercase -->
+- [Motivation](#motivation)
+- [Installation](#installation)
+- [Setup](#setup)
+- [Basics](#basics)
+	- [useCubit](#usecubit)
+	- [useCubitBuilder](#usecubitbuilder)
+	- [useCubitListener](#usecubitlistener)
+	- [useActionListener](#useactionlistener)
+- [Contribution](#contribution)
 
 ## Motivation
 
