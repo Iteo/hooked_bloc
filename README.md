@@ -11,6 +11,8 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
+[![codecov](https://codecov.io/gh/Iteo/hooked_bloc/branch/main/graph/badge.svg)](https://codecov.io/gh/Iteo/hooked_bloc)
+
 <p align="center">
 <img width="200" src="hooked_bloc_icon.png">
 </p>
