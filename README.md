@@ -264,8 +264,8 @@ Hooked Bloc already comes with a few reusable hooks:
 
 ### useActionListener
 
-`useActionListener` hook is similar to the `useCubitListener` but listens to the stream that is other
-than state's stream and can be used for actions that require different flow of notifying
+`useActionListener` hook is similar to the `useCubitListener` but listens to the stream
+different than state's stream and can be used for actions that require different flow of notifying.
 
 Because of that your bloc/cubit must use `BlocActionMixin`
 
