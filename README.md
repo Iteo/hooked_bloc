@@ -219,8 +219,8 @@ Hooked Bloc already comes with a few reusable hooks:
   Widget build(BuildContext context) {
     // The hook will provide the expected object
     final cubit = useCubit<SimpleCubit>(
-      // Here invoke an initial setup for your Cubit
-      onInit: (cubit) => cubit.init(),
+      // For default hook automatically closes cubit
+      closeOnDispose: true,
     );
 
     return // Access provided cubit 
