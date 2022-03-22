@@ -12,7 +12,8 @@ class UseCubitBuilderPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     // The state will be updated along with the widget
-    final int state = useCubitBuilder(cubit, buildWhen: (_) => true);
+    // For default the state will be updated basing on `builderCondition`
+    final int state = useCubitBuilder(cubit);
 
     return Scaffold(
       appBar: AppBar(title: const Text("useCubitBuilder")),
