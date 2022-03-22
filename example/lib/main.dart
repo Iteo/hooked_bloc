@@ -6,9 +6,12 @@ import 'package:hooked_bloc/hooked_bloc.dart';
 void main() async {
   // With GetIt or Injectable
   await configureDependencies();
-  HookedBloc.initialize(() => getIt.get);
+  HookedBloc.initialize(() => getIt.get,
+    builderCondition: (state) => state != null, // Global build condition
+    listenerCondition: (state) => state != null, // Global listen condition
+  );
 
-  // Or create your own initializer
+  // Or create your own initializer with default conditions (always allow)
   // HookedBloc.initialize(() {
   //   return <T extends Object>() {
   //     if (T == MyCubit) {
@@ -18,7 +21,6 @@ void main() async {
   //     }
   //   };
   // });
-
 
   // Or you can omit HookedBloc.initialize(...)
   // and allow library to find the cubit in the widget tree
@@ -36,7 +38,8 @@ void main() async {
 //     // At start obtain a cubit instance
 //     final cubit = useCubit<CounterCubit>();
 //     // Then observe state's updates
-//     final state = useCubitBuilder(cubit, buildWhen: (_) => true);
+//     //`buildWhen` param will override builderCondition locally
+//     final state = useCubitBuilder(cubit, buildWhen: (state) => state <= 10);
 //     // Create a listener for the side-effect
 //     useCubitListener(cubit, (cubit, value, context) {
 //       print("Button clicked");

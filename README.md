@@ -128,10 +128,13 @@ After that you need to initialize the HookedBloc:
 ```dart
 void main() async {
   // With GetIt or Injectable
-  await configureDependencies();
-  HookedBloc.initialize(() => getIt.get);
+    await configureDependencies();
+    HookedBloc.initialize(() => getIt.get,
+      builderCondition: (state) => state != null, // Global build condition
+      listenerCondition: (state) => state != null, // Global listen condition
+    );
 
-  // Or create your own initializer
+  // Or create your own initializer with default conditions (always allow)
   // HookedBloc.initialize(() {
   //   return <T extends Object>() {
   //     if (T == MyCubit) {
@@ -161,7 +164,8 @@ class MyApp extends HookWidget {
     // At start obtain a cubit instance
     final cubit = useCubit<CounterCubit>();
     // Then observe state's updates
-    final state = useCubitBuilder(cubit, buildWhen: (_) => true);
+    // `buildWhen` param will override builderCondition locally
+    final state = useCubitBuilder(cubit, buildWhen: (state) => state <= 10);
     // Create a listener for the side-effect
     useCubitListener(cubit, (cubit, value, context) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -244,7 +248,9 @@ Hooked Bloc already comes with a few reusable hooks:
   @override
   Widget build(BuildContext context) {
     // The state will be updated along with the widget
-    final int state = useCubitBuilder(cubit, buildWhen: (_) => true);
+    // For default the state will be updated basing on `builderCondition`
+
+    final int state = useCubitBuilder(cubit);
 
     return // Access provided state 
   }
