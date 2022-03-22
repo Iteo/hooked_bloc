@@ -62,7 +62,8 @@ class MyApp extends HookWidget {
 
 void main() {
   group('Bloc Listener', () {
-    testWidgets('should call callback, each time when state has been changed', (tester) async {
+    testWidgets('should call callback, each time when state has been changed',
+        (tester) async {
       final cubit = CounterCubit();
 
       final incrementFinder = find.byKey(
@@ -87,7 +88,8 @@ void main() {
       expect(listenerCalls, 2);
     });
 
-    testWidgets('should not call callback, when the same state is emitted', (tester) async {
+    testWidgets('should not call callback, when the same state is emitted',
+        (tester) async {
       final cubit = CounterCubit();
 
       final incrementFinder = find.byKey(
@@ -125,7 +127,9 @@ void main() {
       expect(listenerCalls, 2);
     });
 
-    testWidgets('should call callback, when state is not skipped by listenWhen conditions', (tester) async {
+    testWidgets(
+        'should call callback, when state is not skipped by listenWhen conditions',
+        (tester) async {
       final cubit = CounterCubit();
       const skipStates = [1, 2, 3, 5, 6];
 
@@ -168,10 +172,13 @@ void main() {
 
     setUp(() {
       injector = MockedInjector();
-      HookedBloc.initialize(() => injector.get, listenerCondition: (_) => false);
+      HookedBloc.initialize(() => injector.get,
+          listenerCondition: (_) => false);
     });
 
-    testWidgets('should never call callback, when all events are blocked by listenerCondition', (tester) async {
+    testWidgets(
+        'should never call callback, when all events are blocked by listenerCondition',
+        (tester) async {
       final cubit = CounterCubit();
 
       final incrementFinder = find.byKey(

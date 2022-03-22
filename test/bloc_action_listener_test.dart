@@ -20,7 +20,8 @@ class CounterActionCubit extends ActionCubit<STATE, ACTION> {
 
 void main() {
   group('Action Listener Hook', () {
-    testWidgets('when Cubit emits state, action value should not be changed', (tester) async {
+    testWidgets('when Cubit emits state, action value should not be changed',
+        (tester) async {
       ACTION? actionValue;
 
       Widget Function(BuildContext) builder(
@@ -56,7 +57,8 @@ void main() {
       expect(actionValue, "1");
     });
 
-    testWidgets('when Cubit dispatch multiple times the same action, listener should be called multiple times',
+    testWidgets(
+        'when Cubit dispatch multiple times the same action, listener should be called multiple times',
         (tester) async {
       int listenerCalls = 0;
       Widget Function(BuildContext) builder(
@@ -75,12 +77,11 @@ void main() {
 
       HookBuilder hookWidget = HookBuilder(builder: builder(cubit));
 
-      for (int i = 0; i  < 10; i++) {
+      for (int i = 0; i < 10; i++) {
         cubit.dispatchAction();
         await tester.pumpWidget(hookWidget);
         expect(listenerCalls, i);
       }
-
     });
   });
 }

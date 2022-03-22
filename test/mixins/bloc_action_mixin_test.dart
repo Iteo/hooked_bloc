@@ -24,7 +24,25 @@ void main() {
   });
 
   test('test cubit with mixin should emit added actions', () {
-    const actions = [1, 2, 3, 454, 5, 6, 6, 3, 3, 5, 32, 234, 452, 3243, 324, 233, 3];
+    const actions = [
+      1,
+      2,
+      3,
+      454,
+      5,
+      6,
+      6,
+      3,
+      3,
+      5,
+      32,
+      234,
+      452,
+      3243,
+      324,
+      233,
+      3
+    ];
     final expected = actions.map((e) => e.toString()).toList();
 
     expectLater(testCubit.actions, emitsInOrder(expected));
@@ -32,7 +50,8 @@ void main() {
     actions.forEach(testCubit.pushAction);
   });
 
-  testWidgets('should close actions stream controller, when cubit closed', (tester) async {
+  testWidgets('should close actions stream controller, when cubit closed',
+      (tester) async {
     final cubit = TestCubitWithMixin();
     when(() => injector.get<TestCubitWithMixin>()).thenReturn(cubit);
 

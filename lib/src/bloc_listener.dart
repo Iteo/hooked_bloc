@@ -21,7 +21,8 @@ void useCubitListener<BLOC extends BlocBase<S>, S>(
   useMemoized(
     () {
       final stream = bloc.stream
-          .where(listenWhenConditioner ?? BlocHookInjectionController.listenerCondition)
+          .where(listenWhenConditioner ??
+              BlocHookInjectionController.listenerCondition)
           .listen((state) => listener(
                 bloc,
                 state,

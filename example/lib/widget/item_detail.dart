@@ -19,7 +19,8 @@ class ItemDetail extends StatelessWidget {
         children: <Widget>[
           Text("Item $index"),
           const Text("Now you can see the details of an item"),
-          MaterialButton(child: const Text("Close"), onPressed: () => onClose()),
+          MaterialButton(
+              child: const Text("Close"), onPressed: () => onClose()),
         ],
       ),
     );

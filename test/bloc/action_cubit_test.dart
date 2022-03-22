@@ -1,4 +1,3 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooked_bloc/src/bloc/action_cubit.dart';
 
@@ -15,7 +14,25 @@ void main() {
   });
 
   test('Action cubit should emit added actions', () {
-    const actions = [1, 2, 3, 454, 5, 6, 6, 3, 3, 5, 32, 234, 452, 3243, 324, 233, 3];
+    const actions = [
+      1,
+      2,
+      3,
+      454,
+      5,
+      6,
+      6,
+      3,
+      3,
+      5,
+      32,
+      234,
+      452,
+      3243,
+      324,
+      233,
+      3
+    ];
     final expected = actions.map((e) => e.toString()).toList();
 
     expectLater(testActionCubit.actions, emitsInOrder(expected));

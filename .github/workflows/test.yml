@@ -28,4 +28,6 @@ jobs:
       - name: Run tests
         run: flutter test --coverage
 
-      # TODO: show coverage in readmy
+      - name: Upload coverage to codecov
+        run: curl -s https://codecov.io/bash | bash
+
