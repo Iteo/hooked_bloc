@@ -309,13 +309,6 @@ Then consume results as you would do with `useCubitListener`
 
 ```
 
-## TODO:
-1. Unit tests
-2. <del>Support for other DI libraries</del>
-3. <del>Injector / injection function as a named parameter to `useCubit` method
-4. <del>`Readme.md` file</del>
-5. Code documentation
-
 ## Contribution
 
 We accept any contribution to the project!
