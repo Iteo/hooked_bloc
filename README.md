@@ -101,22 +101,6 @@ Whole logic of finding proper Cubit/Bloc and providing current state is hidden i
 
 Full example can be found in <a href="https://github.com/Iteo/hooked_bloc/tree/develop/example">here</a>
 
-## Installation  
-
-Run command:
-
-```shell
-flutter pub add hooked_bloc  
-```
-
-Or manually add the dependency in the `pubspec.yaml`
-
-```yaml
-dependencies:
-  # Library already contains flutter_hooks package
-  hooked_bloc:
-```
-
 ## Setup
 
 Install package
