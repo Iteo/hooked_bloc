@@ -10,6 +10,9 @@ mixin BlocActionMixin<ACTION, S extends Object> on BlocBase<S> {
 
   Stream<ACTION> get actions => _streamController.stream;
 
+  @visibleForTesting
+  StreamController<ACTION> get actionStreamController => _streamController;
+
   @protected
   void dispatch(ACTION action) {
     _streamController.add(action);
