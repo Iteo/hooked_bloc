@@ -7,8 +7,10 @@ typedef CubitInjectionFunction = CubitInjector Function();
 
 class BlocHookInjectionController {
   static CubitInjectionFunction? _injector;
-  static BlocBuilderCondition _builderCondition = CubitDefaults.alwaysRebuildCondition;
-  static BlocListenerCondition _listenerCondition = CubitDefaults.alwaysListenCondition;
+  static BlocBuilderCondition _builderCondition =
+      CubitDefaults.alwaysRebuildCondition;
+  static BlocListenerCondition _listenerCondition =
+      CubitDefaults.alwaysListenCondition;
 
   static void initializeWith<T>(
     CubitInjectionFunction injector, {
@@ -30,5 +32,4 @@ class BlocHookInjectionController {
   static void cleanUp() {
     BlocHookInjectionController._injector = null;
   }
-
 }

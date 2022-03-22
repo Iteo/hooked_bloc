@@ -38,7 +38,8 @@ class AbstractStateCubit extends Cubit<AbstractState> {
 }
 
 void main() {
-  testWidgets('hook state should be initialized with init state of BlocBase', (tester) async {
+  testWidgets('hook state should be initialized with init state of BlocBase',
+      (tester) async {
     late int? stateValue;
     Widget Function(BuildContext) builder(BlocBase<int> cubit) {
       return (context) {
@@ -56,7 +57,8 @@ void main() {
     expect(stateValue!, 11);
   });
 
-  testWidgets('when BlocBase emits new state, hook state should change', (tester) async {
+  testWidgets('when BlocBase emits new state, hook state should change',
+      (tester) async {
     late int? stateValue;
     Widget Function(BuildContext) builder(BlocBase<int> cubit) {
       return (context) {
@@ -77,13 +79,16 @@ void main() {
     expect(stateValue!, 3);
   });
 
-  testWidgets('when Cubit is changed to another instance, new state from new cubit should be emitted', (tester) async {
+  testWidgets(
+      'when Cubit is changed to another instance, new state from new cubit should be emitted',
+      (tester) async {
     late TestState? stateValue;
     late int expectedStateHashCode;
 
     bool useSecond = false;
 
-    Widget Function(BuildContext) builder(Cubit<TestState> cubit, Cubit<TestState> cubit2) {
+    Widget Function(BuildContext) builder(
+        Cubit<TestState> cubit, Cubit<TestState> cubit2) {
       return (context) {
         final usedCubit = useSecond ? cubit2 : cubit;
         final state = useCubitBuilder<ComplexCubit, TestState>(usedCubit);
@@ -98,7 +103,8 @@ void main() {
     ComplexCubit complexCubit1 = ComplexCubit(seed: testState);
     ComplexCubit complexCubit2 = ComplexCubit(seed: testState);
 
-    HookBuilder hookWidget = HookBuilder(builder: builder(complexCubit1, complexCubit2));
+    HookBuilder hookWidget =
+        HookBuilder(builder: builder(complexCubit1, complexCubit2));
 
     await tester.pumpWidget(Container(child: hookWidget));
     expect(stateValue!.value, 0);
@@ -112,13 +118,16 @@ void main() {
     expect(expectedStateHashCode, testState.hashCode);
   });
 
-  testWidgets('when Cubit is changed to another instance, new state from new cubit should be emitted', (tester) async {
+  testWidgets(
+      'when Cubit is changed to another instance, new state from new cubit should be emitted',
+      (tester) async {
     late TestState? stateValue;
     late int expectedStateHashCode;
 
     bool useSecond = false;
 
-    Widget Function(BuildContext) builder(Cubit<TestState> cubit, Cubit<TestState> cubit2) {
+    Widget Function(BuildContext) builder(
+        Cubit<TestState> cubit, Cubit<TestState> cubit2) {
       return (context) {
         final usedCubit = useSecond ? cubit2 : cubit;
         final state = useCubitBuilder<ComplexCubit, TestState>(usedCubit);
@@ -133,7 +142,8 @@ void main() {
     ComplexCubit complexCubit1 = ComplexCubit(seed: testState);
     ComplexCubit complexCubit2 = ComplexCubit(seed: testState);
 
-    HookBuilder hookWidget = HookBuilder(builder: builder(complexCubit1, complexCubit2));
+    HookBuilder hookWidget =
+        HookBuilder(builder: builder(complexCubit1, complexCubit2));
 
     await tester.pumpWidget(hookWidget);
     expect(stateValue!.value, 0);
@@ -147,7 +157,8 @@ void main() {
     expect(expectedStateHashCode, testState.hashCode);
   });
 
-  testWidgets('state should not be emitted, when buildWhen specified', (tester) async {
+  testWidgets('state should not be emitted, when buildWhen specified',
+      (tester) async {
     late TestState? stateValue;
 
     Widget Function(BuildContext) builder(
@@ -155,7 +166,8 @@ void main() {
       required bool Function(TestState state) buildWhen,
     }) {
       return (context) {
-        stateValue = useCubitBuilder<ComplexCubit, TestState>(cubit, buildWhen: buildWhen);
+        stateValue = useCubitBuilder<ComplexCubit, TestState>(cubit,
+            buildWhen: buildWhen);
         return Container();
       };
     }
@@ -164,8 +176,10 @@ void main() {
     ComplexCubit cubit = ComplexCubit(seed: testState);
     List<int> valuesNotPermitted = [5, 6];
 
-    HookBuilder hookWidget =
-        HookBuilder(builder: builder(cubit, buildWhen: (TestState state) => !valuesNotPermitted.contains(state.value)));
+    HookBuilder hookWidget = HookBuilder(
+        builder: builder(cubit,
+            buildWhen: (TestState state) =>
+                !valuesNotPermitted.contains(state.value)));
     pumpIt() async => tester.pumpWidget(hookWidget);
 
     await pumpIt();
@@ -188,7 +202,8 @@ void main() {
     expect(stateValue!.value, 7);
   });
 
-  testWidgets('state should be emitted when state is BuildState', (tester) async {
+  testWidgets('state should be emitted when state is BuildState',
+      (tester) async {
     late AbstractState? stateValue;
 
     Widget Function(BuildContext) builder(AbstractStateCubit cubit) {

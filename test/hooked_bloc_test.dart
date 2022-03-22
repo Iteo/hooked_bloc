@@ -57,7 +57,8 @@ void main() {
       verify(() => cubit.close()).called(1);
     });
 
-    testWidgets('should build only once and do not close cubit ', (tester) async {
+    testWidgets('should build only once and do not close cubit ',
+        (tester) async {
       final cubit = MockedCubit();
       when(() => injector.get<MockedCubit>()).thenReturn(cubit);
       when(() => cubit.close()).thenAnswer((invocation) => Future.value());

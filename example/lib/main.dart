@@ -6,7 +6,8 @@ import 'package:hooked_bloc/hooked_bloc.dart';
 void main() async {
   // With GetIt or Injectable
   await configureDependencies();
-  HookedBloc.initialize(() => getIt.get,
+  HookedBloc.initialize(
+    () => getIt.get,
     builderCondition: (state) => state != null, // Global build condition
     listenerCondition: (state) => state != null, // Global listen condition
   );

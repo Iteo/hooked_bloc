@@ -10,9 +10,10 @@ class HookedBloc {
   }) {
     BlocHookInjectionController.initializeWith(
       injectionFunction,
-      builderCondition: builderCondition ?? CubitDefaults.alwaysRebuildCondition,
-      listenerCondition: listenerCondition ?? CubitDefaults.alwaysListenCondition,
+      builderCondition:
+          builderCondition ?? CubitDefaults.alwaysRebuildCondition,
+      listenerCondition:
+          listenerCondition ?? CubitDefaults.alwaysListenCondition,
     );
   }
-
 }
