@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:hooked_bloc/hooked_bloc.dart';
+import 'package:hooked_bloc/src/injection/hook_injection_controller.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'mock.dart';
@@ -17,83 +18,136 @@ class TestCubit extends Cubit<int> {
 class MockedOnInit extends Mock implements OnInit {}
 
 void main() {
-  late Injector injector;
-
   setUpAll(() {
     registerFallbackValue(TestCubit());
   });
 
-  setUp(() {
-    injector = MockedInjector();
-    HookedBloc.initialize(() => injector.get);
+  group('Tests with mockedInjector', () {
+    late Injector injector;
+    setUp(() {
+      injector = MockedInjector();
+      HookedBloc.initialize(() => injector.get);
+    });
+
+    tearDown(() {
+      BlocHookInjectionController.cleanUp();
+    });
+
+    testWidgets('should build and close cubit only once', (tester) async {
+      final cubit = MockedCubit();
+      when(() => injector.get<MockedCubit>()).thenReturn(cubit);
+      when(() => cubit.close()).thenAnswer((invocation) => Future.value());
+
+      Future<void> build() async {
+        await tester.pumpWidget(HookBuilder(
+          builder: (context) {
+            useCubit<MockedCubit>();
+
+            return const SizedBox();
+          },
+        ));
+      }
+
+      await build();
+      await build();
+      await build();
+      await tester.pumpWidget(const SizedBox());
+
+      verify(() => injector.get<MockedCubit>()).called(1);
+      verify(() => cubit.close()).called(1);
+    });
+
+    testWidgets('should build only once and do not close cubit ', (tester) async {
+      final cubit = MockedCubit();
+      when(() => injector.get<MockedCubit>()).thenReturn(cubit);
+      when(() => cubit.close()).thenAnswer((invocation) => Future.value());
+
+      Future<void> build() async {
+        await tester.pumpWidget(HookBuilder(
+          builder: (context) {
+            useCubit<MockedCubit>(closeOnDispose: false);
+
+            return const SizedBox();
+          },
+        ));
+      }
+
+      await build();
+      await build();
+      await build();
+      await tester.pumpWidget(const SizedBox());
+
+      verify(() => injector.get<MockedCubit>()).called(1);
+      verifyNever(() => cubit.close());
+    });
+
+    testWidgets('should build new cubit when keys changes', (tester) async {
+      when(() => injector.get<TestCubit>()).thenAnswer((_) => TestCubit());
+
+      late TestCubit generatedCubit;
+      Future<void> build(bool param) async {
+        await tester.pumpWidget(HookBuilder(
+          builder: (context) {
+            generatedCubit = useCubit<TestCubit>(keys: [param]);
+
+            return const SizedBox();
+          },
+        ));
+      }
+
+      await build(true);
+      final firstCubit = generatedCubit;
+      await build(true);
+      expect(generatedCubit, firstCubit);
+      await build(false);
+      expect(generatedCubit, isNot(equals(firstCubit)));
+      verify(() => injector.get<TestCubit>()).called(2);
+    });
+
+    testWidgets('should call on init for every new instance', (tester) async {
+      when(() => injector.get<TestCubit>()).thenAnswer((_) => TestCubit());
+
+      Future<void> build(bool param) async {
+        await tester.pumpWidget(HookBuilder(
+          builder: (context) {
+            useCubit<TestCubit>(keys: [param]);
+            return const SizedBox();
+          },
+        ));
+      }
+
+      await build(true);
+      await build(true);
+      await build(false);
+      verify(() => injector.get<TestCubit>()).called(2);
+    });
   });
 
-  testWidgets('should build and close cubit only once', (tester) async {
-    final cubit = MockedCubit();
-    when(() => injector.get<MockedCubit>()).thenReturn(cubit);
-    when(() => cubit.close()).thenAnswer((invocation) => Future.value());
+  group('Tests with default Cubit injector', () {
+    testWidgets('Should find proper Cubit from widget tree', (tester) async {
+      final onInit = MockedOnInit();
+      when(() => onInit.call<TestCubit>(any())).thenAnswer((_) {});
 
-    Future<void> build() async {
-      await tester.pumpWidget(HookBuilder(
-        builder: (context) {
-          useCubit<MockedCubit>();
+      Future<void> build() async {
+        await tester.pumpWidget(BlocProvider.value(
+          value: TestCubit(),
+          child: HookBuilder(
+            builder: (context) {
+              final cubit = useCubit<TestCubit>();
 
-          return const SizedBox();
-        },
-      ));
-    }
+              useEffect(() {
+                onInit.call<TestCubit>(cubit);
+                return cubit.close;
+              }, [cubit]);
 
-    await build();
-    await build();
-    await build();
-    await tester.pumpWidget(const SizedBox());
+              return const SizedBox();
+            },
+          ),
+        ));
+      }
 
-    verify(() => injector.get<MockedCubit>()).called(1);
-    verify(() => cubit.close()).called(1);
-  });
-
-  testWidgets('should build new cubit when keys changes', (tester) async {
-    when(() => injector.get<TestCubit>()).thenAnswer((_) => TestCubit());
-
-    late TestCubit generatedCubit;
-    Future<void> build(bool param) async {
-      await tester.pumpWidget(HookBuilder(
-        builder: (context) {
-          generatedCubit = useCubit<TestCubit>(keys: [param]);
-
-          return const SizedBox();
-        },
-      ));
-    }
-
-    await build(true);
-    final firstCubit = generatedCubit;
-    await build(true);
-    expect(generatedCubit, firstCubit);
-    await build(false);
-    expect(generatedCubit, isNot(equals(firstCubit)));
-    verify(() => injector.get<TestCubit>()).called(2);
-  });
-
-  testWidgets('should call on init for every new instance', (tester) async {
-    final onInit = MockedOnInit();
-    when(() => onInit.call<TestCubit>(any())).thenAnswer((_) {});
-    when(() => injector.get<TestCubit>()).thenAnswer((_) => TestCubit());
-
-    Future<void> build(bool param) async {
-      await tester.pumpWidget(HookBuilder(
-        builder: (context) {
-          useCubit<TestCubit>(keys: [param], onInit: (c) => onInit.call<TestCubit>(c));
-
-          return const SizedBox();
-        },
-      ));
-    }
-
-    await build(true);
-    await build(true);
-    await build(false);
-    verify(() => injector.get<TestCubit>()).called(2);
-    verify(() => onInit.call<TestCubit>(any())).called(2);
+      await build();
+      verify(() => onInit.call<TestCubit>(any())).called(1);
+    });
   });
 }

@@ -11,10 +11,7 @@ class UseCubitPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     // The hook will provide the expected object
-    final cubit = useCubit<SimpleCubit>(
-      // Here invoke an initial setup for your Cubit
-      onInit: (cubit) => cubit.init(),
-    );
+    final cubit = useCubit<SimpleCubit>();
 
     return Scaffold(
       appBar: AppBar(title: const Text("useCubit")),
