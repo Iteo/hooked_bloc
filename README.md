@@ -291,13 +291,13 @@ than state's stream and can be used for actions that require different flow of n
 
 We accept any contribution to the project!
 
-Suggestions of a new feature or fix should be created via pull-request.
+Suggestions of a new feature or fix should be created via pull-request or issue.
 
 ### feature request:
 
 - Check if feature is already addressed or declined
 
-- Describe why this is needed.
+- Describe why this is needed
 
   Just create an issue with label `enhancement` and descriptive title. Then provide a description
   and/or example code. This will help the community to understand need for it.
@@ -307,15 +307,15 @@ Suggestions of a new feature or fix should be created via pull-request.
   The test is a best way to explain how proposed hook should work. We demand a complete
   test before any code is merged in order to ensure cohesion with existing codebase.
 
-- Add it to the README and write documentation for it.
+- Add it to the README and write documentation for it
 
-  Add new hook to the table and append sample code with usage.
+  Add new hook to the existing hooks table and append sample code with usage.
 
 ### Fix
 
 - Check if bug was already found
 
-- Describe what is broken.
+- Describe what is broken
 
   Minimal requirement to report a bug fix is a reproduction path. Write steps that should be
   followed to find a problem in code. Perfect situation is when you give full description
@@ -326,7 +326,7 @@ Suggestions of a new feature or fix should be created via pull-request.
   The test should show that your fix corrects the problem. You can start with straightforward
   test and then think about potential edge cases or other places that can be broken.
 
-- Add it to the README and write documentation for it.
+- Add it to the README and write documentation for it
 
   If your fix changed behavior of the library or requires any other extra steps from user,
   this should be full described in README.
