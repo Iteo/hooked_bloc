@@ -57,6 +57,30 @@ void main() {
       verify(() => cubit.close()).called(1);
     });
 
+    testWidgets('should build only once and do not close cubit ', (tester) async {
+      final cubit = MockedCubit();
+      when(() => injector.get<MockedCubit>()).thenReturn(cubit);
+      when(() => cubit.close()).thenAnswer((invocation) => Future.value());
+
+      Future<void> build() async {
+        await tester.pumpWidget(HookBuilder(
+          builder: (context) {
+            useCubit<MockedCubit>(closeOnDispose: false);
+
+            return const SizedBox();
+          },
+        ));
+      }
+
+      await build();
+      await build();
+      await build();
+      await tester.pumpWidget(const SizedBox());
+
+      verify(() => injector.get<MockedCubit>()).called(1);
+      verifyNever(() => cubit.close());
+    });
+
     testWidgets('should build new cubit when keys changes', (tester) async {
       when(() => injector.get<TestCubit>()).thenAnswer((_) => TestCubit());
 
@@ -81,15 +105,12 @@ void main() {
     });
 
     testWidgets('should call on init for every new instance', (tester) async {
-      final onInit = MockedOnInit();
-      when(() => onInit.call<TestCubit>(any())).thenAnswer((_) {});
       when(() => injector.get<TestCubit>()).thenAnswer((_) => TestCubit());
 
       Future<void> build(bool param) async {
         await tester.pumpWidget(HookBuilder(
           builder: (context) {
-            useCubit<TestCubit>(keys: [param], onInit: (c) => onInit.call<TestCubit>(c));
-
+            useCubit<TestCubit>(keys: [param]);
             return const SizedBox();
           },
         ));
@@ -99,7 +120,6 @@ void main() {
       await build(true);
       await build(false);
       verify(() => injector.get<TestCubit>()).called(2);
-      verify(() => onInit.call<TestCubit>(any())).called(2);
     });
   });
 
@@ -113,9 +133,13 @@ void main() {
           value: TestCubit(),
           child: HookBuilder(
             builder: (context) {
-              useCubit<TestCubit>(
-                onInit: (c) => onInit.call<TestCubit>(c),
-              );
+              final cubit = useCubit<TestCubit>();
+
+              useEffect(() {
+                onInit.call<TestCubit>(cubit);
+                return cubit.close;
+              }, [cubit]);
+
               return const SizedBox();
             },
           ),
