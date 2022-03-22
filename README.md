@@ -128,11 +128,11 @@ After that you need to initialize the HookedBloc:
 ```dart
 void main() async {
   // With GetIt or Injectable
-    await configureDependencies();
-    HookedBloc.initialize(() => getIt.get,
-      builderCondition: (state) => state != null, // Global build condition
-      listenerCondition: (state) => state != null, // Global listen condition
-    );
+  await configureDependencies();
+  HookedBloc.initialize(() => getIt.get,
+    builderCondition: (state) => state != null, // Global build condition
+    listenerCondition: (state) => state != null, // Global listen condition
+  );
 
   // Or create your own initializer with default conditions (always allow)
   // HookedBloc.initialize(() {
@@ -172,6 +172,7 @@ class MyApp extends HookWidget {
           const SnackBar(content: Text("Button clicked"),
       ));
     });
+
     // Build widget's tree without BlocProvider
     return MaterialApp(
       home: Scaffold(
@@ -249,7 +250,6 @@ Hooked Bloc already comes with a few reusable hooks:
   Widget build(BuildContext context) {
     // The state will be updated along with the widget
     // For default the state will be updated basing on `builderCondition`
-
     final int state = useCubitBuilder(cubit);
 
     return // Access provided state 
