@@ -265,7 +265,23 @@ Hooked Bloc already comes with a few reusable hooks:
 ### useActionListener
 
 `useActionListener` hook is similar to the `useCubitListener` but listens to the stream that is other
-than state's stream and can be used for actions that require different flow of notyfing
+than state's stream and can be used for actions that require different flow of notifying
+
+Because of that your bloc/cubit must use `BlocActionMixin`
+
+```dart
+// You can use also ActionCubit base class
+class MessageActionCubit extends EventCubit with BlocActionMixin<String, BuildState> {
+
+  // The method used to publish events
+  @override
+  void dispatch(String action) {
+    super.dispatch(action);
+  }
+}
+```
+
+Then consume results as you would do with `useCubitListener`
 
 ```dart
   @override
