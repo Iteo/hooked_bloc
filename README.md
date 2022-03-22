@@ -14,7 +14,7 @@ and the Flutter guide for
 [![codecov](https://codecov.io/gh/Iteo/hooked_bloc/branch/main/graph/badge.svg)](https://codecov.io/gh/Iteo/hooked_bloc)
 
 <p align="center">
-<img width="200" src="hooked_bloc_icon.png">
+<img width="200" src="https://github.com/Iteo/hooked_bloc/raw/main/hooked_bloc_icon.png">
 </p>
 
 # Hooked Bloc
