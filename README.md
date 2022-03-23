@@ -22,7 +22,7 @@ and the Flutter guide for
 Flutter package that simplifies injection and usage of <a href="https://pub.dev/packages/flutter_bloc"> Bloc/Cubit</a>.
 The library is based on the concept of hooks originally introduced in React Native and adapted to Flutter.
 <a href="https://github.com/rrousselGit/flutter_hooks">Flutter hooks</a> allow you to extract view's logic
-into common use cases and reuse them, what makes writing widgets faster and easier.
+into common use cases and reuse them, which makes writing widgets faster and easier.
 
 
 ## Contents
@@ -40,11 +40,11 @@ into common use cases and reuse them, what makes writing widgets faster and easi
 ## Motivation
 
 When you want to use Bloc/Cubit in your application
-you have to provide an instance of object down the widgets tree for state receivers.
+you have to provide an instance of the object down the widgets tree for state receivers.
 This is mostly achieved by `BlocBuilder` along with `BlocProvider` and enlarges
 complexity of the given widget.
 
-Each time you have to use `BlocBuilder`, `BlocListener` or `BlocSelector`. What if we can use a power of Flutter hooks?
+Each time you have to use `BlocBuilder`, `BlocListener` or `BlocSelector`. What if we could use the power of Flutter hooks?
 
 
 So, instead of this:
@@ -96,17 +96,17 @@ We can have this:
   }
 ```
 
-This code is functionally equivalent to the previous example. It still rebuilds widget in proper way and the right time.
-Whole logic of finding proper Cubit/Bloc and providing current state is hidden in `useCubit` and `useCubitBuilder` hooks.
+This code is functionally equivalent to the previous example. It still rebuilds the widget in the proper way and the right time.
+Whole logic of finding adequate Cubit/Bloc and providing current state is hidden in `useCubit` and `useCubitBuilder` hooks.
 
 Full example can be found in <a href="https://github.com/Iteo/hooked_bloc/tree/develop/example">here</a>
 
-## Installation  
+## Installation
 
 Run command:
 
 ```shell
-flutter pub add hooked_bloc  
+flutter pub add hooked_bloc
 ```
 
 Or manually add the dependency in the `pubspec.yaml`
@@ -226,7 +226,7 @@ Hooked Bloc already comes with a few reusable hooks:
 
 ### useCubit
 
-`useCubit` hook tries to find Cubit using cubit provider, or - if not specified - looks into widget tree.
+`useCubit` hook tries to find Cubit using the cubit provider, or - if not specified - looks into the widget tree.
 
 ```dart
   @override
@@ -237,7 +237,7 @@ Hooked Bloc already comes with a few reusable hooks:
       closeOnDispose: true,
     );
 
-    return // Access provided cubit 
+    return // Access provided cubit
   }
 ```
 
@@ -254,14 +254,14 @@ Hooked Bloc already comes with a few reusable hooks:
     // For default the state will be updated basing on `builderCondition`
     final int state = useCubitBuilder(cubit);
 
-    return // Access provided state 
+    return // Access provided state
   }
 
 ```
 
 ### useCubitListener
 
-`useCubitListener` hook allows to observe cubit's states that represent action (e.x. show Snackbar)
+`useCubitListener` hook allows to observe cubit's states that represent action (e.g. show Snackbar)
 
 ```dart
   final EventCubit cubit = EventCubit();
@@ -280,12 +280,12 @@ Hooked Bloc already comes with a few reusable hooks:
 ### useActionListener
 
 `useActionListener` hook is similar to the `useCubitListener` but listens to the stream
-different than state's stream and can be used for actions that require different flow of notifying.
+different than state's stream and can be used for actions that require a different flow of notifying.
 
 Because of that your bloc/cubit must use `BlocActionMixin`
 
 ```dart
-// You can use also ActionCubit base class
+// You can also use ActionCubit base class
 class MessageActionCubit extends EventCubit with BlocActionMixin<String, BuildState> {
 
   // The method used to publish events
@@ -296,7 +296,7 @@ class MessageActionCubit extends EventCubit with BlocActionMixin<String, BuildSt
 }
 ```
 
-Then consume results as you would do with `useCubitListener`
+Then, consume results as you would do with `useCubitListener`
 
 ```dart
   @override
@@ -323,17 +323,17 @@ Suggestions of a new feature or fix should be created via pull-request or issue.
 
 - Describe why this is needed
 
-  Just create an issue with label `enhancement` and descriptive title. Then provide a description
-  and/or example code. This will help the community to understand need for it.
+  Just create an issue with label `enhancement` and descriptive title. Then, provide a description
+  and/or example code. This will help the community to understand the need for it.
 
 - Write tests for your hook
 
-  The test is a best way to explain how proposed hook should work. We demand a complete
+  The test is the best way to explain how the proposed hook should work. We demand a complete
   test before any code is merged in order to ensure cohesion with existing codebase.
 
 - Add it to the README and write documentation for it
 
-  Add new hook to the existing hooks table and append sample code with usage.
+  Add a new hook to the existing hooks table and append sample code with usage.
 
 ### Fix
 
@@ -341,9 +341,9 @@ Suggestions of a new feature or fix should be created via pull-request or issue.
 
 - Describe what is broken
 
-  Minimal requirement to report a bug fix is a reproduction path. Write steps that should be
+  The minimum requirement to report a bug fix is a reproduction path. Write steps that should be
   followed to find a problem in code. Perfect situation is when you give full description
-  why some code doesn't work and solution code.
+  why some code doesn't work and a solution code.
 
 - Write tests for your hook
 
@@ -353,4 +353,4 @@ Suggestions of a new feature or fix should be created via pull-request or issue.
 - Add it to the README and write documentation for it
 
   If your fix changed behavior of the library or requires any other extra steps from user,
-  this should be full described in README.
+  this should be fully described in README.
