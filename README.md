@@ -105,8 +105,18 @@ Full example can be found in <a href="https://github.com/Iteo/hooked_bloc/tree/d
 
 Install package
 
+Run command:
+
 ```shell
 flutter pub add hooked_bloc
+```
+
+Or manually add the dependency in the `pubspec.yaml`
+
+```yaml
+dependencies:
+  # Library already contains flutter_hooks package
+  hooked_bloc:
 ```
 
 After that you need to initialize the HookedBloc:
