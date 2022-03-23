@@ -1,75 +1,78 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+<div align="center">
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-<p align="center">
 <img width="200" src="https://github.com/Iteo/hooked_bloc/raw/main/hooked_bloc_icon.png">
-</p>
+<br /><br />
 
+[![Build](https://github.com/Iteo/hooked_bloc/workflows/Build/badge.svg)](https://github.com/Iteo/hooked_bloc/actions?query=workflow%3ATest)
+&nbsp;
 [![codecov](https://codecov.io/gh/Iteo/hooked_bloc/branch/main/graph/badge.svg)](https://codecov.io/gh/Iteo/hooked_bloc)
+&nbsp;
+[![pub package](https://img.shields.io/pub/v/hooked_bloc.svg)](https://pub.dartlang.org/packages/hooked_bloc) &nbsp;
+[![stars](https://img.shields.io/github/stars/Iteo/hooked_bloc.svg?style=flat&logo=github&colorB=deeppink&label=stars)](https://github.com/Iteo/hooked_bloc)
+&nbsp;
+[![GitHub license](https://img.shields.io/github/license/Iteo/hooked_bloc)](https://github.com/Iteo/hooked_bloc/blob/main/LICENSE) &nbsp;
+
+</div>
+
+---
 
 # Hooked Bloc
 
 Flutter package that simplifies injection and usage of <a href="https://pub.dev/packages/flutter_bloc"> Bloc/Cubit</a>.
 The library is based on the concept of hooks originally introduced in React Native and adapted to Flutter.
-<a href="https://github.com/rrousselGit/flutter_hooks">Flutter hooks</a> allow you to extract view's logic
-into common use cases and reuse them, which makes writing widgets faster and easier.
+<a href="https://github.com/rrousselGit/flutter_hooks">Flutter hooks</a> allow you to extract view's logic into common
+use cases and reuse them, which makes writing widgets faster and easier.
 
 ## Contents
 
 <!-- pub.dev accepts anchors only with lowercase -->
+
 - [Motivation](#motivation)
 - [Setup](#setup)
 - [Basics](#basics)
-	- [useCubit](#usecubit)
-	- [useCubitBuilder](#usecubitbuilder)
-	- [useCubitListener](#usecubitlistener)
-	- [useActionListener](#useactionlistener)
+    - [useCubit](#usecubit)
+    - [useCubitBuilder](#usecubitbuilder)
+    - [useCubitListener](#usecubitlistener)
+    - [useActionListener](#useactionlistener)
 - [Contribution](#contribution)
 
 ## Motivation
 
-When you want to use Bloc/Cubit in your application
-you have to provide an instance of the object down the widgets tree for state receivers.
-This is mostly achieved by `BlocBuilder` along with `BlocProvider` and enlarges
-complexity of the given widget.
+When you want to use Bloc/Cubit in your application you have to provide an instance of the object down the widgets tree
+for state receivers. This is mostly achieved by `BlocBuilder` along with `BlocProvider` and enlarges complexity of the
+given widget.
 
-Each time you have to use `BlocBuilder`, `BlocListener` or `BlocSelector`. What if we could use the power of Flutter hooks?
-
+Each time you have to use `BlocBuilder`, `BlocListener` or `BlocSelector`. What if we could use the power of Flutter
+hooks?
 
 So, instead of this:
+
 ```dart
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: ...,
-      body: BlocProvider<RealLifeCubit>(
-        create: (context) => RealLifeCubit()..loadData(),
-        child: BlocListener<RealLifeCubit, hooked.BuildState>(
-          listenWhen: (_, state) => state is ErrorState,
-          listener: (context, state) {
-            // Show some view on event
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: ...,
+    body: BlocProvider<RealLifeCubit>(
+      create: (context) =>
+      RealLifeCubit()
+        ..loadData(),
+      child: BlocListener<RealLifeCubit, hooked.BuildState>(
+        listenWhen: (_, state) => state is ErrorState,
+        listener: (context, state) {
+          // Show some view on event
+        },
+        child: BlocBuilder<RealLifeCubit, hooked.BuildState>(
+          buildWhen: (_, state) =>
+              [LoadedState, LoadingState, ShowItemState]
+                  .contains(state.runtimeType),
+          builder: (BuildContext context, hooked.BuildState state) {
+            return // Build your widget using `state`
           },
-          child: BlocBuilder<RealLifeCubit, hooked.BuildState>(
-            buildWhen: (_, state) => [LoadedState, LoadingState, ShowItemState]
-                .contains(state.runtimeType),
-            builder: (BuildContext context, hooked.BuildState state) {
-              return // Build your widget using `state`
-            },
-          ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
 ```
 
@@ -77,26 +80,28 @@ We can have this:
 
 ```dart
   @override
-  Widget build(BuildContext context) {
-    final cubit = useCubit<RealLifeCubit>();
+Widget build(BuildContext context) {
+  final cubit = useCubit<RealLifeCubit>();
 
-    useCubitListener<RealLifeCubit, BuildState>(cubit, (cubit, value, context) {
-      // Show some view on event
-    }, listenWhen: (state) => state is ErrorState);
+  useCubitListener<RealLifeCubit, BuildState>(cubit, (cubit, value, context) {
+    // Show some view on event
+  }, listenWhen: (state) => state is ErrorState);
 
-    final state = useCubitBuilder(
-      cubit,
-      buildWhen: (state) => [LoadedState, LoadingState, ShowItemState].contains(
-        state.runtimeType,
-      ),
-    );
+  final state = useCubitBuilder(
+    cubit,
+    buildWhen: (state) =>
+        [LoadedState, LoadingState, ShowItemState].contains(
+          state.runtimeType,
+        ),
+  );
 
-    return // Build your widget using `state`
-  }
+  return // Build your widget using `state`
+}
 ```
 
-This code is functionally equivalent to the previous example. It still rebuilds the widget in the proper way and the right time.
-Whole logic of finding adequate Cubit/Bloc and providing current state is hidden in `useCubit` and `useCubitBuilder` hooks.
+This code is functionally equivalent to the previous example. It still rebuilds the widget in the proper way and the
+right time. Whole logic of finding adequate Cubit/Bloc and providing current state is hidden in `useCubit`
+and `useCubitBuilder` hooks.
 
 Full example can be found in <a href="https://github.com/Iteo/hooked_bloc/tree/develop/example">here</a>
 
@@ -165,7 +170,7 @@ class MyApp extends HookWidget {
     useCubitListener(cubit, (cubit, value, context) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Button clicked"),
-      ));
+          ));
     });
 
     // Build widget's tree without BlocProvider
@@ -223,15 +228,15 @@ Hooked Bloc already comes with a few reusable hooks:
 
 ```dart
   @override
-  Widget build(BuildContext context) {
-    // The hook will provide the expected object
-    final cubit = useCubit<SimpleCubit>(
-      // For default hook automatically closes cubit
-      closeOnDispose: true,
-    );
+Widget build(BuildContext context) {
+  // The hook will provide the expected object
+  final cubit = useCubit<SimpleCubit>(
+    // For default hook automatically closes cubit
+    closeOnDispose: true,
+  );
 
-    return // Access provided cubit
-  }
+  return // Access provided cubit
+}
 ```
 
 ### useCubitBuilder
@@ -239,16 +244,17 @@ Hooked Bloc already comes with a few reusable hooks:
 `useCubitBuilder` hook rebuilds the widget when new state appears
 
 ```dart
-  final CounterCubit cubit = CounterCubit("My cubit");
 
-  @override
-  Widget build(BuildContext context) {
-    // The state will be updated along with the widget
-    // For default the state will be updated basing on `builderCondition`
-    final int state = useCubitBuilder(cubit);
+final CounterCubit cubit = CounterCubit("My cubit");
 
-    return // Access provided state
-  }
+@override
+Widget build(BuildContext context) {
+  // The state will be updated along with the widget
+  // For default the state will be updated basing on `builderCondition`
+  final int state = useCubitBuilder(cubit);
+
+  return // Access provided state
+}
 
 ```
 
@@ -257,23 +263,24 @@ Hooked Bloc already comes with a few reusable hooks:
 `useCubitListener` hook allows to observe cubit's states that represent action (e.g. show Snackbar)
 
 ```dart
-  final EventCubit cubit = EventCubit();
 
-  @override
-  Widget build(BuildContext context) {
-    // Handle state as event independently of the view state
-    useCubitListener(cubit, (_, value, context) {
-      _showMessage(context, (value as ShowMessage).message);
-    }, listenWhen: (state) => state is ShowMessage);
+final EventCubit cubit = EventCubit();
 
-    return // Build your widget
-  }
+@override
+Widget build(BuildContext context) {
+  // Handle state as event independently of the view state
+  useCubitListener(cubit, (_, value, context) {
+    _showMessage(context, (value as ShowMessage).message);
+  }, listenWhen: (state) => state is ShowMessage);
+
+  return // Build your widget
+}
 ```
 
 ### useActionListener
 
-`useActionListener` hook is similar to the `useCubitListener` but listens to the stream
-different than state's stream and can be used for actions that require a different flow of notifying.
+`useActionListener` hook is similar to the `useCubitListener` but listens to the stream different than state's stream
+and can be used for actions that require a different flow of notifying.
 
 Because of that your bloc/cubit must use `BlocActionMixin`
 
@@ -293,14 +300,14 @@ Then, consume results as you would do with `useCubitListener`
 
 ```dart
   @override
-  Widget build(BuildContext context) {
-    // Handle separate action stream with values other than a state type
-    useActionListener(cubit, (String action) {
-      _showMessage(context, action);
-    });
+Widget build(BuildContext context) {
+  // Handle separate action stream with values other than a state type
+  useActionListener(cubit, (String action) {
+    _showMessage(context, action);
+  });
 
-    return // Build your widget
-  }
+  return // Build your widget
+}
 
 ```
 
@@ -316,13 +323,13 @@ Suggestions of a new feature or fix should be created via pull-request or issue.
 
 - Describe why this is needed
 
-  Just create an issue with label `enhancement` and descriptive title. Then, provide a description
-  and/or example code. This will help the community to understand the need for it.
+  Just create an issue with label `enhancement` and descriptive title. Then, provide a description and/or example code.
+  This will help the community to understand the need for it.
 
 - Write tests for your hook
 
-  The test is the best way to explain how the proposed hook should work. We demand a complete
-  test before any code is merged in order to ensure cohesion with existing codebase.
+  The test is the best way to explain how the proposed hook should work. We demand a complete test before any code is
+  merged in order to ensure cohesion with existing codebase.
 
 - Add it to the README and write documentation for it
 
@@ -334,16 +341,23 @@ Suggestions of a new feature or fix should be created via pull-request or issue.
 
 - Describe what is broken
 
-  The minimum requirement to report a bug fix is a reproduction path. Write steps that should be
-  followed to find a problem in code. Perfect situation is when you give full description
-  why some code doesn't work and a solution code.
+  The minimum requirement to report a bug fix is a reproduction path. Write steps that should be followed to find a
+  problem in code. Perfect situation is when you give full description why some code doesn't work and a solution code.
 
 - Write tests for your hook
 
-  The test should show that your fix corrects the problem. You can start with straightforward
-  test and then think about potential edge cases or other places that can be broken.
+  The test should show that your fix corrects the problem. You can start with straightforward test and then think about
+  potential edge cases or other places that can be broken.
 
 - Add it to the README and write documentation for it
 
-  If your fix changed behavior of the library or requires any other extra steps from user,
-  this should be fully described in README.
+  If your fix changed behavior of the library or requires any other extra steps from user, this should be fully
+  described in README.
+
+## Contributors
+
+<div align="left">
+  <a href="https://github.com/Iteo/hooked_bloc/graphs/contributors">
+   <img src="https://contrib.rocks/image?repo=Iteo/hooked_bloc"/>
+  </a>
+</div>
