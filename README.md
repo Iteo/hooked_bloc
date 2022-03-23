@@ -28,7 +28,6 @@ into common use cases and reuse them, which makes writing widgets faster and eas
 
 <!-- pub.dev accepts anchors only with lowercase -->
 - [Motivation](#motivation)
-- [Installation](#installation)
 - [Setup](#setup)
 - [Basics](#basics)
 	- [useCubit](#usecubit)
