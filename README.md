@@ -285,7 +285,6 @@ and can be used for actions that require a different flow of notifying.
 Because of that your bloc/cubit must use `BlocActionMixin`
 
 ```dart
-// You can also use ActionCubit base class
 class MessageActionCubit extends EventCubit with BlocActionMixin<String, BuildState> {
 
   // The method used to publish events
@@ -309,6 +308,28 @@ Widget build(BuildContext context) {
   return // Build your widget
 }
 
+```
+
+Instead of `BlocActionMixin` you can use one of our classes: `ActionCubit` or `ActionBloc`
+
+```dart
+class MessageActionCubit extends ActionCubit<BuildState, String>  {
+  // The method used to publish events
+  @override
+  void dispatch(String action) {
+    super.dispatch(action);
+  }
+}
+```
+
+```dart
+class MessageActionBloc extends ActionBloc<BuildState, BlocEvent, String>  {
+  // The method used to publish events
+  @override
+  void dispatch(String action) {
+    super.dispatch(action);
+  }
+}
 ```
 
 ## Contribution
