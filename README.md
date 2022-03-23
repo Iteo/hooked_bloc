@@ -11,11 +11,11 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-[![codecov](https://codecov.io/gh/Iteo/hooked_bloc/branch/main/graph/badge.svg)](https://codecov.io/gh/Iteo/hooked_bloc)
-
 <p align="center">
 <img width="200" src="https://github.com/Iteo/hooked_bloc/raw/main/hooked_bloc_icon.png">
 </p>
+
+[![codecov](https://codecov.io/gh/Iteo/hooked_bloc/branch/main/graph/badge.svg)](https://codecov.io/gh/Iteo/hooked_bloc)
 
 # Hooked Bloc
 
@@ -28,7 +28,6 @@ into common use cases and reuse them, which makes writing widgets faster and eas
 
 <!-- pub.dev accepts anchors only with lowercase -->
 - [Motivation](#motivation)
-- [Installation](#installation)
 - [Setup](#setup)
 - [Basics](#basics)
 	- [useCubit](#usecubit)
@@ -101,7 +100,9 @@ Whole logic of finding adequate Cubit/Bloc and providing current state is hidden
 
 Full example can be found in <a href="https://github.com/Iteo/hooked_bloc/tree/develop/example">here</a>
 
-## Installation
+## Setup
+
+Install package
 
 Run command:
 
@@ -115,14 +116,6 @@ Or manually add the dependency in the `pubspec.yaml`
 dependencies:
   # Library already contains flutter_hooks package
   hooked_bloc:
-```
-
-## Setup
-
-Install package
-
-```shell
-flutter pub add hooked_bloc
 ```
 
 After that you need to initialize the HookedBloc:
