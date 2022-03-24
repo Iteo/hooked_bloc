@@ -11,6 +11,11 @@ typedef BlocListener<BLOC extends BlocBase<S>, S> = void Function(
   BuildContext context,
 );
 
+/// Calls callback function [listener] each time when [listenWhen] conditions are fulfilled
+///
+/// [listener] callback function
+/// [listenWhen] local filter function, that will pass incoming states from [BlocBase.stream]. By default passes all states.
+///
 void useCubitListener<BLOC extends BlocBase<S>, S>(
   BLOC bloc,
   BlocListener<BLOC, S> listener, {
