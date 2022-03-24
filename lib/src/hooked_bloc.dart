@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 ///The entry point for [HookedBloc]
 class HookedBloc {
-
   /// Initialize [HookedBloc] with default [BlocBase] injection function. This method call is not required. Can be omitted.
   /// If so, [HookedBloc] will use default [injectionFunction], [builderCondition] and [listenerCondition]
   ///
