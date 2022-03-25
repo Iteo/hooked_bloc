@@ -20,6 +20,9 @@ S useCubitBuilder<C extends BlocBase, S>(
     [cubit.state, cubit],
   );
 
-  return useStream(state, initialData: cubit.state, preserveState: false)
-      .requireData!;
+  return useStream(
+    state,
+    initialData: cubit.state,
+    preserveState: false,
+  ).requireData!;
 }

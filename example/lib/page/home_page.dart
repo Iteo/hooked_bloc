@@ -7,7 +7,10 @@ import '../page/use_cubit_listener_page.dart';
 import 'use_cubit_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key, required this.title}) : super(key: key);
+  const HomePage({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
 
   final String title;
 
@@ -22,15 +25,24 @@ class HomePage extends StatelessWidget {
           children: [
             MaterialButton(
               child: const Text("Show useCubit usage"),
-              onPressed: () => _navigateToPage(context, const UseCubitPage()),
+              onPressed: () => _navigateToPage(
+                context,
+                const UseCubitPage(),
+              ),
             ),
             MaterialButton(
               child: const Text("Show useCubitBuilder usage"),
-              onPressed: () => _navigateToPage(context, UseCubitBuilderPage()),
+              onPressed: () => _navigateToPage(
+                context,
+                UseCubitBuilderPage(),
+              ),
             ),
             MaterialButton(
               child: const Text("Show useCubitListener usage"),
-              onPressed: () => _navigateToPage(context, UseCubitListenerPage()),
+              onPressed: () => _navigateToPage(
+                context,
+                UseCubitListenerPage(),
+              ),
             ),
             MaterialButton(
               child: const Text("Show useActionListener usage"),
@@ -39,12 +51,17 @@ class HomePage extends StatelessWidget {
             ),
             MaterialButton(
               child: const Text("Real life example"),
-              onPressed: () => _navigateToPage(context, const RealLifePage()),
+              onPressed: () => _navigateToPage(
+                context,
+                const RealLifePage(),
+              ),
             ),
             MaterialButton(
               child: const Text("Real life example with hooks"),
-              onPressed: () =>
-                  _navigateToPage(context, const RealLifeHookPage()),
+              onPressed: () => _navigateToPage(
+                context,
+                const RealLifeHookPage(),
+              ),
             )
           ],
         ),
@@ -53,6 +70,9 @@ class HomePage extends StatelessWidget {
   }
 
   _navigateToPage(BuildContext context, Widget page) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
   }
 }
