@@ -18,7 +18,10 @@ class UseCubitListenerPage extends HookWidget {
       _showMessage(context, (value as ShowMessage).message);
     }, listenWhen: (state) => state is ShowMessage);
 
-    final state = useCubitBuilder(cubit, buildWhen: (st) => st is UpdateScreen);
+    final state = useCubitBuilder(
+      cubit,
+      buildWhen: (st) => st is UpdateScreen,
+    );
     // Because of the buildWhen, we are sure about state type
     final count = (state as UpdateScreen).counter;
 

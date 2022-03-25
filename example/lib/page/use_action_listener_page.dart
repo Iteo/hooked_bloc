@@ -20,7 +20,10 @@ class UseActionListenerPage extends HookWidget {
       _showMessage(context, action);
     });
 
-    final state = useCubitBuilder(cubit, buildWhen: (st) => st is UpdateScreen);
+    final state = useCubitBuilder(
+      cubit,
+      buildWhen: (st) => st is UpdateScreen,
+    );
     // Because of the buildWhen, we are sure about state type
     final count = (state as UpdateScreen).counter;
 
@@ -32,7 +35,10 @@ class UseActionListenerPage extends HookWidget {
     );
   }
 
-  void _showMessage(BuildContext context, String? message) {
+  void _showMessage(
+    BuildContext context,
+    String? message,
+  ) {
     showModalBottomSheet(
       context: context,
       builder: (context) => MessageBottomSheetContent(message: message),
