@@ -23,8 +23,11 @@ class RealLifePage extends StatelessWidget {
             );
           },
           child: BlocBuilder<RealLifeCubit, hooked.BuildState>(
-            buildWhen: (_, state) => [LoadedState, LoadingState, ShowItemState]
-                .contains(state.runtimeType),
+            buildWhen: (_, state) => [
+              LoadedState,
+              LoadingState,
+              ShowItemState,
+            ].contains(state.runtimeType),
             builder: (BuildContext context, hooked.BuildState state) {
               switch (state.runtimeType) {
                 case LoadedState:

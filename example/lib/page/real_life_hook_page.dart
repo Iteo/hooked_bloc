@@ -12,7 +12,11 @@ class RealLifeHookPage extends HookWidget {
   Widget build(BuildContext context) {
     final cubit = useCubit<RealLifeCubit>();
 
-    useCubitListener<RealLifeCubit, BuildState>(cubit, (cubit, value, context) {
+    useCubitListener<RealLifeCubit, BuildState>(cubit, (
+      cubit,
+      value,
+      context,
+    ) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text((value as ErrorState).error)),
       );
@@ -20,7 +24,11 @@ class RealLifeHookPage extends HookWidget {
 
     final state = useCubitBuilder(
       cubit,
-      buildWhen: (state) => [LoadedState, LoadingState, ShowItemState].contains(
+      buildWhen: (state) => [
+        LoadedState,
+        LoadingState,
+        ShowItemState,
+      ].contains(
         state.runtimeType,
       ),
     );
