@@ -27,7 +27,10 @@ class FabActionsScaffold extends StatelessWidget {
             onPressed: () => incrementCallback(),
             child: const Icon(Icons.add),
           ),
-          const SizedBox.square(dimension: 24, child: Divider()),
+          const SizedBox.square(
+            dimension: 24,
+            child: Divider(),
+          ),
           FloatingActionButton(
             heroTag: const ValueKey("FAB message tag"),
             key: const Key("FAB message"),
