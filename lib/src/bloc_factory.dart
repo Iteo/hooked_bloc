@@ -24,13 +24,13 @@ T useCubitFactory<T extends BlocBase, F extends BlocFactory<T>>({
 }) {
   final _injectorFn = BlocHookInjectionController.injector?.call() ?? CubitDefaults.defaultCubitInjector(useContext());
 
-  final factory = useMemoized(() => _injectorFn<F>(), keys);
+  final blocFactory = useMemoized(() => _injectorFn<F>(), keys);
   final cubit = useMemoized(
     () {
-      onCubitCreate?.call(factory);
-      return factory.create();
+      onCubitCreate?.call(blocFactory);
+      return blocFactory.create();
     },
-    [factory, ...keys],
+    [blocFactory, ...keys],
   );
 
   useEffect(() {
