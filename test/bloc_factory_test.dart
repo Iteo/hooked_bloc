@@ -69,7 +69,8 @@ void main() {
       verify(() => cubit.close()).called(1);
     });
 
-    testWidgets('should build only once and do not close cubit', (tester) async {
+    testWidgets('should build only once and do not close cubit',
+        (tester) async {
       final cubit = MockedCubit();
       final cubitFactory = MockedCubitFactory();
       when(() => injector.get<MockedCubitFactory>()).thenReturn(cubitFactory);
@@ -79,7 +80,8 @@ void main() {
       Future<void> build() async {
         await tester.pumpWidget(HookBuilder(
           builder: (context) {
-            useCubitFactory<MockedCubit, MockedCubitFactory>(closeOnDispose: false);
+            useCubitFactory<MockedCubit, MockedCubitFactory>(
+                closeOnDispose: false);
 
             return const SizedBox();
           },
@@ -95,7 +97,8 @@ void main() {
       verifyNever(() => cubit.close());
     });
 
-    testWidgets('should call onCubitCreate on every new cubit instance', (tester) async {
+    testWidgets('should call onCubitCreate on every new cubit instance',
+        (tester) async {
       final cubitFactory = MockedCubitFactory();
       when(() => injector.get<MockedCubitFactory>()).thenReturn(cubitFactory);
       when(() => cubitFactory.create()).thenAnswer((invocation) {
@@ -130,7 +133,8 @@ void main() {
     });
 
     testWidgets('should build new cubit when keys changes', (tester) async {
-      when(() => injector.get<TestCubitFactory>()).thenAnswer((_) => TestCubitFactory());
+      when(() => injector.get<TestCubitFactory>())
+          .thenAnswer((_) => TestCubitFactory());
 
       late TestCubit generatedCubit;
       Future<void> build(bool param) async {
@@ -155,7 +159,8 @@ void main() {
     });
 
     testWidgets('should call on init for every new instance', (tester) async {
-      when(() => injector.get<TestCubitFactory>()).thenAnswer((_) => TestCubitFactory());
+      when(() => injector.get<TestCubitFactory>())
+          .thenAnswer((_) => TestCubitFactory());
 
       Future<void> build(bool param) async {
         await tester.pumpWidget(HookBuilder(
@@ -174,7 +179,8 @@ void main() {
   });
 
   group('Tests with default injector', () {
-    testWidgets('Should find proper BlocFactory from widget tree', (tester) async {
+    testWidgets('Should find proper BlocFactory from widget tree',
+        (tester) async {
       final onInit = MockedOnInit();
       when(() => onInit.call<TestCubit>(any())).thenAnswer((_) {});
 

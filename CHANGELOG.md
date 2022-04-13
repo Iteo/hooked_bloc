@@ -1,3 +1,6 @@
+## 1.0.4
+* Added new useCubitFactory hook
+
 ## 1.0.3
 * Fixed bug useCubitBuilder hook. Since 1.0.2 every change in cubit/bloc state generated new stream.
 
