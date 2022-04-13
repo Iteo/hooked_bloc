@@ -22,7 +22,8 @@ T useCubitFactory<T extends BlocBase, F extends BlocFactory<T>>({
   List<dynamic> keys = const <dynamic>[],
   bool closeOnDispose = true,
 }) {
-  final _injectorFn = BlocHookInjectionController.injector?.call() ?? CubitDefaults.defaultCubitInjector(useContext());
+  final _injectorFn = BlocHookInjectionController.injector?.call() ??
+      CubitDefaults.defaultCubitInjector(useContext());
 
   final blocFactory = useMemoized(() => _injectorFn<F>(), keys);
   final cubit = useMemoized(
