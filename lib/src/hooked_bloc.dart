@@ -1,7 +1,6 @@
 import 'package:hooked_bloc/hooked_bloc.dart';
 import 'package:hooked_bloc/src/cubit_defaults.dart';
 import 'package:hooked_bloc/src/injection/hook_injection_controller.dart';
-import 'package:provider/provider.dart';
 
 ///The entry point for [HookedBloc]
 class HookedBloc {
