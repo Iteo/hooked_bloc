@@ -31,6 +31,7 @@ use cases and reuse them, which makes writing widgets faster and easier.
 - [Setup](#setup)
 - [Basics](#basics)
     - [useCubit](#usecubit)
+    - [useCubitFactory](#usecubitfactory)
     - [useCubitBuilder](#usecubitbuilder)
     - [useCubitListener](#usecubitlistener)
     - [useActionListener](#useactionlistener)
@@ -206,6 +207,11 @@ Hooked Bloc already comes with a few reusable hooks:
   </tr>
 
   <tr>
+    <td>useCubitFactory</td>
+    <td>Returns desired cubit by creating it with provided factory</td>
+  </tr>
+
+  <tr>
     <td>useCubitBuilder</td>
     <td>Returns current cubit state - similar to BlocBuilder</td>
   </tr>
@@ -233,6 +239,38 @@ Widget build(BuildContext context) {
   final cubit = useCubit<SimpleCubit>(
     // For default hook automatically closes cubit
     closeOnDispose: true,
+  );
+
+  return // Access provided cubit
+}
+```
+
+### useCubitFactory
+
+`useCubitFactory` hook tries to find factory using provided injection method and then returns cubit created by it
+
+```dart
+class SimpleCubitFactory extends BlocFactory<SimpleCubit> {
+  bool _value = true;
+
+  @override
+  SimpleCubit create() {
+    return _value ? SimpleCubitA() : SimpleCubitB();
+  }
+
+  // This is example method which you can add to configure your cubit creation on run
+  void configure(bool value) {
+    _value = value;
+  }
+}
+
+@override
+Widget build(BuildContext context) {
+  // The hook will provide the expected object
+  final cubit = useCubitFactory<SimpleCubit, SimpleCubitFactory>(
+    onCubitCreate: (cubitFactory) {
+      cubitFactory.configure(false);
+    }
   );
 
   return // Access provided cubit
