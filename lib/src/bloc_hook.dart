@@ -1,8 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocBase;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooked_bloc/src/cubit_defaults.dart';
-import 'package:hooked_bloc/src/injection/bloc_hook_injector_config.dart';
-import 'package:hooked_bloc/src/injection/hook_injection_controller.dart';
+import 'package:hooked_bloc/src/config/hooked_bloc_config.dart';
 
 /// Provides BlocBase<T> class.
 ///

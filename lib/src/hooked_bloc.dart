@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooked_bloc/hooked_bloc.dart';
-import 'package:hooked_bloc/src/injection/bloc_hook_injector_config.dart';
+import 'package:hooked_bloc/src/config/hooked_bloc_config.dart';
 import 'package:provider/provider.dart';
 
 /// [HookedBlocConfigProvider] provides you a way to setup widget tree scoped [HookedBlocConfig] for cubit hooks

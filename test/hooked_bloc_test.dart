@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:hooked_bloc/hooked_bloc.dart';
-import 'package:hooked_bloc/src/injection/hook_injection_controller.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'mock.dart';
@@ -26,10 +24,6 @@ void main() {
     late Injector injector;
     setUp(() {
       injector = MockedInjector();
-    });
-
-    tearDown(() {
-      BlocHookInjectionController.cleanUp();
     });
 
     testWidgets('should build and close cubit only once', (tester) async {
