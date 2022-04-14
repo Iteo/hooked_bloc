@@ -8,9 +8,11 @@ void useActionListener<ACTION>(
   BlocActionMixin<ACTION, Object> actionMixin,
   OnActionCallback<ACTION> onAction,
 ) {
-  useEffect(() {
-    final subscription = actionMixin.actions.listen(onAction);
-
-    return subscription.cancel;
-  }, [actionMixin]);
+  useEffect(
+    () {
+      final subscription = actionMixin.actions.listen(onAction);
+      return subscription.cancel;
+    },
+    [actionMixin],
+  );
 }

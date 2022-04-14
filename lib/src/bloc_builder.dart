@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooked_bloc/hooked_bloc.dart';
-import 'package:hooked_bloc/src/injection/hook_injection_controller.dart';
+import 'package:hooked_bloc/src/injection/bloc_hook_injector_config.dart';
 
 typedef BlocBuilderCondition<S> = bool Function(S current);
 
@@ -13,8 +12,8 @@ S useCubitBuilder<C extends BlocBase, S>(
   BlocBase<S> cubit, {
   BlocBuilderCondition<S>? buildWhen,
 }) {
-  final buildWhenConditioner =
-      buildWhen ?? BlocHookInjectionController.builderCondition;
+  final configuredBuildWhen = useBlocHookInjectorConfig().builderCondition;
+  final buildWhenConditioner = buildWhen ?? configuredBuildWhen;
   final state = useMemoized(
     () => cubit.stream.where(buildWhenConditioner),
     [cubit],

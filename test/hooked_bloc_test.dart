@@ -26,7 +26,6 @@ void main() {
     late Injector injector;
     setUp(() {
       injector = MockedInjector();
-      HookedBloc.initialize(() => injector.get);
     });
 
     tearDown(() {
@@ -39,13 +38,18 @@ void main() {
       when(() => cubit.close()).thenAnswer((invocation) => Future.value());
 
       Future<void> build() async {
-        await tester.pumpWidget(HookBuilder(
-          builder: (context) {
-            useCubit<MockedCubit>();
+        await tester.pumpWidget(
+          HookedBlocInjector(
+            injector: () => injector.get,
+            child: HookBuilder(
+              builder: (context) {
+                useCubit<MockedCubit>();
 
-            return const SizedBox();
-          },
-        ));
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
       }
 
       await build();
@@ -64,13 +68,18 @@ void main() {
       when(() => cubit.close()).thenAnswer((invocation) => Future.value());
 
       Future<void> build() async {
-        await tester.pumpWidget(HookBuilder(
-          builder: (context) {
-            useCubit<MockedCubit>(closeOnDispose: false);
+        await tester.pumpWidget(
+          HookedBlocInjector(
+            injector: () => injector.get,
+            child: HookBuilder(
+              builder: (context) {
+                useCubit<MockedCubit>(closeOnDispose: false);
 
-            return const SizedBox();
-          },
-        ));
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
       }
 
       await build();
@@ -87,13 +96,18 @@ void main() {
 
       late TestCubit generatedCubit;
       Future<void> build(bool param) async {
-        await tester.pumpWidget(HookBuilder(
-          builder: (context) {
-            generatedCubit = useCubit<TestCubit>(keys: [param]);
+        await tester.pumpWidget(
+          HookedBlocInjector(
+            injector: () => injector.get,
+            child: HookBuilder(
+              builder: (context) {
+                generatedCubit = useCubit<TestCubit>(keys: [param]);
 
-            return const SizedBox();
-          },
-        ));
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
       }
 
       await build(true);
@@ -109,12 +123,17 @@ void main() {
       when(() => injector.get<TestCubit>()).thenAnswer((_) => TestCubit());
 
       Future<void> build(bool param) async {
-        await tester.pumpWidget(HookBuilder(
-          builder: (context) {
-            useCubit<TestCubit>(keys: [param]);
-            return const SizedBox();
-          },
-        ));
+        await tester.pumpWidget(
+          HookedBlocInjector(
+            injector: () => injector.get,
+            child: HookBuilder(
+              builder: (context) {
+                useCubit<TestCubit>(keys: [param]);
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
       }
 
       await build(true);

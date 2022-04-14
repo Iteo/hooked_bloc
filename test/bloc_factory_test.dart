@@ -36,7 +36,6 @@ void main() {
     late Injector injector;
     setUp(() {
       injector = MockedInjector();
-      HookedBloc.initialize(() => injector.get);
     });
 
     tearDown(() {
@@ -51,13 +50,18 @@ void main() {
       when(() => cubit.close()).thenAnswer((invocation) => Future.value());
 
       Future<void> build() async {
-        await tester.pumpWidget(HookBuilder(
-          builder: (context) {
-            useCubitFactory<MockedCubit, MockedCubitFactory>();
+        await tester.pumpWidget(
+          HookedBlocInjector(
+            injector: () => injector.get,
+            child: HookBuilder(
+              builder: (context) {
+                useCubitFactory<MockedCubit, MockedCubitFactory>();
 
-            return const SizedBox();
-          },
-        ));
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
       }
 
       await build();
@@ -78,14 +82,19 @@ void main() {
       when(() => cubit.close()).thenAnswer((invocation) => Future.value());
 
       Future<void> build() async {
-        await tester.pumpWidget(HookBuilder(
-          builder: (context) {
-            useCubitFactory<MockedCubit, MockedCubitFactory>(
-                closeOnDispose: false);
+        await tester.pumpWidget(
+          HookedBlocInjector(
+            injector: () => injector.get,
+            child: HookBuilder(
+              builder: (context) {
+                useCubitFactory<MockedCubit, MockedCubitFactory>(
+                    closeOnDispose: false);
 
-            return const SizedBox();
-          },
-        ));
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
       }
 
       await build();
@@ -108,18 +117,23 @@ void main() {
       });
 
       Future<void> build(dynamic param) async {
-        await tester.pumpWidget(HookBuilder(
-          builder: (context) {
-            useCubitFactory<MockedCubit, MockedCubitFactory>(
-              onCubitCreate: (factory) {
-                factory.config();
-              },
-              keys: [param],
-            );
+        await tester.pumpWidget(
+          HookedBlocInjector(
+            injector: () => injector.get,
+            child: HookBuilder(
+              builder: (context) {
+                useCubitFactory<MockedCubit, MockedCubitFactory>(
+                  onCubitCreate: (factory) {
+                    factory.config();
+                  },
+                  keys: [param],
+                );
 
-            return const SizedBox();
-          },
-        ));
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
       }
 
       await build(0);
@@ -138,15 +152,20 @@ void main() {
 
       late TestCubit generatedCubit;
       Future<void> build(bool param) async {
-        await tester.pumpWidget(HookBuilder(
-          builder: (context) {
-            generatedCubit = useCubitFactory<TestCubit, TestCubitFactory>(
-              keys: [param],
-            );
+        await tester.pumpWidget(
+          HookedBlocInjector(
+            injector: () => injector.get,
+            child: HookBuilder(
+              builder: (context) {
+                generatedCubit = useCubitFactory<TestCubit, TestCubitFactory>(
+                  keys: [param],
+                );
 
-            return const SizedBox();
-          },
-        ));
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
       }
 
       await build(true);
@@ -163,12 +182,17 @@ void main() {
           .thenAnswer((_) => TestCubitFactory());
 
       Future<void> build(bool param) async {
-        await tester.pumpWidget(HookBuilder(
-          builder: (context) {
-            useCubitFactory<TestCubit, TestCubitFactory>(keys: [param]);
-            return const SizedBox();
-          },
-        ));
+        await tester.pumpWidget(
+          HookedBlocInjector(
+            injector: () => injector.get,
+            child: HookBuilder(
+              builder: (context) {
+                useCubitFactory<TestCubit, TestCubitFactory>(keys: [param]);
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
       }
 
       await build(true);

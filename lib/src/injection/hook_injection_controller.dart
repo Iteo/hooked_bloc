@@ -1,9 +1,7 @@
 import 'package:hooked_bloc/hooked_bloc.dart';
 import 'package:hooked_bloc/src/cubit_defaults.dart';
+import 'package:hooked_bloc/src/injection/bloc_hook_injector_config.dart';
 import 'package:meta/meta.dart';
-
-typedef CubitInjector = T Function<T extends Object>();
-typedef CubitInjectionFunction = CubitInjector Function();
 
 class BlocHookInjectionController {
   static CubitInjectionFunction? _injector;

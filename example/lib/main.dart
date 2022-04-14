@@ -6,11 +6,11 @@ import 'package:hooked_bloc/hooked_bloc.dart';
 void main() async {
   // With GetIt or Injectable
   await configureDependencies();
-  HookedBloc.initialize(
-    () => getIt.get,
-    builderCondition: (state) => state != null, // Global build condition
-    listenerCondition: (state) => state != null, // Global listen condition
-  );
+  // HookedBloc.initialize(
+  //   () => getIt.get,
+  //   builderCondition: (state) => state != null, // Global build condition
+  //   listenerCondition: (state) => state != null, // Global listen condition
+  // );
 
   // Or create your own initializer with default conditions (always allow)
   // HookedBloc.initialize(() {
@@ -68,10 +68,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: appName,
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: HomePage(title: appName),
+    return HookedBlocInjector(
+      injector: () => getIt.get,
+      builderCondition: (state) => state != null, // Global build condition
+      listenerCondition: (state) => state != null, // Global listen condition
+      child: MaterialApp(
+        title: appName,
+        theme: ThemeData(primarySwatch: Colors.blue),
+        home: HomePage(title: appName),
+      ),
     );
   }
 }

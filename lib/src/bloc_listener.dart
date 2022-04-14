@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooked_bloc/src/injection/hook_injection_controller.dart';
+import 'package:hooked_bloc/src/injection/bloc_hook_injector_config.dart';
 
 typedef BlocListenerCondition<S> = bool Function(S current);
 
@@ -22,17 +22,18 @@ void useCubitListener<BLOC extends BlocBase<S>, S>(
   BlocListenerCondition<S>? listenWhen,
 }) {
   final context = useContext();
-  final listenWhenConditioner = listenWhen;
+  final configuredListener = useBlocHookInjectorConfig().listenerCondition;
+  final listenWhenConditioner = listenWhen ?? configuredListener;
+
   useMemoized(
     () {
-      final stream = bloc.stream
-          .where(listenWhenConditioner ??
-              BlocHookInjectionController.listenerCondition)
-          .listen((state) => listener(
-                bloc,
-                state,
-                context,
-              ));
+      final stream = bloc.stream.where(listenWhenConditioner).listen(
+            (state) => listener(
+              bloc,
+              state,
+              context,
+            ),
+          );
 
       return stream.cancel;
     },
