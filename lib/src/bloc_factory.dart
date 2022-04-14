@@ -24,7 +24,7 @@ T useCubitFactory<T extends BlocBase, F extends BlocFactory<T>>({
   bool closeOnDispose = true,
 }) {
   final context = useContext();
-  final configuredInjector = useBlocHookInjectorConfig().injector;
+  final configuredInjector = useHookedBlocConfig().injector;
   final injector =
       configuredInjector?.call() ?? CubitDefaults.defaultCubitInjector(context);
 

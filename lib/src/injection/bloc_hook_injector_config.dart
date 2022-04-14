@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 typedef CubitInjector = T Function<T extends Object>();
 typedef CubitInjectionFunction = CubitInjector Function();
 
-class BlocHookInjectorConfig {
-  BlocHookInjectorConfig({
+class HookedBlocConfig {
+  HookedBlocConfig({
     this.injector,
     BlocBuilderCondition? builderCondition,
     BlocListenerCondition? listenerCondition,
@@ -17,7 +17,7 @@ class BlocHookInjectorConfig {
         listenerCondition =
             listenerCondition ?? CubitDefaults.alwaysListenCondition;
 
-  BlocHookInjectorConfig._def()
+  HookedBlocConfig._def()
       : injector = null,
         builderCondition = CubitDefaults.alwaysRebuildCondition,
         listenerCondition = CubitDefaults.alwaysListenCondition;
@@ -27,11 +27,11 @@ class BlocHookInjectorConfig {
   final BlocListenerCondition listenerCondition;
 }
 
-BlocHookInjectorConfig useBlocHookInjectorConfig() {
+HookedBlocConfig useHookedBlocConfig() {
   final context = useContext();
   try {
-    return context.read<BlocHookInjectorConfig>();
+    return context.read<HookedBlocConfig>();
   } catch (_) {
-    return BlocHookInjectorConfig._def();
+    return HookedBlocConfig._def();
   }
 }

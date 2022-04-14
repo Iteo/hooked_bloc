@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return HookedBlocInjector(
+    return HookedBlocConfigProvider(
       injector: () => getIt.get,
       builderCondition: (state) => state != null, // Global build condition
       listenerCondition: (state) => state != null, // Global listen condition

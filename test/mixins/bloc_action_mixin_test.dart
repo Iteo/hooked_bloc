@@ -56,7 +56,7 @@ void main() {
 
     Future<void> build() async {
       await tester.pumpWidget(
-        HookedBlocInjector(
+        HookedBlocConfigProvider(
           injector: () => injector.get,
           child: HookBuilder(
             builder: (context) {

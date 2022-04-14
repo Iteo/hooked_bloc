@@ -186,7 +186,7 @@ void main() {
       int listenerCalls = 0;
 
       await tester.pumpWidget(
-        HookedBlocInjector(
+        HookedBlocConfigProvider(
           injector: () => injector.get,
           listenerCondition: (_) => false,
           child: MyApp(
@@ -216,7 +216,7 @@ void main() {
       int listenerCalls = 0;
 
       await tester.pumpWidget(
-        HookedBlocInjector(
+        HookedBlocConfigProvider(
           injector: () => injector.get,
           listenerCondition: (_) => false,
           child: MyApp(

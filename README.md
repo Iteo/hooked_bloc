@@ -132,7 +132,7 @@ void main() async {
   await configureDependencies();
 
   runApp(
-    HookedBlocInjector(
+    HookedBlocConfigProvider(
       injector: () => getIt.get,
       builderCondition: (state) => state != null, // Global build condition
       listenerCondition: (state) => state != null, // Global listen condition

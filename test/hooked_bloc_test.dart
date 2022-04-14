@@ -39,7 +39,7 @@ void main() {
 
       Future<void> build() async {
         await tester.pumpWidget(
-          HookedBlocInjector(
+          HookedBlocConfigProvider(
             injector: () => injector.get,
             child: HookBuilder(
               builder: (context) {
@@ -69,7 +69,7 @@ void main() {
 
       Future<void> build() async {
         await tester.pumpWidget(
-          HookedBlocInjector(
+          HookedBlocConfigProvider(
             injector: () => injector.get,
             child: HookBuilder(
               builder: (context) {
@@ -97,7 +97,7 @@ void main() {
       late TestCubit generatedCubit;
       Future<void> build(bool param) async {
         await tester.pumpWidget(
-          HookedBlocInjector(
+          HookedBlocConfigProvider(
             injector: () => injector.get,
             child: HookBuilder(
               builder: (context) {
@@ -124,7 +124,7 @@ void main() {
 
       Future<void> build(bool param) async {
         await tester.pumpWidget(
-          HookedBlocInjector(
+          HookedBlocConfigProvider(
             injector: () => injector.get,
             child: HookBuilder(
               builder: (context) {

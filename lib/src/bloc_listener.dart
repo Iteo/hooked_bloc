@@ -22,7 +22,7 @@ void useCubitListener<BLOC extends BlocBase<S>, S>(
   BlocListenerCondition<S>? listenWhen,
 }) {
   final context = useContext();
-  final configuredListener = useBlocHookInjectorConfig().listenerCondition;
+  final configuredListener = useHookedBlocConfig().listenerCondition;
   final listenWhenConditioner = listenWhen ?? configuredListener;
 
   useMemoized(
