@@ -3,28 +3,39 @@ import 'package:hooked_bloc/hooked_bloc.dart';
 import 'package:hooked_bloc/src/injection/bloc_hook_injector_config.dart';
 import 'package:provider/provider.dart';
 
-/// Initialize [HookedBloc] with default [BlocBase] injection function. This method call is not required. Can be omitted.
-/// If so, [HookedBloc] will use default [injectionFunction], [builderCondition] and [listenerCondition]
+/// [HookedBlocInjector] provides you a way to setup widget tree scoped [BlocHookInjectorConfig] for cubit hooks
 ///
-/// [injectionFunction] used by [useCubit] provides required [BlocBase] class.
+/// [injector] used by [useCubit] provides required [BlocBase] class.
 /// Default implementation tries to find correct [BlocBase] class in widget tree using [Provider.of]
+/// 
 /// You can easily hooked up this function with other DI/Service locator libraries like GetIt, like so:
 /// ```dart
-/// HookedBloc.initialize(() => getIt);
+/// HookedBlocInjector(
+///   injector: () => getIt,
+///   child: MaterialApp(
+///     ...
+///   ),
+/// )
 ///```
 ///
 /// or setup own provider:
 /// ```dart
-/// HookedBloc.initialize(() {
-///   return <T extends Object>() {
-///     if (T == MyCubit) {
-///       return MyCubit() as T;
-///     } else {
-///       return ...
-///     }
-///   };
-/// });
+/// HookedBlocInjector(
+///   injector: () {
+///     return <T extends Object>() {
+///       if (T == MyCubit) {
+///         return MyCubit() as T;
+///       } else {
+///         return ...
+///       }
+///     };
+///   },
+///   child: MaterialApp(
+///     ...
+///   ),
+/// )
 ///```
+///
 /// [builderCondition] sets global `buildWhen` methods. Used by [useCubitBuilder].
 /// Can be overridden by buildWhen parameter from [useCubitBuilder]
 /// Default implementation pass all states (state) => true
