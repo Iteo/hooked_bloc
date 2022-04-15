@@ -172,8 +172,6 @@ void main() {
 
     setUp(() {
       injector = MockedInjector();
-      HookedBloc.initialize(() => injector.get,
-          listenerCondition: (_) => false);
     });
 
     testWidgets(
@@ -188,11 +186,15 @@ void main() {
       int listenerCalls = 0;
 
       await tester.pumpWidget(
-        MyApp(
-          cubit: cubit,
-          onListenerCalled: (_, int state) {
-            listenerCalls++;
-          },
+        HookedBlocConfigProvider(
+          injector: () => injector.get,
+          listenerCondition: (_) => false,
+          child: MyApp(
+            cubit: cubit,
+            onListenerCalled: (_, int state) {
+              listenerCalls++;
+            },
+          ),
         ),
       );
 
@@ -214,12 +216,16 @@ void main() {
       int listenerCalls = 0;
 
       await tester.pumpWidget(
-        MyApp(
-          cubit: cubit,
-          onListenerCalled: (_, int state) {
-            listenerCalls++;
-          },
-          listenWhen: (_) => true,
+        HookedBlocConfigProvider(
+          injector: () => injector.get,
+          listenerCondition: (_) => false,
+          child: MyApp(
+            cubit: cubit,
+            onListenerCalled: (_, int state) {
+              listenerCalls++;
+            },
+            listenWhen: (_) => true,
+          ),
         ),
       );
 

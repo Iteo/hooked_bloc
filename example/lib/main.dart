@@ -6,27 +6,15 @@ import 'package:hooked_bloc/hooked_bloc.dart';
 void main() async {
   // With GetIt or Injectable
   await configureDependencies();
-  HookedBloc.initialize(
-    () => getIt.get,
-    builderCondition: (state) => state != null, // Global build condition
-    listenerCondition: (state) => state != null, // Global listen condition
+
+  runApp(
+    HookedBlocConfigProvider(
+      injector: () => getIt.get,
+      builderCondition: (state) => state != null, // Global build condition
+      listenerCondition: (state) => state != null, // Global listen condition
+      child: const MyApp(),
+    ),
   );
-
-  // Or create your own initializer with default conditions (always allow)
-  // HookedBloc.initialize(() {
-  //   return <T extends Object>() {
-  //     if (T == MyCubit) {
-  //       return MyCubit() as T;
-  //     } else {
-  //       return ...
-  //     }
-  //   };
-  // });
-
-  // Or you can omit HookedBloc.initialize(...)
-  // and allow library to find the cubit in the widget tree
-
-  runApp(const MyApp());
 }
 
 // Quickstart example counter page

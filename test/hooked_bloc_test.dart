@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:hooked_bloc/hooked_bloc.dart';
-import 'package:hooked_bloc/src/injection/hook_injection_controller.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'mock.dart';
@@ -26,11 +24,6 @@ void main() {
     late Injector injector;
     setUp(() {
       injector = MockedInjector();
-      HookedBloc.initialize(() => injector.get);
-    });
-
-    tearDown(() {
-      BlocHookInjectionController.cleanUp();
     });
 
     testWidgets('should build and close cubit only once', (tester) async {
@@ -39,13 +32,18 @@ void main() {
       when(() => cubit.close()).thenAnswer((invocation) => Future.value());
 
       Future<void> build() async {
-        await tester.pumpWidget(HookBuilder(
-          builder: (context) {
-            useCubit<MockedCubit>();
+        await tester.pumpWidget(
+          HookedBlocConfigProvider(
+            injector: () => injector.get,
+            child: HookBuilder(
+              builder: (context) {
+                useCubit<MockedCubit>();
 
-            return const SizedBox();
-          },
-        ));
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
       }
 
       await build();
@@ -64,13 +62,18 @@ void main() {
       when(() => cubit.close()).thenAnswer((invocation) => Future.value());
 
       Future<void> build() async {
-        await tester.pumpWidget(HookBuilder(
-          builder: (context) {
-            useCubit<MockedCubit>(closeOnDispose: false);
+        await tester.pumpWidget(
+          HookedBlocConfigProvider(
+            injector: () => injector.get,
+            child: HookBuilder(
+              builder: (context) {
+                useCubit<MockedCubit>(closeOnDispose: false);
 
-            return const SizedBox();
-          },
-        ));
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
       }
 
       await build();
@@ -87,13 +90,18 @@ void main() {
 
       late TestCubit generatedCubit;
       Future<void> build(bool param) async {
-        await tester.pumpWidget(HookBuilder(
-          builder: (context) {
-            generatedCubit = useCubit<TestCubit>(keys: [param]);
+        await tester.pumpWidget(
+          HookedBlocConfigProvider(
+            injector: () => injector.get,
+            child: HookBuilder(
+              builder: (context) {
+                generatedCubit = useCubit<TestCubit>(keys: [param]);
 
-            return const SizedBox();
-          },
-        ));
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
       }
 
       await build(true);
@@ -109,12 +117,17 @@ void main() {
       when(() => injector.get<TestCubit>()).thenAnswer((_) => TestCubit());
 
       Future<void> build(bool param) async {
-        await tester.pumpWidget(HookBuilder(
-          builder: (context) {
-            useCubit<TestCubit>(keys: [param]);
-            return const SizedBox();
-          },
-        ));
+        await tester.pumpWidget(
+          HookedBlocConfigProvider(
+            injector: () => injector.get,
+            child: HookBuilder(
+              builder: (context) {
+                useCubit<TestCubit>(keys: [param]);
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
       }
 
       await build(true);

@@ -30,11 +30,11 @@ use cases and reuse them, which makes writing widgets faster and easier.
 - [Motivation](#motivation)
 - [Setup](#setup)
 - [Basics](#basics)
-    - [useCubit](#usecubit)
-    - [useCubitFactory](#usecubitfactory)
-    - [useCubitBuilder](#usecubitbuilder)
-    - [useCubitListener](#usecubitlistener)
-    - [useActionListener](#useactionlistener)
+  - [useCubit](#usecubit)
+  - [useCubitFactory](#usecubitfactory)
+  - [useCubitBuilder](#usecubitbuilder)
+  - [useCubitListener](#usecubitlistener)
+  - [useActionListener](#useactionlistener)
 - [Contribution](#contribution)
 
 ## Motivation
@@ -124,32 +124,24 @@ dependencies:
   hooked_bloc:
 ```
 
-After that you need to initialize the HookedBloc:
+After that you can (it's optional) initialize the HookedBloc:
 
 ```dart
 void main() async {
   // With GetIt or Injectable
   await configureDependencies();
-  HookedBloc.initialize(() => getIt.get,
-    builderCondition: (state) => state != null, // Global build condition
-    listenerCondition: (state) => state != null, // Global listen condition
+
+  runApp(
+    HookedBlocConfigProvider(
+      injector: () => getIt.get,
+      builderCondition: (state) => state != null, // Global build condition
+      listenerCondition: (state) => state != null, // Global listen condition
+      child: const MyApp(),
+    )
   );
 
-  // Or create your own initializer with default conditions (always allow)
-  // HookedBloc.initialize(() {
-  //   return <T extends Object>() {
-  //     if (T == MyCubit) {
-  //       return MyCubit() as T;
-  //     } else {
-  //       return ...
-  //     }
-  //   };
-  // });
-
-  // Or you can omit HookedBloc.initialize(...)
+  // Or you can omit HookedBlocInjector(...)
   // and allow library to find the cubit in the widget tree
-
-  runApp(const MyApp());
 }
 ```
 

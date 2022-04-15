@@ -20,7 +20,6 @@ void main() {
   setUp(() {
     injector = MockedInjector();
     testCubit = TestCubitWithMixin();
-    HookedBloc.initialize(() => injector.get);
   });
 
   test('test cubit with mixin should emit added actions', () {
@@ -56,13 +55,18 @@ void main() {
     when(() => injector.get<TestCubitWithMixin>()).thenReturn(cubit);
 
     Future<void> build() async {
-      await tester.pumpWidget(HookBuilder(
-        builder: (context) {
-          useCubit<TestCubitWithMixin>();
+      await tester.pumpWidget(
+        HookedBlocConfigProvider(
+          injector: () => injector.get,
+          child: HookBuilder(
+            builder: (context) {
+              useCubit<TestCubitWithMixin>();
 
-          return const SizedBox();
-        },
-      ));
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
     }
 
     await build();
