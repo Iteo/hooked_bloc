@@ -31,7 +31,7 @@ class MyApp extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    useCubitListener<CounterCubit, int>(
+    useBlocListener<CounterCubit, int>(
       cubit,
       (cubit, currentState, context) {
         onListenerCalled?.call(context, currentState);

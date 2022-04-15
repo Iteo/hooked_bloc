@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 /// [HookedBlocConfigProvider] provides you a way to setup widget tree scoped [HookedBlocConfig] for cubit hooks
 ///
-/// [injector] used by [useCubit] provides required [BlocBase] class.
+/// [injector] used by [useBloc] provides required [BlocBase] class.
 /// Default implementation tries to find correct [BlocBase] class in widget tree using [Provider.of]
 ///
 /// You can easily hooked up this function with other DI/Service locator libraries like GetIt, like so:
@@ -36,12 +36,12 @@ import 'package:provider/provider.dart';
 /// )
 ///```
 ///
-/// [builderCondition] sets global `buildWhen` methods. Used by [useCubitBuilder].
-/// Can be overridden by buildWhen parameter from [useCubitBuilder]
+/// [builderCondition] sets global `buildWhen` methods. Used by [useBlocBuilder].
+/// Can be overridden by buildWhen parameter from [useBlocBuilder]
 /// Default implementation pass all states (state) => true
 ///
-/// [listenerCondition] sets global `listenWhen` methods. Used by [useCubitListener].
-/// Can be overridden by listenWhen parameter from [useCubitListener]
+/// [listenerCondition] sets global `listenWhen` methods. Used by [useBlocListener].
+/// Can be overridden by listenWhen parameter from [useBlocListener]
 /// Default implementation pass all states (state) => true
 class HookedBlocConfigProvider extends StatelessWidget {
   const HookedBlocConfigProvider({
@@ -52,7 +52,7 @@ class HookedBlocConfigProvider extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final CubitInjectionFunction? injector;
+  final BlocInjectionFunction? injector;
   final BlocBuilderCondition? builderCondition;
   final BlocListenerCondition? listenerCondition;
   final Widget child;

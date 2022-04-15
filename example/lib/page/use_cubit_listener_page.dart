@@ -14,11 +14,11 @@ class UseCubitListenerPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     // Handle state as event independently of the view state
-    useCubitListener(cubit, (_, value, context) {
+    useBlocListener(cubit, (_, value, context) {
       _showMessage(context, (value as ShowMessage).message);
     }, listenWhen: (state) => state is ShowMessage);
 
-    final state = useCubitBuilder(
+    final state = useBlocBuilder(
       cubit,
       buildWhen: (st) => st is UpdateScreen,
     );

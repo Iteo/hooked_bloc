@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooked_bloc/hooked_bloc.dart';
-import 'package:hooked_bloc/src/cubit_defaults.dart';
+import 'package:hooked_bloc/src/bloc_defaults.dart';
 
 class CounterCubit extends Cubit<int> {
   CounterCubit({int seed = 0}) : super(seed);
@@ -43,7 +43,7 @@ void main() {
     late int? stateValue;
     Widget Function(BuildContext) builder(BlocBase<int> cubit) {
       return (context) {
-        stateValue = useCubitBuilder<BlocBase, int>(cubit);
+        stateValue = useBlocBuilder<BlocBase, int>(cubit);
         return Container();
       };
     }
@@ -62,7 +62,7 @@ void main() {
     late int? stateValue;
     Widget Function(BuildContext) builder(BlocBase<int> cubit) {
       return (context) {
-        stateValue = useCubitBuilder<BlocBase, int>(cubit);
+        stateValue = useBlocBuilder<BlocBase, int>(cubit);
         return Container();
       };
     }
@@ -91,7 +91,7 @@ void main() {
         Cubit<TestState> cubit, Cubit<TestState> cubit2) {
       return (context) {
         final usedCubit = useSecond ? cubit2 : cubit;
-        final state = useCubitBuilder<ComplexCubit, TestState>(usedCubit);
+        final state = useBlocBuilder<ComplexCubit, TestState>(usedCubit);
         stateValue = state;
         expectedStateHashCode = state.hashCode;
 
@@ -130,7 +130,7 @@ void main() {
         Cubit<TestState> cubit, Cubit<TestState> cubit2) {
       return (context) {
         final usedCubit = useSecond ? cubit2 : cubit;
-        final state = useCubitBuilder<ComplexCubit, TestState>(usedCubit);
+        final state = useBlocBuilder<ComplexCubit, TestState>(usedCubit);
         stateValue = state;
         expectedStateHashCode = state.hashCode;
 
@@ -166,7 +166,7 @@ void main() {
       required bool Function(TestState state) buildWhen,
     }) {
       return (context) {
-        stateValue = useCubitBuilder<ComplexCubit, TestState>(cubit,
+        stateValue = useBlocBuilder<ComplexCubit, TestState>(cubit,
             buildWhen: buildWhen);
         return Container();
       };
@@ -208,8 +208,8 @@ void main() {
 
     Widget Function(BuildContext) builder(AbstractStateCubit cubit) {
       return (context) {
-        stateValue = useCubitBuilder<AbstractStateCubit, AbstractState>(cubit,
-            buildWhen: CubitDefaults.passOnlyBuildStateCondition);
+        stateValue = useBlocBuilder<AbstractStateCubit, AbstractState>(cubit,
+            buildWhen: BlocDefaults.passOnlyBuildStateCondition);
         return Container();
       };
     }

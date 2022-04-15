@@ -20,7 +20,7 @@ class UseActionListenerPage extends HookWidget {
       _showMessage(context, action);
     });
 
-    final state = useCubitBuilder(
+    final state = useBlocBuilder(
       cubit,
       buildWhen: (st) => st is UpdateScreen,
     );

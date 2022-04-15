@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hooked_bloc/hooked_bloc.dart';
+import 'package:hooked_bloc/src/bloc_defaults.dart';
 import 'package:hooked_bloc/src/config/hooked_bloc_config.dart';
-import 'package:hooked_bloc/src/cubit_defaults.dart';
+import 'package:hooked_bloc/src/hooked_bloc.dart';
 
 void main() {
   testWidgets(
@@ -24,8 +23,10 @@ void main() {
       );
 
       expect(config.injector, null);
-      expect(config.builderCondition, CubitDefaults.alwaysRebuildCondition<dynamic>);
-      expect(config.listenerCondition, CubitDefaults.alwaysListenCondition<dynamic>);
+      expect(config.builderCondition,
+          BlocDefaults.alwaysRebuildCondition<dynamic>);
+      expect(config.listenerCondition,
+          BlocDefaults.alwaysListenCondition<dynamic>);
     },
   );
 
@@ -33,7 +34,7 @@ void main() {
     'config matches passed values',
     (tester) async {
       T objectFactory<T extends Object>() => throw Exception();
-      CubitInjector injector() => objectFactory;
+      BlocInjector injector() => objectFactory;
       bool builderCondition(state) => true;
       bool listenerCondition(state) => true;
 
