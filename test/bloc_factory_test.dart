@@ -49,7 +49,7 @@ void main() {
             injector: () => injector.get,
             child: HookBuilder(
               builder: (context) {
-                useCubitFactory<MockedCubit, MockedCubitFactory>();
+                useBlocFactory<MockedCubit, MockedCubitFactory>();
 
                 return const SizedBox();
               },
@@ -81,7 +81,7 @@ void main() {
             injector: () => injector.get,
             child: HookBuilder(
               builder: (context) {
-                useCubitFactory<MockedCubit, MockedCubitFactory>(
+                useBlocFactory<MockedCubit, MockedCubitFactory>(
                     closeOnDispose: false);
 
                 return const SizedBox();
@@ -116,8 +116,8 @@ void main() {
             injector: () => injector.get,
             child: HookBuilder(
               builder: (context) {
-                useCubitFactory<MockedCubit, MockedCubitFactory>(
-                  onCubitCreate: (factory) {
+                useBlocFactory<MockedCubit, MockedCubitFactory>(
+                  onBlocCreate: (factory) {
                     factory.config();
                   },
                   keys: [param],
@@ -151,7 +151,7 @@ void main() {
             injector: () => injector.get,
             child: HookBuilder(
               builder: (context) {
-                generatedCubit = useCubitFactory<TestCubit, TestCubitFactory>(
+                generatedCubit = useBlocFactory<TestCubit, TestCubitFactory>(
                   keys: [param],
                 );
 
@@ -181,7 +181,7 @@ void main() {
             injector: () => injector.get,
             child: HookBuilder(
               builder: (context) {
-                useCubitFactory<TestCubit, TestCubitFactory>(keys: [param]);
+                useBlocFactory<TestCubit, TestCubitFactory>(keys: [param]);
                 return const SizedBox();
               },
             ),
@@ -208,7 +208,7 @@ void main() {
             value: TestCubitFactory(),
             child: HookBuilder(
               builder: (context) {
-                final cubit = useCubitFactory<TestCubit, TestCubitFactory>();
+                final cubit = useBlocFactory<TestCubit, TestCubitFactory>();
 
                 useEffect(() {
                   onInit.call<TestCubit>(cubit);

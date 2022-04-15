@@ -30,11 +30,11 @@ use cases and reuse them, which makes writing widgets faster and easier.
 - [Motivation](#motivation)
 - [Setup](#setup)
 - [Basics](#basics)
-  - [useCubit](#usecubit)
-  - [useCubitFactory](#usecubitfactory)
-  - [useCubitBuilder](#usecubitbuilder)
-  - [useCubitListener](#usecubitlistener)
-  - [useActionListener](#useactionlistener)
+    - [useBloc](#usebloc)
+    - [useBlocFactory](#useblocfactory)
+    - [useBlocBuilder](#useblocbuilder)
+    - [useBlocListener](#usebloclistener)
+    - [useActionListener](#useactionlistener)
 - [Contribution](#contribution)
 
 ## Motivation
@@ -82,13 +82,13 @@ We can have this:
 ```dart
   @override
 Widget build(BuildContext context) {
-  final cubit = useCubit<RealLifeCubit>();
+  final cubit = useBloc<RealLifeCubit>();
 
-  useCubitListener<RealLifeCubit, BuildState>(cubit, (cubit, value, context) {
+  useBlocListener<RealLifeCubit, BuildState>(cubit, (cubit, value, context) {
     // Show some view on event
   }, listenWhen: (state) => state is ErrorState);
 
-  final state = useCubitBuilder(
+  final state = useBlocBuilder(
     cubit,
     buildWhen: (state) =>
         [LoadedState, LoadingState, ShowItemState].contains(
@@ -101,8 +101,8 @@ Widget build(BuildContext context) {
 ```
 
 This code is functionally equivalent to the previous example. It still rebuilds the widget in the proper way and the
-right time. Whole logic of finding adequate Cubit/Bloc and providing current state is hidden in `useCubit`
-and `useCubitBuilder` hooks.
+right time. Whole logic of finding adequate Cubit/Bloc and providing current state is hidden in `useBloc`
+and `useBlocBuilder` hooks.
 
 Full example can be found in <a href="https://github.com/Iteo/hooked_bloc/tree/develop/example">here</a>
 
@@ -155,12 +155,12 @@ class MyApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
     // At start obtain a cubit instance
-    final cubit = useCubit<CounterCubit>();
+    final cubit = useBloc<CounterCubit>();
     // Then observe state's updates
     // `buildWhen` param will override builderCondition locally
-    final state = useCubitBuilder(cubit, buildWhen: (state) => state <= 10);
+    final state = useBlocBuilder(cubit, buildWhen: (state) => state <= 10);
     // Create a listener for the side-effect
-    useCubitListener(cubit, (cubit, value, context) {
+    useBlocListener(cubit, (cubit, value, context) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Button clicked"),
           ));
@@ -194,22 +194,22 @@ Hooked Bloc already comes with a few reusable hooks:
   </tr>
 
   <tr>
-    <td>useCubit</td>
-    <td>Returns required cubit</td>
+    <td>useBloc</td>
+    <td>Returns required Cubit/Bloc</td>
   </tr>
 
   <tr>
-    <td>useCubitFactory</td>
-    <td>Returns desired cubit by creating it with provided factory</td>
+    <td>useBlocFactory</td>
+    <td>Returns desired Cubit/Bloc by creating it with provided factory</td>
   </tr>
 
   <tr>
-    <td>useCubitBuilder</td>
-    <td>Returns current cubit state - similar to BlocBuilder</td>
+    <td>useBlocBuilder</td>
+    <td>Returns current Cubit/Bloc state - similar to BlocBuilder</td>
   </tr>
 
   <tr>
-    <td>useCubitListener</td>
+    <td>useBlocListener</td>
     <td>Invokes callback - similar to BlocListener</td>
   </tr>
 
@@ -220,15 +220,15 @@ Hooked Bloc already comes with a few reusable hooks:
 
 </table>
 
-### useCubit
+### useBloc
 
-`useCubit` hook tries to find Cubit using the cubit provider, or - if not specified - looks into the widget tree.
+`useBloc` hook tries to find Cubit using the cubit provider, or - if not specified - looks into the widget tree.
 
 ```dart
   @override
 Widget build(BuildContext context) {
   // The hook will provide the expected object
-  final cubit = useCubit<SimpleCubit>(
+  final cubit = useBloc<SimpleCubit>(
     // For default hook automatically closes cubit
     closeOnDispose: true,
   );
@@ -237,9 +237,9 @@ Widget build(BuildContext context) {
 }
 ```
 
-### useCubitFactory
+### useBlocFactory
 
-`useCubitFactory` hook tries to find factory using provided injection method and then returns cubit created by it
+`useBlocFactory` hook tries to find factory using provided injection method and then returns cubit created by it
 
 ```dart
 class SimpleCubitFactory extends BlocFactory<SimpleCubit> {
@@ -259,7 +259,7 @@ class SimpleCubitFactory extends BlocFactory<SimpleCubit> {
 @override
 Widget build(BuildContext context) {
   // The hook will provide the expected object
-  final cubit = useCubitFactory<SimpleCubit, SimpleCubitFactory>(
+  final cubit = useBlocFactory<SimpleCubit, SimpleCubitFactory>(
     onCubitCreate: (cubitFactory) {
       cubitFactory.configure(false);
     }
@@ -269,9 +269,9 @@ Widget build(BuildContext context) {
 }
 ```
 
-### useCubitBuilder
+### useBlocBuilder
 
-`useCubitBuilder` hook rebuilds the widget when new state appears
+`useBlocBuilder` hook rebuilds the widget when new state appears
 
 ```dart
 
@@ -281,16 +281,16 @@ final CounterCubit cubit = CounterCubit("My cubit");
 Widget build(BuildContext context) {
   // The state will be updated along with the widget
   // For default the state will be updated basing on `builderCondition`
-  final int state = useCubitBuilder(cubit);
+  final int state = useBlocBuilder(cubit);
 
   return // Access provided state
 }
 
 ```
 
-### useCubitListener
+### useBlocListener
 
-`useCubitListener` hook allows to observe cubit's states that represent action (e.g. show Snackbar)
+`useBlocListener` hook allows to observe cubit's states that represent action (e.g. show Snackbar)
 
 ```dart
 
@@ -299,7 +299,7 @@ final EventCubit cubit = EventCubit();
 @override
 Widget build(BuildContext context) {
   // Handle state as event independently of the view state
-  useCubitListener(cubit, (_, value, context) {
+  useBlocListener(cubit, (_, value, context) {
     _showMessage(context, (value as ShowMessage).message);
   }, listenWhen: (state) => state is ShowMessage);
 
@@ -309,7 +309,7 @@ Widget build(BuildContext context) {
 
 ### useActionListener
 
-`useActionListener` hook is similar to the `useCubitListener` but listens to the stream different than state's stream
+`useActionListener` hook is similar to the `useBlocListener` but listens to the stream different than state's stream
 and can be used for actions that require a different flow of notifying.
 
 Because of that your bloc/cubit must use `BlocActionMixin`
@@ -325,7 +325,7 @@ class MessageActionCubit extends EventCubit with BlocActionMixin<String, BuildSt
 }
 ```
 
-Then, consume results as you would do with `useCubitListener`
+Then, consume results as you would do with `useBlocListener`
 
 ```dart
   @override

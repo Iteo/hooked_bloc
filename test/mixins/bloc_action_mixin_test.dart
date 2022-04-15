@@ -60,7 +60,7 @@ void main() {
           injector: () => injector.get,
           child: HookBuilder(
             builder: (context) {
-              useCubit<TestCubitWithMixin>();
+              useBloc<TestCubitWithMixin>();
 
               return const SizedBox();
             },

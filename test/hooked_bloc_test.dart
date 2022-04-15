@@ -37,7 +37,7 @@ void main() {
             injector: () => injector.get,
             child: HookBuilder(
               builder: (context) {
-                useCubit<MockedCubit>();
+                useBloc<MockedCubit>();
 
                 return const SizedBox();
               },
@@ -67,7 +67,7 @@ void main() {
             injector: () => injector.get,
             child: HookBuilder(
               builder: (context) {
-                useCubit<MockedCubit>(closeOnDispose: false);
+                useBloc<MockedCubit>(closeOnDispose: false);
 
                 return const SizedBox();
               },
@@ -95,7 +95,7 @@ void main() {
             injector: () => injector.get,
             child: HookBuilder(
               builder: (context) {
-                generatedCubit = useCubit<TestCubit>(keys: [param]);
+                generatedCubit = useBloc<TestCubit>(keys: [param]);
 
                 return const SizedBox();
               },
@@ -122,7 +122,7 @@ void main() {
             injector: () => injector.get,
             child: HookBuilder(
               builder: (context) {
-                useCubit<TestCubit>(keys: [param]);
+                useBloc<TestCubit>(keys: [param]);
                 return const SizedBox();
               },
             ),
@@ -147,7 +147,7 @@ void main() {
           value: TestCubit(),
           child: HookBuilder(
             builder: (context) {
-              final cubit = useCubit<TestCubit>();
+              final cubit = useBloc<TestCubit>();
 
               useEffect(() {
                 onInit.call<TestCubit>(cubit);

@@ -6,7 +6,7 @@ import 'package:hooked_bloc/src/config/hooked_bloc_config.dart';
 typedef BlocListenerCondition<S> = bool Function(S current);
 
 typedef BlocListener<BLOC extends BlocBase<S>, S> = void Function(
-  BLOC cubit,
+  BLOC bloc,
   S current,
   BuildContext context,
 );
@@ -16,7 +16,7 @@ typedef BlocListener<BLOC extends BlocBase<S>, S> = void Function(
 /// [listener] callback function
 /// [listenWhen] local filter function, that will pass incoming states from [BlocBase.stream]. By default passes all states.
 ///
-void useCubitListener<BLOC extends BlocBase<S>, S>(
+void useBlocListener<BLOC extends BlocBase<S>, S>(
   BLOC bloc,
   BlocListener<BLOC, S> listener, {
   BlocListenerCondition<S>? listenWhen,

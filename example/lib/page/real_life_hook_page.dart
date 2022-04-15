@@ -10,9 +10,9 @@ class RealLifeHookPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = useCubit<RealLifeCubit>();
+    final cubit = useBloc<RealLifeCubit>();
 
-    useCubitListener<RealLifeCubit, BuildState>(cubit, (
+    useBlocListener<RealLifeCubit, BuildState>(cubit, (
       cubit,
       value,
       context,
@@ -22,7 +22,7 @@ class RealLifeHookPage extends HookWidget {
       );
     }, listenWhen: (state) => state is ErrorState);
 
-    final state = useCubitBuilder(
+    final state = useBlocBuilder(
       cubit,
       buildWhen: (state) => [
         LoadedState,

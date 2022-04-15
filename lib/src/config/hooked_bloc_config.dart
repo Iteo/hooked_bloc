@@ -1,11 +1,11 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooked_bloc/src/bloc_builder.dart';
+import 'package:hooked_bloc/src/bloc_defaults.dart';
 import 'package:hooked_bloc/src/bloc_listener.dart';
-import 'package:hooked_bloc/src/cubit_defaults.dart';
 import 'package:provider/provider.dart';
 
-typedef CubitInjector = T Function<T extends Object>();
-typedef CubitInjectionFunction = CubitInjector Function();
+typedef BlocInjector = T Function<T extends Object>();
+typedef BlocInjectionFunction = BlocInjector Function();
 
 class HookedBlocConfig {
   HookedBlocConfig({
@@ -13,16 +13,16 @@ class HookedBlocConfig {
     BlocBuilderCondition? builderCondition,
     BlocListenerCondition? listenerCondition,
   })  : builderCondition =
-            builderCondition ?? CubitDefaults.alwaysRebuildCondition,
+            builderCondition ?? BlocDefaults.alwaysRebuildCondition,
         listenerCondition =
-            listenerCondition ?? CubitDefaults.alwaysListenCondition;
+            listenerCondition ?? BlocDefaults.alwaysListenCondition;
 
   HookedBlocConfig._def()
       : injector = null,
-        builderCondition = CubitDefaults.alwaysRebuildCondition,
-        listenerCondition = CubitDefaults.alwaysListenCondition;
+        builderCondition = BlocDefaults.alwaysRebuildCondition,
+        listenerCondition = BlocDefaults.alwaysListenCondition;
 
-  final CubitInjectionFunction? injector;
+  final BlocInjectionFunction? injector;
   final BlocBuilderCondition builderCondition;
   final BlocListenerCondition listenerCondition;
 }
