@@ -1,7 +1,10 @@
+## 1.1.1
+* Dependencies updated
+
 ## 1.1.0
 [Breaking Changes]
 * renamed all "cubit" related methods name to "bloc" based naming
-* Replaced `HookedBloc.initialize` global initializer with new `HookedBlocConfigProvider` widget 
+* Replaced `HookedBloc.initialize` global initializer with new `HookedBlocConfigProvider` widget
 
 ## 1.0.4
 * Added new useCubitFactory hook
