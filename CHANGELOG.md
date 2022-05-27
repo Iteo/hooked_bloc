@@ -1,5 +1,5 @@
 ## 1.1.1
-* Dependencies updated
+* Updated to flutter 3.0
 
 ## 1.1.0
 [Breaking Changes]
