@@ -3,3 +3,5 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   errors:
     body_might_complete_normally_nullable: ignore
+    depend_on_referenced_packages: ignore
+    no_leading_underscores_for_library_prefixes: ignore
