@@ -45,13 +45,13 @@ class MyApp extends HookWidget {
           children: [
             ElevatedButton(
               key: const Key(_reEmitKey),
-              child: const SizedBox(),
               onPressed: cubit.reEmit,
+              child: const SizedBox(),
             ),
             ElevatedButton(
               key: const Key(_incrementKey),
-              child: const SizedBox(),
               onPressed: cubit.increment,
+              child: const SizedBox(),
             ),
           ],
         ),
