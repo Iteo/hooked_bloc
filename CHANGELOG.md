@@ -1,3 +1,6 @@
+## 1.2.1
+* Await closing actions stream
+
 ## 1.2.0
 * Updated to flutter 3.0
 
