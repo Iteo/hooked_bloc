@@ -47,7 +47,9 @@ mixin BlocActionMixin<ACTION, S extends Object> on BlocBase<S> {
 
   @override
   Future<void> close() async {
-    super.close();
-    _streamController.close();
+    await Future.wait([
+      super.close(),
+      _streamController.close(),
+    ]);
   }
 }
