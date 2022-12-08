@@ -25,12 +25,12 @@ void main() async {
 //   @override
 //   Widget build(BuildContext context) {
 //     // At start obtain a cubit instance
-//     final cubit = useCubit<CounterCubit>();
+//     final cubit = useBloc<CounterCubit>();
 //     // Then observe state's updates
 //     //`buildWhen` param will override builderCondition locally
-//     final state = useCubitBuilder(cubit, buildWhen: (state) => state <= 10);
+//     final state = useBlocBuilder(cubit, buildWhen: (state) => state <= 10);
 //     // Create a listener for the side-effect
-//     useCubitListener(cubit, (cubit, value, context) {
+//     useBlocListener(cubit, (cubit, value, context) {
 //       print("Button clicked");
 //     });
 //
