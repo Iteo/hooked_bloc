@@ -1,5 +1,5 @@
 import 'package:example/page/real_life_hook_page.dart';
-import 'package:example/page/use_cubit_comparable_builder_page.dart';
+import 'package:example/page/use_bloc_comparative_builder_page.dart';
 import 'package:flutter/material.dart';
 import '../page/real_life_page.dart';
 import '../page/use_action_listener_page.dart';
@@ -39,10 +39,10 @@ class HomePage extends StatelessWidget {
               ),
             ),
             MaterialButton(
-              child: const Text("Show useCubitComparableBuilder usage"),
+              child: const Text("Show useBlocComparativeBuilder usage"),
               onPressed: () => _navigateToPage(
                 context,
-                UseCubitComparableBuilderPage(),
+                UseBlocComparativeBuilderPage(),
               ),
             ),
             MaterialButton(
