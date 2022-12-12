@@ -294,7 +294,7 @@ Widget build(BuildContext context) {
 
 ```
 
-### useBlocBuilder
+### useBlocComparativeBuilder
 
 `useBlocComparativeBuilder` hook rebuilds the widget for a new state and positive comparison result
 
