@@ -23,7 +23,7 @@ S useBlocComparativeBuilder<C extends BlocBase, S>(
 }) {
   // The stream doesn't support filtering with the previous and current value
   // We have to manually store previous value, especially for initial state
-  final currentState = useState(bloc.state);
+  final currentState = useRef(bloc.state);
 
   final state = useMemoized(
     () => bloc.stream.where(

@@ -235,6 +235,7 @@ void main() {
       );
 
       pumpIt() async => tester.pumpWidget(hookWidget);
+
       await pumpIt();
       expect(stateValue!.value, 3);
       expect(checkInvoked, false);
@@ -244,7 +245,7 @@ void main() {
   testWidgets(
     'buildWhen should be called for every change to BlocBase',
     (tester) async {
-      var checkCounter = 0;
+      int checkCounter = 0;
       late TestState? stateValue;
 
       Widget Function(BuildContext) builder(
@@ -272,17 +273,20 @@ void main() {
           buildWhen: (previous, current) => true,
         ),
       );
+
       pumpIt() async => tester.pumpWidget(hookWidget);
 
       await pumpIt();
       expect(stateValue!.value, 3);
 
       cubit.increment();
+
       await pumpIt();
       expect(checkCounter, 1);
       expect(stateValue!.value, 4);
 
       cubit.increment();
+
       await pumpIt();
       expect(checkCounter, 2);
       expect(stateValue!.value, 5);
@@ -294,7 +298,7 @@ void main() {
     (tester) async {
       late int? previousValue;
       late int? currentValue;
-      var checkCounter = 0;
+      int checkCounter = 0;
       late TestState? stateValue;
 
       Widget Function(BuildContext) builder(
@@ -324,12 +328,14 @@ void main() {
           buildWhen: (previous, current) => true,
         ),
       );
+
       pumpIt() async => tester.pumpWidget(hookWidget);
 
       await pumpIt();
       expect(stateValue!.value, 3);
 
       cubit.increment();
+
       await pumpIt();
       expect(checkCounter, 1);
       expect(previousValue, 3);
@@ -337,6 +343,7 @@ void main() {
       expect(stateValue!.value, 4);
 
       cubit.increment();
+
       await pumpIt();
       expect(checkCounter, 2);
       expect(previousValue, 4);
