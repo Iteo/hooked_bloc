@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooked_bloc/hooked_bloc.dart';
-import 'package:hooked_bloc/src/config/hooked_bloc_config.dart';
 
 typedef BlocComparativeBuilderCondition<S> = bool Function(
   S previous,
