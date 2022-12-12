@@ -33,6 +33,7 @@ use cases and reuse them, which makes writing widgets faster and easier.
     - [useBloc](#usebloc)
     - [useBlocFactory](#useblocfactory)
     - [useBlocBuilder](#useblocbuilder)
+    - [useBlocComparativeBuilder](#usebloccomparativebuilder)
     - [useBlocListener](#usebloclistener)
     - [useActionListener](#useactionlistener)
 - [Contribution](#contribution)
@@ -200,12 +201,17 @@ Hooked Bloc already comes with a few reusable hooks:
 
   <tr>
     <td>useBlocFactory</td>
-    <td>Returns desired Cubit/Bloc by creating it with provided factory</td>
+    <td>Returns expected Cubit/Bloc by creating it via provided factory</td>
   </tr>
 
   <tr>
     <td>useBlocBuilder</td>
     <td>Returns current Cubit/Bloc state - similar to BlocBuilder</td>
+  </tr>
+
+  <tr>
+    <td>useBlocComparativeBuilder</td>
+    <td>Returns current Cubit/Bloc state basing on comparison result</td>
   </tr>
 
   <tr>
@@ -282,6 +288,30 @@ Widget build(BuildContext context) {
   // The state will be updated along with the widget
   // For default the state will be updated basing on `builderCondition`
   final int state = useBlocBuilder(cubit);
+
+  return // Access provided state
+}
+
+```
+
+### useBlocComparativeBuilder
+
+`useBlocComparativeBuilder` hook rebuilds the widget for a new state and positive comparison result
+
+```dart
+
+final CounterCubit cubit = CounterCubit("My cubit");
+
+@override
+Widget build(BuildContext context) {
+  // The state will be updated along with the widget
+  // We can compare state's changes to allow rebuild
+  final state = useBlocComparativeBuilder(
+    cubit,
+    buildWhen: (int previous, int current) {
+      return current != previous;
+    },
+  );
 
   return // Access provided state
 }
