@@ -300,20 +300,21 @@ Widget build(BuildContext context) {
 
 ```dart
 
-  final CounterCubit cubit = CounterCubit("My cubit");
+final CounterCubit cubit = CounterCubit("My cubit");
 
-  @override
-  Widget build(BuildContext context) {
-    // The state will be updated along with the widget
-    // We can compare state's changes to allow rebuild
-    final state = useBlocComparativeBuilder(
-      cubit,
-      buildWhen: (int previous, int current) {
-        return current != previous;
-      },
-    );
+@override
+Widget build(BuildContext context) {
+  // The state will be updated along with the widget
+  // We can compare state's changes to allow rebuild
+  final state = useBlocComparativeBuilder(
+    cubit,
+    buildWhen: (int previous, int current) {
+      return current != previous;
+    },
+  );
 
-    return // Access provided state
+  return // Access provided state
+}
 
 ```
 
