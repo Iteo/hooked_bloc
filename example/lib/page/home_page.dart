@@ -1,4 +1,5 @@
 import 'package:example/page/real_life_hook_page.dart';
+import 'package:example/page/use_bloc_comparative_builder_page.dart';
 import 'package:example/page/real_life_page.dart';
 import 'package:example/page/use_action_listener_page.dart';
 import 'package:example/page/use_bloc_builder_page.dart';
@@ -35,6 +36,13 @@ class HomePage extends StatelessWidget {
               onPressed: () => _navigateToPage(
                 context,
                 UseBlocBuilderPage(),
+              ),
+            ),
+            MaterialButton(
+              child: const Text("Show useBlocComparativeBuilder usage"),
+              onPressed: () => _navigateToPage(
+                context,
+                UseBlocComparativeBuilderPage(),
               ),
             ),
             MaterialButton(

@@ -106,45 +106,6 @@ void main() {
     HookBuilder hookWidget =
         HookBuilder(builder: builder(complexCubit1, complexCubit2));
 
-    await tester.pumpWidget(Container(child: hookWidget));
-    expect(stateValue!.value, 0);
-    expect(expectedStateHashCode, testState.hashCode);
-    complexCubit1.increment();
-
-    useSecond = true;
-    await tester.pump();
-    await tester.pumpWidget(Container(child: hookWidget));
-    expect(stateValue!.value, 0);
-    expect(expectedStateHashCode, testState.hashCode);
-  });
-
-  testWidgets(
-      'when Cubit is changed to another instance, new state from new cubit should be emitted',
-      (tester) async {
-    late TestState? stateValue;
-    late int expectedStateHashCode;
-
-    bool useSecond = false;
-
-    Widget Function(BuildContext) builder(
-        Cubit<TestState> cubit, Cubit<TestState> cubit2) {
-      return (context) {
-        final usedCubit = useSecond ? cubit2 : cubit;
-        final state = useBlocBuilder<ComplexCubit, TestState>(usedCubit);
-        stateValue = state;
-        expectedStateHashCode = state.hashCode;
-
-        return Container();
-      };
-    }
-
-    TestState testState = TestState(0);
-    ComplexCubit complexCubit1 = ComplexCubit(seed: testState);
-    ComplexCubit complexCubit2 = ComplexCubit(seed: testState);
-
-    HookBuilder hookWidget =
-        HookBuilder(builder: builder(complexCubit1, complexCubit2));
-
     await tester.pumpWidget(hookWidget);
     expect(stateValue!.value, 0);
     expect(expectedStateHashCode, testState.hashCode);
