@@ -1,3 +1,7 @@
+## 1.3.0
+* Added new useBlocComparativeBuilder
+* Updated and corrected examples
+
 ## 1.2.1
 * Await closing actions stream
 
