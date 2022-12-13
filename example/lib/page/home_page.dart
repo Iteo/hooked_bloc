@@ -1,11 +1,11 @@
 import 'package:example/page/real_life_hook_page.dart';
 import 'package:example/page/use_bloc_comparative_builder_page.dart';
+import 'package:example/page/real_life_page.dart';
+import 'package:example/page/use_action_listener_page.dart';
+import 'package:example/page/use_bloc_builder_page.dart';
+import 'package:example/page/use_bloc_listener_page.dart';
 import 'package:flutter/material.dart';
-import '../page/real_life_page.dart';
-import '../page/use_action_listener_page.dart';
-import '../page/use_cubit_builder_page.dart';
-import '../page/use_cubit_listener_page.dart';
-import 'use_cubit_page.dart';
+import 'use_bloc_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -25,17 +25,17 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MaterialButton(
-              child: const Text("Show useCubit usage"),
+              child: const Text("Show useBloc usage"),
               onPressed: () => _navigateToPage(
                 context,
-                const UseCubitPage(),
+                const UseBlocPage(),
               ),
             ),
             MaterialButton(
-              child: const Text("Show useCubitBuilder usage"),
+              child: const Text("Show useBlocBuilder usage"),
               onPressed: () => _navigateToPage(
                 context,
-                UseCubitBuilderPage(),
+                UseBlocBuilderPage(),
               ),
             ),
             MaterialButton(
@@ -46,10 +46,10 @@ class HomePage extends StatelessWidget {
               ),
             ),
             MaterialButton(
-              child: const Text("Show useCubitListener usage"),
+              child: const Text("Show useBlocListener usage"),
               onPressed: () => _navigateToPage(
                 context,
-                UseCubitListenerPage(),
+                UseBlocListenerPage(),
               ),
             ),
             MaterialButton(
