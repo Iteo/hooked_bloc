@@ -62,7 +62,8 @@ class MyApp extends HookWidget {
 
 void main() {
   group('Bloc Comparative Listener', () {
-    testWidgets('should call callback, each time when listenWhen returns true', (tester) async {
+    testWidgets('should call callback, each time when listenWhen returns true',
+        (tester) async {
       final cubit = CounterCubit();
 
       final incrementFinder = find.byKey(
@@ -88,7 +89,8 @@ void main() {
       expect(listenerCalls, 2);
     });
 
-    testWidgets('should not call callback, when the same state is emitted', (tester) async {
+    testWidgets('should not call callback, when the same state is emitted',
+        (tester) async {
       final cubit = CounterCubit();
 
       final incrementFinder = find.byKey(
@@ -127,7 +129,9 @@ void main() {
       expect(listenerCalls, 2);
     });
 
-    testWidgets('should call callback, when state is not skipped by listenWhen conditions', (tester) async {
+    testWidgets(
+        'should call callback, when state is not skipped by listenWhen conditions',
+        (tester) async {
       final cubit = CounterCubit();
       const skipStates = [1, 2, 3, 5, 6];
 
@@ -143,7 +147,8 @@ void main() {
           onListenerCalled: (_, int state) {
             listenerCalls++;
           },
-          listenWhen: (previousState, currentState) => !skipStates.contains(currentState),
+          listenWhen: (previousState, currentState) =>
+              !skipStates.contains(currentState),
         ),
       );
 
@@ -164,7 +169,8 @@ void main() {
       expect(listenerCalls, 3);
     });
 
-    testWidgets('should not call callback when listenWhen return false', (tester) async {
+    testWidgets('should not call callback when listenWhen return false',
+        (tester) async {
       final cubit = CounterCubit();
 
       final incrementFinder = find.byKey(

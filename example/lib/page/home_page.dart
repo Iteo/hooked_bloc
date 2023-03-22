@@ -62,7 +62,8 @@ class HomePage extends StatelessWidget {
             ),
             MaterialButton(
               child: const Text("Show useActionListener usage"),
-              onPressed: () => _navigateToPage(context, UseActionListenerPage()),
+              onPressed: () =>
+                  _navigateToPage(context, UseActionListenerPage()),
             ),
             MaterialButton(
               child: const Text("Real life example"),
