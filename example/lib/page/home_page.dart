@@ -3,6 +3,7 @@ import 'package:example/page/use_bloc_comparative_builder_page.dart';
 import 'package:example/page/real_life_page.dart';
 import 'package:example/page/use_action_listener_page.dart';
 import 'package:example/page/use_bloc_builder_page.dart';
+import 'package:example/page/use_bloc_comparative_listener_page.dart';
 import 'package:example/page/use_bloc_listener_page.dart';
 import 'package:flutter/material.dart';
 import 'use_bloc_page.dart';
@@ -53,9 +54,15 @@ class HomePage extends StatelessWidget {
               ),
             ),
             MaterialButton(
+              child: const Text("Show useBlocComparativeListener usage"),
+              onPressed: () => _navigateToPage(
+                context,
+                UseBlocComparativeListenerPage(),
+              ),
+            ),
+            MaterialButton(
               child: const Text("Show useActionListener usage"),
-              onPressed: () =>
-                  _navigateToPage(context, UseActionListenerPage()),
+              onPressed: () => _navigateToPage(context, UseActionListenerPage()),
             ),
             MaterialButton(
               child: const Text("Real life example"),
