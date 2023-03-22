@@ -30,12 +30,13 @@ use cases and reuse them, which makes writing widgets faster and easier.
 - [Motivation](#motivation)
 - [Setup](#setup)
 - [Basics](#basics)
-    - [useBloc](#usebloc)
-    - [useBlocFactory](#useblocfactory)
-    - [useBlocBuilder](#useblocbuilder)
-    - [useBlocComparativeBuilder](#usebloccomparativebuilder)
-    - [useBlocListener](#usebloclistener)
-    - [useActionListener](#useactionlistener)
+  - [useBloc](#usebloc)
+  - [useBlocFactory](#useblocfactory)
+  - [useBlocBuilder](#useblocbuilder)
+  - [useBlocComparativeBuilder](#usebloccomparativebuilder)
+  - [useBlocListener](#usebloclistener)
+  - [useBlocComparativeListener](#usebloccomparativelistener)
+  - [useActionListener](#useactionlistener)
 - [Contribution](#contribution)
 
 ## Motivation
@@ -220,6 +221,11 @@ Hooked Bloc already comes with a few reusable hooks:
   </tr>
 
   <tr>
+    <td>useBlocComparativeListener</td>
+    <td>Invokes callback basing on state comparison result</td>
+  </tr>
+
+  <tr>
     <td>useActionListener</td>
     <td>Invokes callback, but independent of Bloc/Cubit state</td>
   </tr>
@@ -332,6 +338,30 @@ Widget build(BuildContext context) {
   useBlocListener(cubit, (_, value, context) {
     _showMessage(context, (value as ShowMessage).message);
   }, listenWhen: (state) => state is ShowMessage);
+
+  return // Build your widget
+}
+```
+
+### useBlocComparativeListener
+
+`useBlocComparativeListener` hook allows to observe and compare cubit's states that represent action (e.g. show Snackbar)
+
+```dart
+
+final EventCubit cubit = EventCubit();
+
+@override
+Widget build(BuildContext context) {
+  // Handle state as event independently of the view state
+  // We can compare state changes to allow listener function to be called
+  useBlocComparativeListener(
+    cubit,
+    (_, value, context) {
+       _showMessage(context, (value as ShowMessage).message);
+    },
+    listenWhen: (previousState, currentState) => previousState is! ShowMessage && currentState is ShowMessage,
+    );
 
   return // Build your widget
 }
