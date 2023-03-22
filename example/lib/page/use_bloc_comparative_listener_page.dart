@@ -19,7 +19,8 @@ class UseBlocComparativeListenerPage extends HookWidget {
       (_, value, context) {
         _showMessage(context, (value as ShowMessage).message);
       },
-      listenWhen: (previousState, currentState) => previousState is! ShowMessage && currentState is ShowMessage,
+      listenWhen: (previousState, currentState) =>
+          previousState is! ShowMessage && currentState is ShowMessage,
     );
 
     final state = useBlocBuilder(
