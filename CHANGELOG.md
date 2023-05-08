@@ -1,3 +1,7 @@
+## 1.4.1
+
+- Replaced outdated documentation link with a valid one
+
 ## 1.4.0
 
 - Added new useBlocComparativeListener
