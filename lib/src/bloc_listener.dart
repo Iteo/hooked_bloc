@@ -25,9 +25,9 @@ void useBlocListener<BLOC extends BlocBase<S>, S>(
   final configuredListener = useHookedBlocConfig().listenerCondition;
   final listenWhenConditioner = listenWhen ?? configuredListener;
 
-  useMemoized(
+  useEffect(
     () {
-      final stream = bloc.stream.where(listenWhenConditioner).listen(
+      final subscription = bloc.stream.where(listenWhenConditioner).listen(
             (state) => listener(
               bloc,
               state,
@@ -35,7 +35,7 @@ void useBlocListener<BLOC extends BlocBase<S>, S>(
             ),
           );
 
-      return stream.cancel;
+      return subscription.cancel;
     },
     [bloc],
   );
