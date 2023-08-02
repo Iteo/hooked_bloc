@@ -21,9 +21,9 @@ void useBlocComparativeListener<BLOC extends BlocBase<S>, S>(
   final currentState = useRef(bloc.state);
   final context = useContext();
 
-  useMemoized(
+  useEffect(
     () {
-      final stream = bloc.stream.where(
+      final subscription = bloc.stream.where(
         (nextState) {
           final shouldInvokeAction = listenWhen(currentState.value, nextState);
           currentState.value = nextState;
@@ -37,7 +37,7 @@ void useBlocComparativeListener<BLOC extends BlocBase<S>, S>(
         );
       });
 
-      return stream.cancel;
+      return subscription.cancel;
     },
     [bloc],
   );

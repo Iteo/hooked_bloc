@@ -195,6 +195,49 @@ void main() {
       await tester.tap(incrementFinder);
       expect(listenerCalls, 0);
     });
+
+    testWidgets('should unsubscribe from the previous listener when widget is disposed', (tester) async {
+      final cubit = CounterCubit();
+
+      final incrementFinder = find.byKey(
+        const Key(_incrementKey),
+      );
+
+      int listenerCalls = 0;
+
+      await tester.pumpWidget(
+        MyApp(
+          cubit: cubit,
+          onListenerCalled: (_, int state) {
+            listenerCalls++;
+          },
+          listenWhen: (previous, current) => true,
+        ),
+      );
+
+      await tester.tap(incrementFinder);
+      expect(listenerCalls, 1);
+
+      await tester.tap(incrementFinder);
+      expect(listenerCalls, 2);
+
+      await tester.pumpWidget(
+        const SizedBox(),
+      );
+
+      await tester.pumpWidget(
+        MyApp(
+          cubit: cubit,
+          onListenerCalled: (_, int state) {
+            listenerCalls++;
+          },
+          listenWhen: (previous, current) => true,
+        ),
+      );
+
+      await tester.tap(incrementFinder);
+      expect(listenerCalls, 3);
+    });
   });
 
   group('Bloc Listener, with global initializer', () {
