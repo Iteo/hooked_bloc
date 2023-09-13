@@ -196,7 +196,9 @@ void main() {
       expect(listenerCalls, 0);
     });
 
-    testWidgets('should unsubscribe from the previous listener when widget is disposed', (tester) async {
+    testWidgets(
+        'should unsubscribe from the previous listener when widget is disposed',
+        (tester) async {
       final cubit = CounterCubit();
 
       final incrementFinder = find.byKey(

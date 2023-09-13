@@ -1,3 +1,7 @@
+## 1.4.3
+
+- Updated dependencies
+
 ## 1.4.2
 
 - Fix the unclosing bloc listeners after widget dispose (see [#70](https://github.com/Iteo/hooked_bloc/issues/70), thanks to @ruslic19)
