@@ -32,7 +32,7 @@ import 'package:meta/meta.dart';
 ///   }
 /// ```
 /// See also [ActionCubit] and [ActionBloc]
-mixin BlocActionMixin<ACTION, S extends Object> on BlocBase<S> {
+mixin BlocActionMixin<ACTION, S> on BlocBase<S> {
   final _streamController = StreamController<ACTION>.broadcast();
 
   Stream<ACTION> get actions => _streamController.stream;

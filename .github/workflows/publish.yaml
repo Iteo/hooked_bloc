@@ -1,0 +1,29 @@
+name: Publish to pub.dev
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+
+jobs:
+  publish:
+    name: 'Publish to pub.dev'
+    permissions:
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+
+      - uses: dart-lang/setup-dart@main
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Dry Run Validation
+        run: flutter pub publish --dry-run
+
+      - name: Publish to pub.dev
+        run: flutter pub publish -f

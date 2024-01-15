@@ -16,7 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 ///   }
 /// }
 ///```
-abstract class ActionBloc<STATE extends Object, EVENT, ACTION>
+abstract class ActionBloc<STATE, EVENT, ACTION>
     extends Bloc<EVENT, STATE> with BlocActionMixin<ACTION, STATE> {
   ActionBloc(STATE initialState) : super(initialState);
 }
