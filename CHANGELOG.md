@@ -1,3 +1,8 @@
+## 1.4.4
+
+- Allow put void type to generic type
+- Updated dependencies
+
 ## 1.4.3
 
 - Updated dependencies
