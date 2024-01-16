@@ -19,11 +19,11 @@ class CounterCubit extends Cubit<int> {
 
 class MyApp extends HookWidget {
   const MyApp({
-    Key? key,
-    this.onListenerCalled,
     required this.cubit,
     required this.listenWhen,
-  }) : super(key: key);
+    this.onListenerCalled,
+    super.key,
+  });
 
   final BlocWidgetListener<int>? onListenerCalled;
   final CounterCubit cubit;
