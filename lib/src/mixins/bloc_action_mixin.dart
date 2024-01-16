@@ -1,4 +1,5 @@
 /// credits: Dawid Krysiński and Mateusz Ledwoń
+library;
 
 import 'dart:async';
 

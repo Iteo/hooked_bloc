@@ -49,8 +49,8 @@ class HookedBlocConfigProvider extends StatelessWidget {
     this.injector,
     this.builderCondition,
     this.listenerCondition,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final BlocInjectionFunction? injector;
   final BlocBuilderCondition? builderCondition;
