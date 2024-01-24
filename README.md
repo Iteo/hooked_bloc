@@ -391,9 +391,14 @@ Then, consume results as you would do with `useBlocListener`
   @override
 Widget build(BuildContext context) {
   // Handle separate action stream with values other than a state type
-  useActionListener(cubit, (String action) {
-    _showMessage(context, action);
-  });
+  useActionListener(
+    cubit, 
+    (String action) {
+      _showMessage(context, action);
+    },
+    // If you need, you can filter actions
+    actionWhen: (previousAction, action) => true,
+  );
 
   return // Build your widget
 }
