@@ -32,9 +32,23 @@ import 'package:meta/meta.dart';
 ///    ...
 ///   }
 /// ```
+///
+/// You can also filter your actions using actionWhen.
+/// ```dart
+///     useActionListener(
+///       cubit,
+///       (String action) {
+///         //do sth with filtered action
+///         _showMessage(context, action);
+///       },
+///       actionWhen: (previousAction, action) => true,
+///     });
+/// ```
 /// See also [ActionCubit] and [ActionBloc]
 mixin BlocActionMixin<ACTION, S> on BlocBase<S> {
   final _streamController = StreamController<ACTION>.broadcast();
+
+  ACTION? previousAction;
 
   Stream<ACTION> get actions => _streamController.stream;
 
@@ -44,10 +58,12 @@ mixin BlocActionMixin<ACTION, S> on BlocBase<S> {
   @protected
   void dispatch(ACTION action) {
     _streamController.add(action);
+    previousAction = action;
   }
 
   @override
   Future<void> close() async {
+    previousAction = null;
     await Future.wait([
       super.close(),
       _streamController.close(),

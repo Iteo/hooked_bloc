@@ -1,3 +1,7 @@
+## 1.4.5
+
+- Allow filter actions in Bloc using actionWhen in useActionListener
+
 ## 1.4.4
 
 - Allow put void type to generic type
