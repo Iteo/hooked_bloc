@@ -1,4 +1,4 @@
-## 1.4.5
+## 1.5.0
 
 - Allow filter actions in Bloc using actionWhen in useActionListener
 
