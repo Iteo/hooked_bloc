@@ -106,7 +106,7 @@ This code is functionally equivalent to the previous example. It still rebuilds 
 right time. Whole logic of finding adequate Cubit/Bloc and providing current state is hidden in `useBloc`
 and `useBlocBuilder` hooks.
 
-Full example can be found in <a href="https://github.com/Iteo/hooked_bloc/tree/develop/example">here</a>
+Full example can be found in <a href="https://github.com/Iteo/hooked_bloc/tree/main/example">here</a>
 
 ## Setup
 
