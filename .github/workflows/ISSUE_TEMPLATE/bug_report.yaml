@@ -37,14 +37,6 @@ body:
     validations:
       required: true
   - type: input
-    id: dart_version
-    attributes:
-      label: Dart version
-      description: What version of dart are you using?
-      placeholder: ">=3.1.0 <4.0.0"
-    validations:
-      required: true
-  - type: input
     id: flutter_version
     attributes:
       label: Flutter version
