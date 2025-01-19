@@ -5,7 +5,7 @@ import 'package:hooked_bloc/hooked_bloc.dart';
 
 // The page must inherit from HookWidget
 class UseBlocPage extends HookWidget {
-  const UseBlocPage({Key? key}) : super(key: key);
+  const UseBlocPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,7 @@ import '../widget/clickable_item_list.dart';
 import '../widget/item_detail.dart';
 
 class RealLifePage extends StatelessWidget {
-  const RealLifePage({Key? key}) : super(key: key);
+  const RealLifePage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import 'package:hooked_bloc/hooked_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class UseBlocComparativeListenerPage extends HookWidget {
-  UseBlocComparativeListenerPage({Key? key}) : super(key: key);
+  UseBlocComparativeListenerPage({super.key});
 
   final EventCubit cubit = EventCubit();
 

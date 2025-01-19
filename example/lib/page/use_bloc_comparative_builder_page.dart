@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooked_bloc/hooked_bloc.dart';
 
 class UseBlocComparativeBuilderPage extends HookWidget {
-  UseBlocComparativeBuilderPage({Key? key}) : super(key: key);
+  UseBlocComparativeBuilderPage({super.key});
 
   final CounterCubit cubit = CounterCubit("My cubit");
 

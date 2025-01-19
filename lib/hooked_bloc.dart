@@ -1,4 +1,4 @@
-library hooked_bloc;
+library;
 
 export 'src/bloc_hook.dart';
 export 'src/bloc_factory.dart';

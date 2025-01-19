@@ -5,7 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 // The page must inherit from HookWidget
 class UseBlocBuilderPage extends HookWidget {
-  UseBlocBuilderPage({Key? key}) : super(key: key);
+  UseBlocBuilderPage({super.key});
 
   final CounterCubit cubit = CounterCubit("My cubit");
 

@@ -9,7 +9,7 @@ abstract class BlocFactory<T extends BlocBase> {
 
 typedef OnBlocCreated<F extends BlocFactory> = Function(F factory);
 
-/// Creates BlocBase<T> class using provided factory.
+/// Creates [BlocBase<T>] class using provided factory.
 ///
 /// [useBlocFactory] will find [BlocFactory] class using injector provided by [BlocHookInjectionController] and then return [BlocBase] created by it.
 /// If [BlocHookInjectionController] has no provided injectors, [useBlocFactory] will look into widget tree and try find [BlocFactory] using [Provider.of] method

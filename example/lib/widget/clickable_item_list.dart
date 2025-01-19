@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class ClickableItemList extends StatelessWidget {
   const ClickableItemList({
-    Key? key,
+    super.key,
     required this.itemCallback,
     required this.data,
-  }) : super(key: key);
+  });
 
   final Function(int) itemCallback;
   final List<String> data;

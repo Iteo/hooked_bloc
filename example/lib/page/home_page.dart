@@ -10,9 +10,9 @@ import 'use_bloc_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
 
   final String title;
 
