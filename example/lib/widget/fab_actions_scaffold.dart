@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class FabActionsScaffold extends StatelessWidget {
   const FabActionsScaffold({
-    Key? key,
+    super.key,
     required this.title,
     required this.count,
     required this.incrementCallback,
     required this.messageCallback,
-  }) : super(key: key);
+  });
 
   final String title;
   final int count;

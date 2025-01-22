@@ -5,3 +5,4 @@ analyzer:
     body_might_complete_normally_nullable: ignore
     depend_on_referenced_packages: ignore
     no_leading_underscores_for_library_prefixes: ignore
+    use_build_context_synchronously: ignore

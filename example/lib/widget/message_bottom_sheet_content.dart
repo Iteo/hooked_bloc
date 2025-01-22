@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MessageBottomSheetContent extends StatelessWidget {
-  const MessageBottomSheetContent({Key? key, this.message}) : super(key: key);
+  const MessageBottomSheetContent({super.key, this.message});
 
   final String? message;
 

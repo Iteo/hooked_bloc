@@ -90,56 +90,52 @@ void main() {
 
     testWidgets(
         'when Cubit dispatch multiple times, actionWhen should be called only with 2 chars',
-            (tester) async {
-          int listenerCalls = 0;
+        (tester) async {
+      int listenerCalls = 0;
 
-          Widget Function(BuildContext) builder(
-              ActionCubit<STATE, ACTION> cubit,
-              ) {
-            return (context) {
-              useActionListener(
-                cubit,
-                (ACTION action) {
-                  listenerCalls++;
-                },
-                actionWhen: (previousAction, action) => action.length == 2
-              );
+      Widget Function(BuildContext) builder(
+        ActionCubit<STATE, ACTION> cubit,
+      ) {
+        return (context) {
+          useActionListener(cubit, (ACTION action) {
+            listenerCalls++;
+          }, actionWhen: (previousAction, action) => action.length == 2);
 
-              return Container();
-            };
-          }
+          return Container();
+        };
+      }
 
-          CounterActionCubit cubit = CounterActionCubit();
+      CounterActionCubit cubit = CounterActionCubit();
 
-          HookBuilder hookWidget = HookBuilder(builder: builder(cubit));
+      HookBuilder hookWidget = HookBuilder(builder: builder(cubit));
 
-          cubit.dispatchActionValue('1');
-          await tester.pumpWidget(hookWidget);
-          expect(listenerCalls, 0);
+      cubit.dispatchActionValue('1');
+      await tester.pumpWidget(hookWidget);
+      expect(listenerCalls, 0);
 
-          cubit.dispatchActionValue('11');
-          await tester.pumpWidget(hookWidget);
-          expect(listenerCalls, 1);
+      cubit.dispatchActionValue('11');
+      await tester.pumpWidget(hookWidget);
+      expect(listenerCalls, 1);
 
-          cubit.dispatchActionValue('2');
-          await tester.pumpWidget(hookWidget);
-          expect(listenerCalls, 1);
+      cubit.dispatchActionValue('2');
+      await tester.pumpWidget(hookWidget);
+      expect(listenerCalls, 1);
 
-          cubit.dispatchActionValue('22');
-          await tester.pumpWidget(hookWidget);
-          expect(listenerCalls, 2);
+      cubit.dispatchActionValue('22');
+      await tester.pumpWidget(hookWidget);
+      expect(listenerCalls, 2);
 
-          cubit.dispatchActionValue('333');
-          await tester.pumpWidget(hookWidget);
-          expect(listenerCalls, 2);
+      cubit.dispatchActionValue('333');
+      await tester.pumpWidget(hookWidget);
+      expect(listenerCalls, 2);
 
-          cubit.dispatchActionValue('4');
-          await tester.pumpWidget(hookWidget);
-          expect(listenerCalls, 2);
+      cubit.dispatchActionValue('4');
+      await tester.pumpWidget(hookWidget);
+      expect(listenerCalls, 2);
 
-          cubit.dispatchActionValue('55');
-          await tester.pumpWidget(hookWidget);
-          expect(listenerCalls, 3);
-        });
+      cubit.dispatchActionValue('55');
+      await tester.pumpWidget(hookWidget);
+      expect(listenerCalls, 3);
+    });
   });
 }

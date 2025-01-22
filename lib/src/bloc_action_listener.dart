@@ -14,7 +14,8 @@ void useActionListener<ACTION>(
   useEffect(
     () {
       final subscription = actionMixin.actions.listen((action) {
-        if(actionWhen == null || actionWhen(actionMixin.previousAction, action)) {
+        if (actionWhen == null ||
+            actionWhen(actionMixin.previousAction, action)) {
           onAction(action);
         }
       });

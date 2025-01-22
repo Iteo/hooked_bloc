@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooked_bloc/src/bloc_defaults.dart';
 import 'package:hooked_bloc/src/config/hooked_bloc_config.dart';
 
-/// Provides BlocBase<T> class.
+/// Provides [BlocBase<T>] class.
 ///
 /// [useBloc] will find and return [BlocBase] class using injector provided by [BlocHookInjectionController]
 /// If [BlocHookInjectionController] has no provided injectors, [useBloc] will look into widget tree and try find BlocBase using [BlocProvider]

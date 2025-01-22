@@ -9,7 +9,7 @@ import '../widget/message_bottom_sheet_content.dart';
 
 // The page must inherit from HookWidget
 class UseActionListenerPage extends HookWidget {
-  UseActionListenerPage({Key? key}) : super(key: key);
+  UseActionListenerPage({super.key});
 
   final MessageActionCubit cubit = MessageActionCubit();
 

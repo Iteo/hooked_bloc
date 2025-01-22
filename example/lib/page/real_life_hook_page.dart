@@ -6,7 +6,7 @@ import '../widget/clickable_item_list.dart';
 import '../widget/item_detail.dart';
 
 class RealLifeHookPage extends HookWidget {
-  const RealLifeHookPage({Key? key}) : super(key: key);
+  const RealLifeHookPage({super.key});
 
   @override
   Widget build(BuildContext context) {

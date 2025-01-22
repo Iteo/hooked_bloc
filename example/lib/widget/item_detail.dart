@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class ItemDetail extends StatelessWidget {
   const ItemDetail({
-    Key? key,
+    super.key,
     required this.index,
     required this.onClose,
-  }) : super(key: key);
+  });
 
   final int index;
   final Function() onClose;
