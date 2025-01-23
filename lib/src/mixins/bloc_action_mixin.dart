@@ -62,6 +62,9 @@ mixin BlocActionMixin<ACTION, S> on BlocBase<S> {
   }
 
   @override
+  bool get isClosed => super.isClosed || _streamController.isClosed;
+
+  @override
   Future<void> close() async {
     previousAction = null;
     await Future.wait([

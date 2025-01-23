@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -73,6 +75,31 @@ void main() {
     await tester.pumpWidget(const SizedBox());
 
     expect(true, cubit.actionStreamController.isClosed);
+    expect(true, cubit.isClosed);
+  });
+
+  testWidgets('should be closed when either state or action stream is closed',
+      (tester) async {
+    final cubit = TestCubitWithMixin();
+    when(() => injector.get<TestCubitWithMixin>()).thenReturn(cubit);
+
+    Future<void> build() async {
+      await tester.pumpWidget(
+        HookedBlocConfigProvider(
+          injector: () => injector.get,
+          child: HookBuilder(
+            builder: (context) {
+              useBloc<TestCubitWithMixin>();
+
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+    }
+
+    await build();
+    await cubit.actionStreamController.close();
     expect(true, cubit.isClosed);
   });
 }
