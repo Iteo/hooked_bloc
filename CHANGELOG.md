@@ -1,3 +1,9 @@
+## 1.6.0
+
+- Updated flutter_bloc to 9.0.0 and other dependencies
+- Fix `isClosed` bad status (see [#87](https://github.com/Iteo/hooked_bloc/issues/70), thanks to @ruslic19)
+- Updated example dependencies
+
 ## 1.5.0
 
 - Allow filter actions in Bloc using actionWhen in useActionListener
