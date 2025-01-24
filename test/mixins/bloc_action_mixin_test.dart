@@ -75,4 +75,29 @@ void main() {
     expect(true, cubit.actionStreamController.isClosed);
     expect(true, cubit.isClosed);
   });
+
+  testWidgets('should be closed when either state or action stream is closed',
+      (tester) async {
+    final cubit = TestCubitWithMixin();
+    when(() => injector.get<TestCubitWithMixin>()).thenReturn(cubit);
+
+    Future<void> build() async {
+      await tester.pumpWidget(
+        HookedBlocConfigProvider(
+          injector: () => injector.get,
+          child: HookBuilder(
+            builder: (context) {
+              useBloc<TestCubitWithMixin>();
+
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+    }
+
+    await build();
+    await cubit.actionStreamController.close();
+    expect(true, cubit.isClosed);
+  });
 }
