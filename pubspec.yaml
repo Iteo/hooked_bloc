@@ -15,7 +15,7 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^9.0.0
   bloc: ^9.0.0
-  flutter_hooks: ^0.20.5
+  flutter_hooks: '>=0.20.5 <0.22.0'
   meta: ^1.15.0
   provider: ^6.1.2
 
