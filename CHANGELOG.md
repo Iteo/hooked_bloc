@@ -1,7 +1,12 @@
+## 1.7.0
+
+- Updated flutter_hooks to support ^0.21.0 version
+
 ## 1.6.0
 
 - Updated flutter_bloc to 9.0.0 and other dependencies
-- Fix `isClosed` bad status (see [#87](https://github.com/Iteo/hooked_bloc/issues/87), thanks to @westito)
+- Fix `isClosed` bad status (see
+  [#87](https://github.com/Iteo/hooked_bloc/issues/87), thanks to @westito)
 - Updated example dependencies
 
 ## 1.5.0
@@ -19,7 +24,8 @@
 
 ## 1.4.2
 
-- Fix the unclosing bloc listeners after widget dispose (see [#70](https://github.com/Iteo/hooked_bloc/issues/70), thanks to @ruslic19)
+- Fix the unclosing bloc listeners after widget dispose (see
+  [#70](https://github.com/Iteo/hooked_bloc/issues/70), thanks to @ruslic19)
 
 ## 1.4.1
 
@@ -48,7 +54,8 @@
 [Breaking Changes]
 
 - renamed all "cubit" related methods name to "bloc" based naming
-- Replaced `HookedBloc.initialize` global initializer with new `HookedBlocConfigProvider` widget
+- Replaced `HookedBloc.initialize` global initializer with new
+  `HookedBlocConfigProvider` widget
 
 ## 1.0.4
 
@@ -56,7 +63,8 @@
 
 ## 1.0.3
 
-- Fixed bug useCubitBuilder hook. Since 1.0.2 every change in cubit/bloc state generated new stream.
+- Fixed bug useCubitBuilder hook. Since 1.0.2 every change in cubit/bloc state
+  generated new stream.
 
 ## 1.0.2
 

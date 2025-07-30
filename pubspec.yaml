@@ -1,6 +1,6 @@
 name: hooked_bloc
 description: Flutter package that simplifies injection and usage of Bloc/Cubit.
-version: 1.6.0
+version: 1.7.0
 repository: https://github.com/Iteo/hooked_bloc
 issue_tracker: https://github.com/Iteo/hooked_bloc/issues
 homepage: https://github.com/Iteo/hooked_bloc
